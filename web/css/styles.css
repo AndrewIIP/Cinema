@@ -1,0 +1,93 @@
+body{
+
+}
+
+.header{
+    z-index: 1;
+}
+.shadow-c{
+    box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.84);
+}
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color: #496ebc
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
+.login{
+    color: #1e242a !important;
+}
+.singup{
+    border-color: rgba(118, 123, 126, 0.74) !important;
+
+}
+.mybutton{
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.carousel-item {
+    height: 65vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.mynavbar{
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+}
+#carouselExampleIndicators{
+    z-index: 0;
+}
+.crystal{
+    background-color:rgba(255,255,255,.8) !important;
+}
