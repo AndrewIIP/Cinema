@@ -3,7 +3,7 @@ package model.dao;
 import java.sql.*;
 import java.util.List;
 
-public abstract class AbstractDao<E, K, V> {
+public abstract class AbstractDao<E, K> {
     private Connection connection;
 
     public AbstractDao() {
@@ -15,12 +15,10 @@ public abstract class AbstractDao<E, K, V> {
     }
 
     public abstract List<E> getAll();
-    public abstract E update(E entity);
-    public abstract E getEntityById(K id);
-    public abstract E getEntityByName(V name);
-    public abstract E getEntityByEmail(V email);
-    public abstract boolean delete(K id);
-    public abstract boolean create(E entity);
+    public abstract E update(E entity) throws DAOException;
+    public abstract E getEntityById(K id) throws DAOException;
+    public abstract boolean delete(K id) throws DAOException;
+    public abstract boolean create(E entity) throws DAOException;
 
     // Получение экземпляра PrepareStatement
     public PreparedStatement getPrepareStatement(String sql) {
@@ -41,6 +39,14 @@ public abstract class AbstractDao<E, K, V> {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void closeConnection(){
+        try {
+            this.connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

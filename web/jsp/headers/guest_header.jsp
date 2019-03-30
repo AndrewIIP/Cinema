@@ -59,7 +59,7 @@
                         <li>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form class="form" role="form" accept-charset="UTF-8" id="login-nav">
+                                    <form class="form" method="post" role="form" accept-charset="UTF-8" id="login-nav">
                                         <div class="form-group">
                                             <label class="sr-only" for="username"></label>
                                             <input type="text" class="form-control" id="username" placeholder="<fmt:message key="header.inplaceholder.email"/>" required>
@@ -72,6 +72,9 @@
                                             <button id="signBtn" type="button" class="btn btn-primary btn-block"><fmt:message key="header.login"/></button>
                                         </div>
                                     </form>
+                                    <div id="errorInp" class="alert alert-danger">
+                                        <span id="osp">some msg</span>
+                                    </div>
                                 </div>
                                 <div class="bottom text-center">
                                     <fmt:message key="header.loginbar.newhere"/> <a href="#"><b><fmt:message key="header.loginbar.join"/></b></a>
