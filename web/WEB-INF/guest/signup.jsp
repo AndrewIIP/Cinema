@@ -65,13 +65,12 @@
                                         </a>
                                         <!-- Here's the magic. Add the .animate and .slide-in classes to your .dropdown-menu and you're all set! -->
                                         <div class="crystal shadow-c dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="${pageContext.request.requestURL}
-"
-                                               style="padding-left: 12px">
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/shows_you/go_registration"
+                                               style="padding-left: 12px;">
                                                 <img src="${pageContext.request.contextPath}/pic/langs/United-Kingdom.png"
                                                      style="margin-right: 24px"/><fmt:message key="header.lang.eng"/>
                                             </a>
-                                            <a class="dropdown-item" href="${pageContext.request.requestURL}?curLang=uk"
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/shows_you/go_registration?curLang=uk"
                                                style="padding-left: 12px;">
                                                 <img src="${pageContext.request.contextPath}/pic/langs/Ukraine.png"
                                                      style="margin-right: 24px"/><fmt:message key="header.lang.ukr"/>
@@ -86,8 +85,7 @@
                         <div id="errorInp" class="alert alert-danger alert-span" style="border-radius: 5rem;">
                             <span id="osp" class="alert-span">some msg</span>
                         </div>
-                        <a class="d-block text-center mt-2 small" href="#">Sign In</a>
-
+                        <a class="d-block text-center mt-2 small" href="${pageContext.request.contextPath}/shows_you/go_login?${pageContext.request.queryString}">Sign In</a>
                     </form>
 
                 </div>

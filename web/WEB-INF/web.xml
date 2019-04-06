@@ -4,12 +4,21 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <welcome-file-list>
-        <welcome-file>jsp/index.jsp</welcome-file>
+        <welcome-file>welcome.jsp</welcome-file>
     </welcome-file-list>
+
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>controller.EntranceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/shows_you/*</url-pattern>
+    </servlet-mapping>
 
     <filter>
         <filter-name>LangFilter</filter-name>
-        <filter-class>service.filters.LangFilter</filter-class>
+        <filter-class>controller.filters.LangFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>LangFilter</filter-name>
@@ -18,11 +27,20 @@
 
     <filter>
         <filter-name>EncodingFilter</filter-name>
-        <filter-class>service.filters.EncodingFilter</filter-class>
+        <filter-class>controller.filters.EncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>Roler</filter-name>
+        <filter-class>controller.filters.RolesFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Roler</filter-name>
+        <url-pattern>/shows_you/*</url-pattern>
     </filter-mapping>
 
 </web-app>

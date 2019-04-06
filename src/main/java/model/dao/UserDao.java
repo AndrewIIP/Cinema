@@ -1,13 +1,14 @@
 package model.dao;
 
+import model.dao.exceptions.AlreadyExistsInDBException;
+import model.dao.exceptions.DAOException;
 import model.entity.User;
+import model.spec.Role;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDao extends AbstractDao<User, Integer> {
     public List<User> getAll() {
@@ -22,23 +23,25 @@ public class UserDao extends AbstractDao<User, Integer> {
                 user.setUsername(resultSet.getString(2));
                 user.setEmail(resultSet.getString(3));
                 user.setPassword(resultSet.getString(4));
-                user.setRole(resultSet.getString(5));
+                user.setRole(Role.valueOf(resultSet.getString(5)));
                 list.add(user);
             }
         } catch (SQLException e) {
+            //TODO LOG
             e.printStackTrace();
         }
+
         return list;
     }
 
     public User update(User entity) throws DAOException {
         String sqlQuery = "UPDATE `cinema`.`users` t " +
                 "SET t.`id` = ?, " +
-                    "t.`username` = ?, " +
-                    "t.`email` = ?, " +
-                    "t.`password` = ?, " +
-                    "t.`role` = ? " +
-              "WHERE t.`id` = ?";
+                "t.`username` = ?, " +
+                "t.`email` = ?, " +
+                "t.`password` = ?, " +
+                "t.`role` = ? " +
+                "WHERE t.`id` = ?";
 
         try (Connection connection = ConnectionPool.getConnection()) {
             try (PreparedStatement prepStatement = connection.prepareStatement(sqlQuery)) {
@@ -46,17 +49,20 @@ public class UserDao extends AbstractDao<User, Integer> {
                 prepStatement.setString(2, entity.getUsername());
                 prepStatement.setString(3, entity.getEmail());
                 prepStatement.setString(4, entity.getPassword());
-                prepStatement.setString(5, entity.getRole());
+                prepStatement.setString(5, entity.getRole().getString());
                 prepStatement.setInt(6, entity.getId());
                 try {
                     prepStatement.execute();
                 } catch (SQLException e) {
+                    //TODO LOG
                     e.printStackTrace();
                 }
             } catch (SQLException e) {
+                //TODO LOG
                 e.printStackTrace();
             }
         } catch (SQLException e) {
+            //TODO LOG
             e.printStackTrace();
         }
         return entity;
@@ -71,9 +77,11 @@ public class UserDao extends AbstractDao<User, Integer> {
                 prepStatement.setInt(1, id);
                 user = extractResultSet(prepStatement);
             } catch (SQLException e) {
+                //TODO LOG
                 e.printStackTrace();
             }
         } catch (SQLException e) {
+            //TODO LOG
             e.printStackTrace();
         }
         return user;
@@ -98,49 +106,60 @@ public class UserDao extends AbstractDao<User, Integer> {
                 prepStatement.execute();
                 isSuccessfully = true;
             } catch (SQLException e) {
+                //TODO LOG
                 e.printStackTrace();
             }
         } catch (SQLException e) {
+            //TODO LOG
             e.printStackTrace();
         }
         return isSuccessfully;
     }
 
     public boolean create(User entity) throws DAOException {
-        String sqlQuery = "INSERT INTO `cinema`.`users` VALUES (?, ?, ?, ?, ?)";
+        String sqlQuery = "INSERT INTO `cinema`.`users` (`username`, `email`, `password`, `role`) VALUES (?, ?, ?, ?)";
         boolean isSuccessfully = false;
 
         try (Connection connection = ConnectionPool.getConnection()) {
             try (PreparedStatement prepStatement = connection.prepareStatement(sqlQuery)) {
-                prepStatement.setString(2, entity.getUsername());
-                prepStatement.setString(3, entity.getEmail());
-                prepStatement.setString(4, entity.getPassword());
-                prepStatement.setString(5, entity.getRole());
+                prepStatement.setString(1, entity.getUsername());
+                prepStatement.setString(2, entity.getEmail());
+                prepStatement.setString(3, entity.getPassword());
+                prepStatement.setString(4, entity.getRole().getString());
                 try {
                     prepStatement.execute();
                     isSuccessfully = true;
+                } catch (SQLIntegrityConstraintViolationException e) {
+                    //TODO LOG
+                    e.printStackTrace();
+                    throw new DAOException(e.getMessage(), e);
                 } catch (SQLException e) {
+                    //TODO LOG
                     e.printStackTrace();
                 }
             } catch (SQLException e) {
+                //TODO LOG
                 e.printStackTrace();
             }
         } catch (SQLException e) {
+            //TODO LOG
             e.printStackTrace();
         }
         return isSuccessfully;
     }
 
-    private User getUserFromDB(String email, String sqlQuery) throws DAOException {
+    private User getUserFromDB(String usernameOrEmail, String sqlQuery) throws DAOException {
         User user = new User();
         try (Connection connection = ConnectionPool.getConnection()) {
             try (PreparedStatement prepStatement = connection.prepareStatement(sqlQuery)) {
-                prepStatement.setString(1, email);
+                prepStatement.setString(1, usernameOrEmail);
                 user = extractResultSet(prepStatement);
             } catch (SQLException e) {
+                //TODO LOG
                 e.printStackTrace();
             }
         } catch (SQLException e) {
+            //TODO LOG
             e.printStackTrace();
         }
         return user;
@@ -149,7 +168,7 @@ public class UserDao extends AbstractDao<User, Integer> {
     private User extractResultSet(PreparedStatement prepStatement) throws DAOException {
         User user = new User();
         try (ResultSet resultSet = prepStatement.executeQuery()) {
-            if(!resultSet.isBeforeFirst()){
+            if (!resultSet.isBeforeFirst()) {
                 throw new DAOException("No such entry in the DB");
             }
             while (resultSet.next()) {
@@ -157,9 +176,10 @@ public class UserDao extends AbstractDao<User, Integer> {
                 user.setUsername(resultSet.getString(2));
                 user.setEmail(resultSet.getString(3));
                 user.setPassword(resultSet.getString(4));
-                user.setRole(resultSet.getString(5));
+                user.setRole(Role.contains(resultSet.getString(5)));
             }
         } catch (SQLException e) {
+            //TODO LOG
             e.printStackTrace();
         }
         return user;

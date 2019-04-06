@@ -1,4 +1,4 @@
-package service.filters;
+package controller.filters;
 
 
 import javax.servlet.*;

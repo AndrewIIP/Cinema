@@ -6,7 +6,7 @@
 body {
     /*background: #007bff;
     background: linear-gradient(to right, #2b2d2d, #343535);*/
-    background-image: url(../pic/bg/cinema_bg_little.jpg);
+    background-image: url(../pic/bg/login_bg.jpg);
     background-size: 100%;
 }
 
@@ -133,4 +133,10 @@ body {
 .mybutton{
     margin-left: 8px;
     margin-right: 8px;
+}
+
+.alert-span{
+    border-radius: 5rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
 }

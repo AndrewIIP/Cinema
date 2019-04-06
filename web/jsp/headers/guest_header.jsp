@@ -62,11 +62,11 @@
                                     <form class="form" method="post" role="form" accept-charset="UTF-8" id="login-nav">
                                         <div class="form-group">
                                             <label class="sr-only" for="username"></label>
-                                            <input type="text" class="form-control" id="username" placeholder="<fmt:message key="header.inplaceholder.email"/>" required>
+                                            <input id="username" type="text" class="form-control" placeholder="<fmt:message key="header.inplaceholder.email"/>" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="sr-only" for="password"></label>
-                                            <input type="password" class="form-control" id="password" placeholder="<fmt:message key="header.inplaceholder.password"/>" required>
+                                            <input id="password" type="password" class="form-control" placeholder="<fmt:message key="header.inplaceholder.password"/>" required>
                                         </div>
                                         <div class="form-group">
                                             <button id="signBtn" type="button" class="btn btn-primary btn-block"><fmt:message key="header.login"/></button>

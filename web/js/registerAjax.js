@@ -1,16 +1,18 @@
 
 $(document).ready(function () {
     $("#errorInp").hide();
-    $('#signBtn').click(function () {
+    $('#register-btn').click(function () {
 
 
         $.ajax({
-            url: location.protocol + '//' + location.host + "/shows_you/login" +
-                 window.location.search,
+            url: location.protocol + '//' + location.host + "/shows_you/registration" +
+                window.location.search,
             method: "post",
             data: {
                 username : $('#username').val(),
-                password : $('#password').val()
+                email : $('#email').val(),
+                password : $('#password').val(),
+                confirmPassword : $('#confirm_password').val()
             },
             error: function(message) {
                 $("#errorInp").fadeTo(4000, 30).slideUp(700, function(){
