@@ -37,9 +37,6 @@
                         </a>
                     </li>
                     <li class="nav-item mybutton">
-                        <a class="nav-link" href="#"><fmt:message key="header.playbill"/></a>
-                    </li>
-                    <li class="nav-item mybutton">
                         <a class="nav-link" href="#"><fmt:message key="header.showings"/></a>
                     </li>
                     <li class="nav-item dropdown mybutton">
