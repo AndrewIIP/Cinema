@@ -17,7 +17,7 @@ public class Logout implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         userService.logout(request);
 
-        return "redirect:" + request.getServletPath() + "/" +
+        return "redirect:" + request.getContextPath() + request.getServletPath() + "/" +
                 (request.getQueryString() == null ? "" : "?" + request.getQueryString());
     }
 }

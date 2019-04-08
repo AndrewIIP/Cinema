@@ -24,6 +24,8 @@ public class EntranceServlet extends HttpServlet {
         commandsMap.put("/registration", new Register(new UserService()));
         commandsMap.put("/go_registration", new GoRegister());
         commandsMap.put("/go_login", new GoLogin());
+        commandsMap.put("/now_playing", new NowPlaying());
+        commandsMap.put("/showtimes", new Showtimes());
     }
 
     @Override
@@ -38,8 +40,10 @@ public class EntranceServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 
-        String path = req.getServletPath() + req.getPathInfo();
-        path = path.replaceAll("/shows_you", "");
+        String path = /*req.getContextPath() + req.getServletPath() +*/ req.getPathInfo();
+        System.out.println(path);
+        //path = path.replaceAll(req.getServletPath(), "").replaceAll(req.getServletPath(), "");
+        //System.out.println(path);
 
         Command command = commandsMap.getOrDefault(path, (request, response) -> "forward:/login.jsp");
         String page = command.execute(req, resp);

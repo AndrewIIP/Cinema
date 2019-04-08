@@ -25,15 +25,20 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mynavbar header shadow-c">
         <div class="container">
-            <a class="navbar-brand" href="#">Cinema3D</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/shows_you/?${pageContext.request.queryString}">Cinema3D</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active mybutton">
-                        <a class="nav-link" href="#"><fmt:message key="header.home"/>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/?${pageContext.request.queryString}"><fmt:message key="header.home"/>
                             <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mybutton">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/now_playing?${pageContext.request.queryString}">
+                            <fmt:message key="header.now.plays"/>
                         </a>
                     </li>
                     <li class="nav-item mybutton">
@@ -84,7 +89,7 @@
                                         </div>
                                     </div>
                                     <div class="bottom text-center">
-                                        <fmt:message key="header.loginbar.newhere"/> <a href="#"><b><fmt:message key="header.loginbar.join"/></b></a>
+                                        <fmt:message key="header.loginbar.newhere"/> <a href="${pageContext.request.contextPath}/shows_you/go_registration?${pageContext.request.queryString}"><b><fmt:message key="header.loginbar.join"/></b></a>
                                     </div>
                                 </div>
                             </li>
@@ -169,8 +174,8 @@
     <!-- Page Content -->
     <section class="py-5">
         <div class="container">
-            <h1 class="font-weight-light">Half Page Image Slider</h1>
-            <p class="lead">The background images for the slider are set directly in the HTML using inline CSS. The images in this snippet are from <a href="https://unsplash.com">Unsplash</a>!</p>
+            <h1 class="font-weight-light"><fmt:message key="index.bottom.h"/></h1>
+            <p class="lead"><fmt:message key="index.bottom.p"/></p>
         </div>
     </section>
 </body>

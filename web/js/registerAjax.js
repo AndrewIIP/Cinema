@@ -2,11 +2,15 @@
 $(document).ready(function () {
     $("#errorInp").hide();
     $('#register-btn').click(function () {
-
+        let url;
+        if(location.href.includes("/cinema")){
+            url = location.origin + "/cinema/shows_you/registration" + window.location.search;
+        } else {
+            url = location.origin + "/shows_you/registration" + window.location.search;
+        }
 
         $.ajax({
-            url: location.protocol + '//' + location.host + "/shows_you/registration" +
-                window.location.search,
+            url: url,
             method: "post",
             data: {
                 username : $('#username').val(),

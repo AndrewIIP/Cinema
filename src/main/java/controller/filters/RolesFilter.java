@@ -22,20 +22,23 @@ public class RolesFilter implements Filter {
                 "/registration",
                 "/go_login",
                 "/go_registration",
-                "/showtimes"
+                "/showtimes",
+                "/now_playing"
         ));
 
         ways.put(Role.USER, Set.of(
                 "/",
                 "/logout",
-                "/showtimes"
+                "/showtimes",
+                "/now_playing"
         ));
 
         ways.put(Role.ADMIN, Set.of(
                 "/",
                 "/logout",
                 "/edit",
-                "/showtimes"
+                "/showtimes",
+                "/now_playing"
         ));
     }
 
@@ -43,7 +46,10 @@ public class RolesFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+        System.out.println(request.getRequestURI());
         String path = request.getRequestURI().replace(request.getContextPath(), "").replace(request.getServletPath(), "");
+
+        System.out.println(path);
 
         if (request.getSession().getAttribute(Cons.SESSION_ROLE) == null) {
             request.getSession().setAttribute(Cons.SESSION_ROLE, Role.GUEST);

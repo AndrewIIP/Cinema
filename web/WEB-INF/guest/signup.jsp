@@ -32,28 +32,28 @@
                     <!-- Background image for card set in CSS! -->
                 </div>--%>
                 <div class="card-body">
-                    <h5 class="card-title text-center">Register</h5>
+                    <h5 class="card-title text-center"><fmt:message key="register.register"/></h5>
                     <form class="form-signin">
                         <div class="form-label-group">
                             <input type="text" id="username" class="form-control" placeholder="Username" required autofocus>
-                            <label for="username">Username</label>
+                            <label for="username"><fmt:message key="register.username.field"/></label>
                         </div>
 
                         <div class="form-label-group">
                             <input type="text" id="email" class="form-control" placeholder="Email address" required>
-                            <label for="email">Email address</label>
+                            <label for="email"><fmt:message key="register.email.field"/></label>
                         </div>
 
                         <hr>
 
                         <div class="form-label-group">
                             <input type="password" id="password" class="form-control" placeholder="Password" required>
-                            <label for="password">Password</label>
+                            <label for="password"><fmt:message key="header.inplaceholder.password"/></label>
                         </div>
 
                         <div class="form-label-group">
                             <input type="password" id="confirm_password" class="form-control" placeholder="Password" required>
-                            <label for="confirm_password">Confirm password</label>
+                            <label for="confirm_password"><fmt:message key="register.confirm.field"/></label>
                         </div>
 
                         <nav class="navbar navbar-expand-lg mynavbar header" style="padding-bottom: 20px;">
@@ -81,11 +81,11 @@
                             </div>
                         </nav>
 
-                        <button id="register-btn" class="btn btn-lg btn-primary btn-block text-uppercase" type="button">Register</button>
+                        <button id="register-btn" class="btn btn-lg btn-primary btn-block text-uppercase" type="button"><fmt:message key="register.register"/></button>
                         <div id="errorInp" class="alert alert-danger alert-span" style="border-radius: 5rem;">
-                            <span id="osp" class="alert-span">some msg</span>
+                            <span id="osp" class="alert-span"></span>
                         </div>
-                        <a class="d-block text-center mt-2 small" href="${pageContext.request.contextPath}/shows_you/go_login?${pageContext.request.queryString}">Sign In</a>
+                        <a class="d-block text-center mt-2 small" href="${pageContext.request.contextPath}/shows_you/go_login?${pageContext.request.queryString}"><fmt:message key="header.login"/></a>
                     </form>
 
                 </div>

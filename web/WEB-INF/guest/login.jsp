@@ -29,16 +29,16 @@
         <div class="col-lg-10 col-xl-9 mx-auto">
             <div class="card card-signin flex-row ">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Sing in</h5>
+                    <h5 class="card-title text-center"><fmt:message key="header.login"/></h5>
                     <form class="form-signin">
                         <div class="form-label-group">
                             <input type="text" id="username" class="form-control" placeholder="Username" required autofocus>
-                            <label for="username">Username</label>
+                            <label for="username"><fmt:message key="header.inplaceholder.email"/></label>
                         </div>
 
                         <div class="form-label-group">
                             <input type="password" id="password" class="form-control" placeholder="Password" required>
-                            <label for="password">Password</label>
+                            <label for="password"><fmt:message key="header.inplaceholder.password"/></label>
                         </div>
 
                         <nav class="navbar navbar-expand-lg mynavbar header" style="padding-bottom: 20px;">
@@ -66,11 +66,11 @@
                             </div>
                         </nav>
 
-                        <button id="signBtn" class="btn btn-lg btn-primary btn-block text-uppercase" type="button">Sign in</button>
+                        <button id="signBtn" class="btn btn-lg btn-primary btn-block text-uppercase" type="button"><fmt:message key="header.login"/></button>
                         <div id="errorInp" class="alert alert-danger alert-span" style="border-radius: 5rem;">
-                            <span id="osp" class="alert-span">some msg</span>
+                            <span id="osp" class="alert-span"></span>
                         </div>
-                        <a class="d-block text-center mt-2 small" href="${pageContext.request.contextPath}/shows_you/go_registration?${pageContext.request.queryString}">Register</a>
+                        <a class="d-block text-center mt-2 small" href="${pageContext.request.contextPath}/shows_you/go_registration?${pageContext.request.queryString}"><fmt:message key="register.register"/></a>
                     </form>
                 </div>
             </div>
