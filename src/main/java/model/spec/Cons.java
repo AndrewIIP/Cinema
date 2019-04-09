@@ -13,4 +13,7 @@ public interface Cons {
     String CONFIRM_PASS_PARAM = "confirmPassword";
     String EMAIL_PARAM = "email";
     String ROLE_USER = "user";
+    String CUR_REQ_URL = "curReqURL";
+    String SESSION_USER = "sessionUser";
+    String CONTEXT_USERS_LIST = "usersList";
 }

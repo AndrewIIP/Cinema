@@ -1,6 +1,7 @@
 package controller.filters;
 
 
+import model.entity.User;
 import model.spec.Cons;
 import model.spec.Role;
 
@@ -46,16 +47,12 @@ public class RolesFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        System.out.println(request.getRequestURI());
         String path = request.getRequestURI().replace(request.getContextPath(), "").replace(request.getServletPath(), "");
 
-        System.out.println(path);
-
-        if (request.getSession().getAttribute(Cons.SESSION_ROLE) == null) {
-            request.getSession().setAttribute(Cons.SESSION_ROLE, Role.GUEST);
-            request.getSession().setAttribute(Cons.SESSION_USERNAME, Role.GUEST.getString());
+        if (request.getSession().getAttribute(Cons.SESSION_USER) == null) {
+            request.getSession().setAttribute(Cons.SESSION_USER, User.getGuestInst());
         }
-        Role requestRole = (Role)request.getSession().getAttribute(Cons.SESSION_ROLE);
+        Role requestRole = ((User)request.getSession().getAttribute(Cons.SESSION_USER)).getRole();
 
         if (!ways.get(requestRole).contains(path)) {
             request.getRequestDispatcher("/WEB-INF/common/forbidden.jsp").forward(request,response);

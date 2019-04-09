@@ -3,6 +3,7 @@ package controller.command;
 import model.dao.exceptions.DAOException;
 import model.entity.User;
 import model.services.UserService;
+import model.services.exceptions.AlreadyAuthorizedException;
 import model.services.exceptions.ServiceException;
 import model.spec.Cons;
 import model.spec.Role;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Register implements Command {
@@ -36,7 +36,7 @@ public class Register implements Command {
         String returnPath = "";
 
         if (!userService.validateRegistrData(username, mail, password, confirmPassword)) {
-            userService.setStatus(400, userService.getFaulRegistrationReason(username, mail, password,
+            userService.setResponseFail(400, userService.getFaulRegistrationReason(username, mail, password,
                     confirmPassword, resourceBundle), response);
             return returnPath;
         }
@@ -50,25 +50,24 @@ public class Register implements Command {
         try {
             userService.register(user);
             userService.authorize(user, password, request);
-        } catch (DAOException e) {
-            userService.setStatus(400, resourceBundle.getString("register.already.exists"), response);
-            //TODO LOG
-            e.printStackTrace();
-        } catch (ServiceException e) {
-            userService.setStatus(400, resourceBundle.getString("register.bad.try.later"), response);
-            //TODO LOG
-            e.printStackTrace();
-        }
-        try {
             response.getWriter().write(
                     request.getScheme() + "://" +
-                     request.getServerName() +
-                     ":" + request.getServerPort() +
-                     request.getContextPath() +
-                     request.getServletPath() + "/" +
+                            request.getServerName() +
+                            ":" + request.getServerPort() +
+                            request.getContextPath() +
+                            request.getServletPath() + "/" +
                             (request.getQueryString() == null ? "" : "?" + request.getQueryString())
             );
+        } catch (DAOException e) {
+            userService.setResponseFail(400, resourceBundle.getString("register.already.exists"), response);
+            e.printStackTrace();//TODO LOG
+        } catch (ServiceException e) {
+            userService.setResponseFail(400, resourceBundle.getString("register.bad.try.later"), response);
+            e.printStackTrace();//TODO LOG
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (AlreadyAuthorizedException e) {
+            userService.setResponseFail(400, resourceBundle.getString("already.authorized"), response);
             e.printStackTrace();
         }
         return "";
