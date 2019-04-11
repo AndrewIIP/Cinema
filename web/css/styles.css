@@ -61,9 +61,13 @@ body{
 }
 .login{
     color: #1e242a !important;
+    min-width: 65px;
+    text-align: center;
 }
 .singup{
     border-color: rgba(118, 123, 126, 0.74) !important;
+    min-width: 65px;
+    text-align: center;
 
 }
 .mybutton{

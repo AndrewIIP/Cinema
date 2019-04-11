@@ -44,6 +44,11 @@
                         <nav class="navbar navbar-expand-lg mynavbar header" style="padding-bottom: 20px;">
                             <div class="collapse navbar-collapse" id="navbarResponsive">
                                 <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item mybutton">
+                                        <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/?${pageContext.request.queryString}"><fmt:message key="header.home"/>
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
                                     <li class="nav-item dropdown mybutton">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <fmt:message key="header.language"/>

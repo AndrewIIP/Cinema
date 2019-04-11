@@ -14,6 +14,8 @@
 <fmt:setBundle basename="lang"/>
 <c:set var="user" value="${sessionScope.sessionUser}"/>
 
+<script src="${pageContext.request.contextPath}/js/signAjax.js"></script>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mynavbar header shadow-c">
     <div class="container">
         <a class="navbar-brand" href="${pageContext.request.contextPath}/shows_you/?${pageContext.request.queryString}">Cinema3D</a>
@@ -22,7 +24,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active mybutton">
+                <li class="nav-item mybutton">
                     <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/?${pageContext.request.queryString}"><fmt:message key="header.home"/>
                         <span class="sr-only">(current)</span>
                     </a>
@@ -33,7 +35,7 @@
                     </a>
                 </li>
                 <li class="nav-item mybutton">
-                    <a class="nav-link" href="#"><fmt:message key="header.showings"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/showtimes?${pageContext.request.queryString}"><fmt:message key="header.showings"/></a>
                 </li>
                 <li class="nav-item dropdown mybutton">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -76,7 +78,7 @@
                                         </div>
                                     </form>
                                     <div id="errorInp" class="alert alert-danger">
-                                        <span id="osp">some msg</span>
+                                        <span id="osp"></span>
                                     </div>
                                 </div>
                                 <div class="bottom text-center">

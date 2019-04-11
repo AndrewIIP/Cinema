@@ -24,14 +24,16 @@ public class RolesFilter implements Filter {
                 "/go_login",
                 "/go_registration",
                 "/showtimes",
-                "/now_playing"
+                "/now_playing",
+                "/room"
         ));
 
         ways.put(Role.USER, Set.of(
                 "/",
                 "/logout",
                 "/showtimes",
-                "/now_playing"
+                "/now_playing",
+                "/room"
         ));
 
         ways.put(Role.ADMIN, Set.of(
@@ -39,7 +41,8 @@ public class RolesFilter implements Filter {
                 "/logout",
                 "/edit",
                 "/showtimes",
-                "/now_playing"
+                "/now_playing",
+                "/room"
         ));
     }
 

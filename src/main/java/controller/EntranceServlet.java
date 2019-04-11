@@ -4,14 +4,13 @@ import controller.command.*;
 import model.entity.User;
 import model.services.UserService;
 import model.spec.Cons;
+import model.spec.LogGen;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -29,6 +28,7 @@ public class EntranceServlet extends HttpServlet {
         commandsMap.put("/go_login", new GoLogin());
         commandsMap.put("/now_playing", new NowPlaying());
         commandsMap.put("/showtimes", new Showtimes());
+        commandsMap.put("/room", new Room());
 
         getServletContext().setAttribute(Cons.CONTEXT_USERS_LIST, new LinkedList<User>());
     }
@@ -46,7 +46,8 @@ public class EntranceServlet extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String path = req.getPathInfo();
         req.setAttribute(Cons.CUR_REQ_URL, req.getRequestURL());
-        Command command = commandsMap.getOrDefault(path, (request, response) -> "forward:/login.jsp");
+        Command command = commandsMap.getOrDefault(path, (request, response) -> "forward:/WEB-INF/guest/login.jsp" +
+                (request.getQueryString() == null ? "" : "?" + request.getQueryString()));
         String page = command.execute(req, resp);
 
         if (page.contains("redirect")) {
@@ -55,4 +56,5 @@ public class EntranceServlet extends HttpServlet {
             req.getRequestDispatcher(page.replace("forward:", "")).forward(req, resp);
         }
     }
+
 }

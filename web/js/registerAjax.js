@@ -19,7 +19,7 @@ $(document).ready(function () {
                 confirmPassword : $('#confirm_password').val()
             },
             error: function(message) {
-                $("#errorInp").fadeTo(4000, 30).slideUp(700, function(){
+                $("#errorInp").fadeTo(7000, 100).slideUp(700, function(){
                     $("#errorInp").slideUp(500);
                 });
                 let sp1 = document.createElement("span");

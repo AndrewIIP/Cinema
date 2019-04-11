@@ -21,11 +21,186 @@
     <link  href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-    <script src="${pageContext.request.contextPath}/js/signAjax.js"></script>
-
 </head>
 <body>
     <jsp:include page="/WEB-INF/user/header.jsp"/>
-    <jsp:include page="/WEB-INF/common/movies_content.jsp"/>
+    <link rel='stylesheet prefetch' href='${pageContext.request.contextPath}/css/swiper.min.css'>
+    <script src='${pageContext.request.contextPath}/js/swiper.min.js'></script>
+
+
+
+    <section class="pricing py-5">
+        <div class="wrap-cont">
+            <div class="">
+                <!-- Free Tier -->
+                <div class="">
+                    <div class="card-bg-color  mb-5 mb-lg-0">
+                        <div class="card-body inner-bg">
+                            <style class="cp-pen-styles">img { max-height: 100% }
+                            .swiper-container {
+                                width: 100%;
+                                height: 580px;
+                            }
+                            .swiper-slide {
+                                text-align: center;
+                                font-size: 18px;
+                                background: #fffB;
+                                /* Center slide text vertically */
+                                display: -webkit-box;
+                                display: -ms-flexbox;
+                                display: -webkit-flex;
+                                display: flex;
+                                -webkit-box-pack: center;
+                                -ms-flex-pack: center;
+                                -webkit-justify-content: center;
+                                justify-content: center;
+                                -webkit-box-align: center;
+                                -ms-flex-align: center;
+                                -webkit-align-items: center;
+                                align-items: center;
+                                /*width:90%;*/
+                            }</style>
+                            <!-- Swiper -->
+                            <div class="swiper-container andr-swiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide andrew-swiper-slide">
+                                        <div class="container-in">
+                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
+                                        </div>
+                                        <div class="inner-showtimes">
+                                            <h2 class="font-weight-normal">La La Land</h2>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide andrew-swiper-slide">
+                                        <div class="container-in">
+                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
+                                        </div>
+                                        <div class="inner-showtimes">
+                                            <h2 class="font-weight-normal">La La Land</h2>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide andrew-swiper-slide">
+                                        <div class="container-in">
+                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
+                                        </div>
+                                        <div class="inner-showtimes">
+                                            <h2 class="font-weight-normal">La La Land</h2>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide andrew-swiper-slide">
+                                        <div class="container-in">
+                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
+                                        </div>
+                                        <div class="inner-showtimes">
+                                            <h2 class="font-weight-normal">La La Land</h2>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide andrew-swiper-slide">
+                                        <div class="container-in">
+                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
+                                        </div>
+                                        <div class="inner-showtimes">
+                                            <h2 class="font-weight-normal">La La Land</h2>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide andrew-swiper-slide">
+                                        <div class="container-in">
+                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
+                                        </div>
+                                        <div class="inner-showtimes">
+                                            <h2 class="font-weight-normal">La La Land</h2>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                            <button class="btn btn-outline-dark btn-sm">MON 22:00</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination andrew-bullets"></div>
+                            <script >var swiper = new Swiper('.swiper-container', {
+                                pagination: '.swiper-pagination',
+                                effect: 'coverflow',
+                                grabCursor: true,
+                                centeredSlides: true,
+                                spaceBetween: 0,
+                                //loop: true,
+                                /*autoplay: 5000,*/
+                                autoplayDisableOnInteraction: false,
+                                slidesPerView: 4,
+                                coverflow: {
+                                    rotate: 30,
+                                    stretch: 0,
+                                    depth: 100,
+                                    modifier: 1,
+                                    slideShadows : true
+                                }
+                            });
+
+                            //# sourceURL=pen.js
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

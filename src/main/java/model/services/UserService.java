@@ -82,7 +82,7 @@ public class UserService {
     }
 
     public boolean validateRegistrData(String username, String email, String pass, String confPass) {
-        return username.matches(usernameRegex) && email.matches(emailRegex) && pass.equals(passRegex) && pass.equals(confPass);
+        return username.matches(usernameRegex) && email.matches(emailRegex) && pass.matches(passRegex) && pass.equals(confPass);
     }
 
     public boolean validate(String usernameOrMail, String password) {

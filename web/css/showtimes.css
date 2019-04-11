@@ -1,0 +1,67 @@
+body {
+    /*background: #007bff;
+    background: linear-gradient(to right, #2b2d2d, #343535);*/
+    background-image: url(../pic/bg/login_bg.jpg);
+    background-size: 100%;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem 1.25rem 2rem;
+}
+
+.inner-bg {
+    /*padding: 3rem 1.25rem !important;*/
+}
+
+.card-bg-color {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 18px 3px rgba(0, 0, 0, 0.6);
+}
+
+.wrap-cont {
+    max-width: fit-content;
+    max-height: fit-content;
+    margin: auto;
+
+}
+
+section.pricing {
+
+}
+
+.andrew-custom-btn{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 3px 3px 6px 1px rgba(0, 0, 0, 0.6);
+}
+
+.table-container{
+    margin: 1rem 5rem;
+}
+
+.movie-row{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    margin: 10px 1rem;
+    border-radius: 0.25rem;
+    border: 2px solid #b1b1b1;
+    font-size: 1.15rem;
+}
+
+.mov-name-entry{
+    max-width: 200px;
+    min-width: 200px;
+}
+
+.purch-btn{
+    padding: 3px 20px;
+    position: relative;
+    left: 50px;
+}

@@ -112,6 +112,17 @@ body {
     border-radius: 10px;
 }
 
-.container-in {
+.time-label{
+    max-width: fit-content;
+    display: inline-block;
+    margin: 4px;
+    padding: 4px 8px;
+    font-size: 0.875rem;
+    border: 1px solid #343a40;
+    border-radius: 0.2rem;
+}
+
+.container-in{
     width: inherit;
 }​
+

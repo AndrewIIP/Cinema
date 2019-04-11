@@ -20,7 +20,6 @@
     <link  href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-    <script src="${pageContext.request.contextPath}/js/signAjax.js"></script>
 </head>
 <body>
     <jsp:include page="/WEB-INF/user/header.jsp"/>
