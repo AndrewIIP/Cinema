@@ -2,9 +2,10 @@ package controller;
 
 import controller.command.*;
 import model.entity.User;
+import model.services.DayService;
+import model.services.MovieService;
 import model.services.UserService;
-import model.spec.Cons;
-import model.spec.LogGen;
+import model.util.Cons;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +27,8 @@ public class EntranceServlet extends HttpServlet {
         commandsMap.put("/registration", new Register(new UserService()));
         commandsMap.put("/go_registration", new GoRegister());
         commandsMap.put("/go_login", new GoLogin());
-        commandsMap.put("/now_playing", new NowPlaying());
-        commandsMap.put("/showtimes", new Showtimes());
+        commandsMap.put("/now_playing", new NowPlaying(new MovieService()));
+        commandsMap.put("/showtimes", new Showtimes(new DayService()));
         commandsMap.put("/room", new Room());
 
         getServletContext().setAttribute(Cons.CONTEXT_USERS_LIST, new LinkedList<User>());
@@ -44,11 +45,13 @@ public class EntranceServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+
         String path = req.getPathInfo();
         req.setAttribute(Cons.CUR_REQ_URL, req.getRequestURL());
         Command command = commandsMap.getOrDefault(path, (request, response) -> "forward:/WEB-INF/guest/login.jsp" +
                 (request.getQueryString() == null ? "" : "?" + request.getQueryString()));
         String page = command.execute(req, resp);
+
 
         if (page.contains("redirect")) {
             resp.sendRedirect(page.replace("redirect:", ""));

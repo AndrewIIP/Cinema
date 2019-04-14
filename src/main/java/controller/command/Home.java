@@ -1,7 +1,7 @@
 package controller.command;
 
 import model.entity.User;
-import model.spec.Cons;
+import model.util.Cons;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

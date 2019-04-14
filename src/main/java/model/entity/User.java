@@ -1,7 +1,9 @@
 package model.entity;
 
-import model.spec.Role;
+import model.util.Role;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class User {
@@ -10,6 +12,7 @@ public class User {
     private String password;
     private String email;
     private Role role;
+    private List<Ticket> userTickets = new LinkedList<>();
 
     public static User getGuestInst(){
         User user = new User();
@@ -62,6 +65,13 @@ public class User {
         this.role = role;
     }
 
+    public List<Ticket> getUserTickets() {
+        return userTickets;
+    }
+
+    public void setUserTickets(List<Ticket> userTickets) {
+        this.userTickets = userTickets;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -72,12 +82,13 @@ public class User {
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
-                role == user.role;
+                role == user.role &&
+                Objects.equals(userTickets, user.userTickets);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, email, role);
+        return Objects.hash(id, username, password, email, role, userTickets);
     }
 
     @Override
@@ -88,6 +99,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
+                ", userTickets=" + userTickets +
                 '}';
     }
 }

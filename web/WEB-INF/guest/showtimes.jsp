@@ -55,7 +55,21 @@
                             </label>
                         </div>
 
-                        <div class="movie-row">
+                        <jsp:useBean id="day" scope="request" type="model.entity.Day"/>
+
+                        <c:forEach items="${day.sessions}" var="session">
+                            <div class="movie-row">
+                                <div class="mov-name-entry">
+                                    ${session.movie.name}
+                                </div>
+                                <div class="mov-time">
+                                    ${session.timeHoursMins}
+                                </div>
+                            </div>
+                        </c:forEach>
+
+
+                        <%--<div class="movie-row">
                             <div class="mov-name-entry">
                                 La La Land
                             </div>
@@ -110,7 +124,7 @@
                             <div class="mov-time">
                                 22:00
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
             </div>

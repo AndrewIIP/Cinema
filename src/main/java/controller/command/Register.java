@@ -5,8 +5,8 @@ import model.entity.User;
 import model.services.UserService;
 import model.services.exceptions.AlreadyAuthorizedException;
 import model.services.exceptions.ServiceException;
-import model.spec.Cons;
-import model.spec.Role;
+import model.util.Cons;
+import model.util.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,8 +35,8 @@ public class Register implements Command {
         String confirmPassword = request.getParameter(Cons.CONFIRM_PASS_PARAM.trim());
         String returnPath = "";
 
-        if (!userService.validateRegistrData(username, mail, password, confirmPassword)) {
-            userService.setResponseFail(400, userService.getFaulRegistrationReason(username, mail, password,
+        if (userService.ifInvalidRegData(username, mail, password, confirmPassword)) {
+            userService.setResponseStatus(400, userService.getFaultRegistrationReason(username, mail, password,
                     confirmPassword, resourceBundle), response);
             return returnPath;
         }
@@ -59,15 +59,15 @@ public class Register implements Command {
                             (request.getQueryString() == null ? "" : "?" + request.getQueryString())
             );
         } catch (DAOException e) {
-            userService.setResponseFail(400, resourceBundle.getString("register.already.exists"), response);
+            userService.setResponseStatus(400, resourceBundle.getString("register.already.exists"), response);
             e.printStackTrace();//TODO LOG
         } catch (ServiceException e) {
-            userService.setResponseFail(400, resourceBundle.getString("register.bad.try.later"), response);
+            userService.setResponseStatus(400, resourceBundle.getString("register.bad.try.later"), response);
             e.printStackTrace();//TODO LOG
         } catch (IOException e) {
             e.printStackTrace();
         } catch (AlreadyAuthorizedException e) {
-            userService.setResponseFail(400, resourceBundle.getString("already.authorized"), response);
+            userService.setResponseStatus(400, resourceBundle.getString("already.authorized"), response);
             e.printStackTrace();
         }
         return "";

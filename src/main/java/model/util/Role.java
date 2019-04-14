@@ -1,7 +1,6 @@
-package model.spec;
+package model.util;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 public enum Role {
     GUEST("guest"),

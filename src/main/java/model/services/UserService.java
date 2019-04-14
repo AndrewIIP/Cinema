@@ -1,32 +1,35 @@
 package model.services;
 
+import model.dao.DaoFactory;
 import model.dao.UserDao;
 import model.dao.exceptions.DAOException;
 import model.entity.User;
 import model.services.exceptions.AlreadyAuthorizedException;
 import model.services.exceptions.ServiceException;
-import model.spec.Cons;
-import model.spec.Role;
+import model.util.Cons;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class UserService {
     private String usernameRegex = Cons.USERNAME_REGEX;
     private String emailRegex = Cons.MAIL_REGEX;
     private String passRegex = Cons.PASSWORD_REGEX;
-    private UserDao userDao = new UserDao();
+
+    private DaoFactory daoFactory = DaoFactory.getInstance();
 
     public User login(String usernameOrMail) throws DAOException {
         User user = new User();
-        if (usernameOrMail.matches(emailRegex)) {
-            user = userDao.getEntityByEmail(usernameOrMail);
-        } else if (usernameOrMail.matches(usernameRegex)) {
-            user = userDao.getEntityByUsername(usernameOrMail);
+
+        try(UserDao dao = daoFactory.createUserDao()){
+            if (usernameOrMail.matches(emailRegex)) {
+                user = dao.getEntityByEmail(usernameOrMail);
+            } else if (usernameOrMail.matches(usernameRegex)) {
+                user = dao.getEntityByUsername(usernameOrMail);
+            }
         }
         return user;
     }
@@ -53,10 +56,12 @@ public class UserService {
     }
 
     public void register(User user) throws DAOException {
-        userDao.create(user);
+        try(UserDao dao = daoFactory.createUserDao()){
+            dao.create(user);
+        }
     }
 
-    public String getFaulRegistrationReason(String username, String email, String pass, String confPass, ResourceBundle resBundle) {
+    public String getFaultRegistrationReason(String username, String email, String pass, String confPass, ResourceBundle resBundle) {
         String faultReson = "no fault";
         if (username.isEmpty() || email.isEmpty() || pass.isEmpty() || confPass.isEmpty()) {
             faultReson = resBundle.getString("invalid.fillAll");
@@ -72,7 +77,7 @@ public class UserService {
         return faultReson;
     }
 
-    public void setResponseFail(int status, String msg, HttpServletResponse response) {
+    public void setResponseStatus(int status, String msg, HttpServletResponse response) {
         response.setStatus(status);
         try {
             response.getWriter().write(msg);
@@ -81,8 +86,8 @@ public class UserService {
         }
     }
 
-    public boolean validateRegistrData(String username, String email, String pass, String confPass) {
-        return username.matches(usernameRegex) && email.matches(emailRegex) && pass.matches(passRegex) && pass.equals(confPass);
+    public boolean ifInvalidRegData(String username, String email, String pass, String confPass) {
+        return !username.matches(usernameRegex) || !email.matches(emailRegex) || !pass.matches(passRegex) || !pass.equals(confPass);
     }
 
     public boolean validate(String usernameOrMail, String password) {

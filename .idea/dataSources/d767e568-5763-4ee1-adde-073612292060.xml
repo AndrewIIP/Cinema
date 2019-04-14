@@ -1113,58 +1113,341 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="280" parent="2" name="users"/>
-    <column id="281" parent="280" name="id">
+    <table id="280" parent="2" name="days"/>
+    <table id="281" parent="2" name="days_translate"/>
+    <table id="282" parent="2" name="languages"/>
+    <table id="283" parent="2" name="movies"/>
+    <table id="284" parent="2" name="movies_translate"/>
+    <table id="285" parent="2" name="sessions"/>
+    <table id="286" parent="2" name="tickets"/>
+    <table id="287" parent="2" name="users"/>
+    <column id="288" parent="280" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="280" name="username">
+    <key id="289" parent="280" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="290" parent="281" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="291" parent="281" name="day_id">
       <Position>2</Position>
-      <DataType>varchar(80)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="280" name="email">
+    <column id="292" parent="281" name="lang_id">
       <Position>3</Position>
-      <DataType>varchar(80)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="280" name="password">
+    <column id="293" parent="281" name="day_name">
       <Position>4</Position>
-      <DataType>varchar(80)|0s</DataType>
+      <DataType>varchar(16)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="280" name="role">
+    <column id="294" parent="281" name="day_name_short">
       <Position>5</Position>
       <DataType>varchar(16)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="286" parent="280" name="users_username_uindex">
-      <ColNames>username</ColNames>
-      <Unique>1</Unique>
+    <index id="295" parent="281" name="days_translate_days_id_fk">
+      <ColNames>day_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="287" parent="280" name="users_email_uindex">
-      <ColNames>email</ColNames>
-      <Unique>1</Unique>
+    <index id="296" parent="281" name="days_translate_languages_id_fk">
+      <ColNames>lang_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="288" parent="280" name="PRIMARY">
+    <key id="297" parent="281" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="289" parent="280" name="users_username_uindex">
+    <foreign-key id="298" parent="281" name="days_translate_days_id_fk">
+      <ColNames>day_id</ColNames>
+      <RefSchemaName>cinema</RefSchemaName>
+      <RefTableName>days</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="299" parent="281" name="days_translate_languages_id_fk">
+      <ColNames>lang_id</ColNames>
+      <RefSchemaName>cinema</RefSchemaName>
+      <RefTableName>languages</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="300" parent="282" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="301" parent="282" name="lang_tag">
+      <Position>2</Position>
+      <DataType>varchar(8)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="302" parent="282" name="languages_lang_tag_uindex">
+      <ColNames>lang_tag</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="303" parent="282" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="304" parent="282" name="languages_lang_tag_uindex">
+      <ColNames>lang_tag</ColNames>
+      <UnderlyingIndexName>languages_lang_tag_uindex</UnderlyingIndexName>
+    </key>
+    <column id="305" parent="283" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="306" parent="283" name="pic_url">
+      <Position>2</Position>
+      <DataType>varchar(1024)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="307" parent="283" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="308" parent="284" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="309" parent="284" name="movie_id">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="310" parent="284" name="lang_id">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="311" parent="284" name="movie_name">
+      <Position>4</Position>
+      <DataType>varchar(64)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="312" parent="284" name="movies_translate_movies_id_fk">
+      <ColNames>movie_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="313" parent="284" name="movies_translate_languages_id_fk">
+      <ColNames>lang_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="314" parent="284" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="315" parent="284" name="movies_translate_movies_id_fk">
+      <ColNames>movie_id</ColNames>
+      <RefSchemaName>cinema</RefSchemaName>
+      <RefTableName>movies</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="316" parent="284" name="movies_translate_languages_id_fk">
+      <ColNames>lang_id</ColNames>
+      <RefSchemaName>cinema</RefSchemaName>
+      <RefTableName>languages</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="317" parent="285" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="318" parent="285" name="time">
+      <Position>2</Position>
+      <DataType>time|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="319" parent="285" name="day_id">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="320" parent="285" name="movie_id">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="321" parent="285" name="fk_day_id_idx">
+      <ColNames>day_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="322" parent="285" name="fk_movie_id_idx">
+      <ColNames>movie_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="323" parent="285" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="324" parent="285" name="fk_day_id">
+      <ColNames>day_id</ColNames>
+      <RefSchemaName>cinema</RefSchemaName>
+      <RefTableName>days</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="325" parent="285" name="fk_movie_id">
+      <ColNames>movie_id</ColNames>
+      <RefSchemaName>cinema</RefSchemaName>
+      <RefTableName>movies</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="326" parent="286" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="327" parent="286" name="place">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="328" parent="286" name="user_id">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="329" parent="286" name="showtime_id">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="330" parent="286" name="fk_user_id_idx">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="331" parent="286" name="fk_showtime_id_idx">
+      <ColNames>showtime_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="332" parent="286" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="333" parent="286" name="fk_user_id">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>cinema</RefSchemaName>
+      <RefTableName>users</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="334" parent="286" name="fk_showtime_id">
+      <ColNames>showtime_id</ColNames>
+      <RefSchemaName>cinema</RefSchemaName>
+      <RefTableName>sessions</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+    </foreign-key>
+    <column id="335" parent="287" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="336" parent="287" name="username">
+      <Position>2</Position>
+      <DataType>varchar(80)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="337" parent="287" name="email">
+      <Position>3</Position>
+      <DataType>varchar(80)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="338" parent="287" name="password">
+      <Position>4</Position>
+      <DataType>varchar(80)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="339" parent="287" name="role">
+      <Position>5</Position>
+      <DataType>varchar(16)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="340" parent="287" name="users_username_uindex">
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <index id="341" parent="287" name="users_email_uindex">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="342" parent="287" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="343" parent="287" name="users_username_uindex">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>users_username_uindex</UnderlyingIndexName>
     </key>
-    <key id="290" parent="280" name="users_email_uindex">
+    <key id="344" parent="287" name="users_email_uindex">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>users_email_uindex</UnderlyingIndexName>
     </key>

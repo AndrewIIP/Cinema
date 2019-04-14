@@ -3582,7 +3582,7 @@ jQuery.extend( {
 									} else {
 
 										// Only substitute handlers pass on context
-										// and multiple values (non-spec behavior)
+										// and multiple values (non-util behavior)
 										if ( handler !== Identity ) {
 											that = undefined;
 											args = [ returned ];
@@ -3613,7 +3613,7 @@ jQuery.extend( {
 											if ( depth + 1 >= maxDepth ) {
 
 												// Only substitute handlers pass on context
-												// and multiple values (non-spec behavior)
+												// and multiple values (non-util behavior)
 												if ( handler !== Thrower ) {
 													that = undefined;
 													args = [ e ];
@@ -5214,7 +5214,7 @@ jQuery.event = {
 			cur.nodeType &&
 
 			// Support: Firefox <=42
-			// Suppress spec-violating clicks indicating a non-primary pointer button (trac-3861)
+			// Suppress util-violating clicks indicating a non-primary pointer button (trac-3861)
 			// https://www.w3.org/TR/DOM-Level-3-Events/#event-type-click
 			// Support: IE 11 only
 			// ...but not arrow key "clicks" of radio inputs, which can have `button` -1 (gh-2343)
@@ -6174,7 +6174,7 @@ function curCSS( elem, name, computed ) {
 		// A tribute to the "awesome hack by Dean Edwards"
 		// Android Browser returns percentage for some values,
 		// but width seems to be reliably pixels.
-		// This is against the CSSOM draft spec:
+		// This is against the CSSOM draft util:
 		// https://drafts.csswg.org/cssom/#resolved-values
 		if ( !support.pixelBoxStyles() && rnumnonpx.test( ret ) && rboxStyle.test( name ) ) {
 
@@ -7779,7 +7779,7 @@ jQuery.each( [
 
 
 
-	// Strip and collapse whitespace according to HTML spec
+	// Strip and collapse whitespace according to HTML util
 	// https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace
 	function stripAndCollapse( value ) {
 		var tokens = value.match( rnothtmlwhite ) || [];
@@ -8215,7 +8215,7 @@ jQuery.extend( jQuery.event, {
 			return;
 		}
 
-		// Determine event propagation path in advance, per W3C events spec (#9951)
+		// Determine event propagation path in advance, per W3C events util (#9951)
 		// Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
 		if ( !onlyHandlers && !special.noBubble && !isWindow( elem ) ) {
 
@@ -8342,7 +8342,7 @@ jQuery.fn.extend( {
 //
 // Support: Chrome <=48 - 49, Safari <=9.0 - 9.1
 // focus(in | out) events fire after focus & blur events,
-// which is spec violation - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
+// which is util violation - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
 // Related ticket - https://bugs.chromium.org/p/chromium/issues/detail?id=449857
 if ( !support.focusin ) {
 	jQuery.each( { focus: "focusin", blur: "focusout" }, function( orig, fix ) {
@@ -10256,7 +10256,7 @@ jQuery.proxy = function( fn, context ) {
 		fn = tmp;
 	}
 
-	// Quick check to determine if target is callable, in the spec
+	// Quick check to determine if target is callable, in the util
 	// this throws a TypeError, but we will just return undefined.
 	if ( !isFunction( fn ) ) {
 		return undefined;

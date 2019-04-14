@@ -5,7 +5,7 @@ import model.entity.User;
 import model.services.UserService;
 import model.services.exceptions.AlreadyAuthorizedException;
 import model.services.exceptions.ServiceException;
-import model.spec.Cons;
+import model.util.Cons;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ public class Login implements Command {
         String password = request.getParameter(Cons.PASSWORD_PARAM);
 
         if (!userService.validate(usernameOrMail, password)) {
-            userService.setResponseFail(400, resourceBundle.getString("invalid.fillAll"), response);
+            userService.setResponseStatus(400, resourceBundle.getString("invalid.fillAll"), response);
             return "";
         }
 
@@ -45,12 +45,12 @@ public class Login implements Command {
                             (request.getQueryString() == null ? "" : "?" + request.getQueryString())
             );
         } catch (DAOException | ServiceException e) {
-            userService.setResponseFail(400, resourceBundle.getString("invalid.cantFind"), response);
+            userService.setResponseStatus(400, resourceBundle.getString("invalid.cantFind"), response);
             e.printStackTrace(); //TODO LOG
         } catch (IOException e) {
             e.printStackTrace();
         } catch (AlreadyAuthorizedException e) {
-            userService.setResponseFail(400, resourceBundle.getString("already.authorized"), response);
+            userService.setResponseStatus(400, resourceBundle.getString("already.authorized"), response);
             e.printStackTrace(); //TODO LOG
         }
         return "";

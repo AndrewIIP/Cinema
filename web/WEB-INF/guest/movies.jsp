@@ -12,6 +12,8 @@
 
 <fmt:setLocale value="${sessionScope.curLang}"/>
 <fmt:setBundle basename="lang"/>
+<jsp:useBean id="moviesBean" scope="request" type="java.util.List"/>
+
 <html>
 <head lang="${sessionScope.curLang}">
     <title>Title</title>
@@ -69,114 +71,19 @@
                             <!-- Swiper -->
                             <div class="swiper-container andr-swiper">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide andrew-swiper-slide">
-                                        <div class="container-in">
-                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
+                                    <c:forEach items="${moviesBean}" var="entry">
+                                        <div class="swiper-slide andrew-swiper-slide">
+                                            <div class="container-in">
+                                                <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/${entry.picUrl}"/>
+                                            </div>
+                                            <div class="inner-showtimes">
+                                                <h2 class="font-weight-normal">${entry.name}</h2>
+                                                <c:forEach items="${entry.sessions}" var="session">
+                                                    <button class="btn btn-outline-dark btn-sm">${session.day.shortName} ${session.timeHoursMins}</button>
+                                                </c:forEach>
+                                            </div>
                                         </div>
-                                        <div class="inner-showtimes">
-                                            <h2 class="font-weight-normal">La La Land</h2>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide andrew-swiper-slide">
-                                        <div class="container-in">
-                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
-                                        </div>
-                                        <div class="inner-showtimes">
-                                            <h2 class="font-weight-normal">La La Land</h2>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide andrew-swiper-slide">
-                                        <div class="container-in">
-                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
-                                        </div>
-                                        <div class="inner-showtimes">
-                                            <h2 class="font-weight-normal">La La Land</h2>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide andrew-swiper-slide">
-                                        <div class="container-in">
-                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
-                                        </div>
-                                        <div class="inner-showtimes">
-                                            <h2 class="font-weight-normal">La La Land</h2>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide andrew-swiper-slide">
-                                        <div class="container-in">
-                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
-                                        </div>
-                                        <div class="inner-showtimes">
-                                            <h2 class="font-weight-normal">La La Land</h2>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide andrew-swiper-slide">
-                                        <div class="container-in">
-                                            <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/land_cropped.jpg"/>
-                                        </div>
-                                        <div class="inner-showtimes">
-                                            <h2 class="font-weight-normal">La La Land</h2>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                            <div class="time-label">MON 22:00</div>
-                                        </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                             <!-- Add Pagination -->

@@ -1,4 +1,4 @@
-package model.spec;
+package model.util;
 
 import java.util.logging.Logger;
 

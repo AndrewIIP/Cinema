@@ -110,6 +110,8 @@ body {
 .andrew-swiper-slide{
     flex-direction: column;
     border-radius: 10px;
+    justify-content: flex-start !important;
+
 }
 
 .time-label{

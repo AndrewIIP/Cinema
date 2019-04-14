@@ -1,6 +1,6 @@
 package controller.filters;
 
-import model.spec.Cons;
+import model.util.Cons;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

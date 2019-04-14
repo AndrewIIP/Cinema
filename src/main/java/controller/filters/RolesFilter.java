@@ -2,8 +2,8 @@ package controller.filters;
 
 
 import model.entity.User;
-import model.spec.Cons;
-import model.spec.Role;
+import model.util.Cons;
+import model.util.Role;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -55,10 +55,10 @@ public class RolesFilter implements Filter {
         if (request.getSession().getAttribute(Cons.SESSION_USER) == null) {
             request.getSession().setAttribute(Cons.SESSION_USER, User.getGuestInst());
         }
-        Role requestRole = ((User)request.getSession().getAttribute(Cons.SESSION_USER)).getRole();
+        Role requestRole = ((User) request.getSession().getAttribute(Cons.SESSION_USER)).getRole();
 
         if (!ways.get(requestRole).contains(path)) {
-            request.getRequestDispatcher("/WEB-INF/common/forbidden.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/common/forbidden.jsp").forward(request, response);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

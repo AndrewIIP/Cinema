@@ -1,4 +1,4 @@
-package model.spec;
+package model.util;
 
 public interface Cons {
     String CUR_LANG = "curLang";
@@ -16,4 +16,6 @@ public interface Cons {
     String CUR_REQ_URL = "curReqURL";
     String SESSION_USER = "sessionUser";
     String CONTEXT_USERS_LIST = "usersList";
+    String MOVIES_BEAN = "moviesBean";
+    String DAY_ID_PARAMETER = "day";
 }
