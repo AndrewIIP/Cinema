@@ -20,27 +20,28 @@
 <jsp:setProperty name="user" property="role" value="${sessionScope.sessionUser.role}"/>
 
 <script src="${pageContext.request.contextPath}/js/signAjax.js"></script>
+<script src="${pageContext.request.contextPath}/js/post.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mynavbar header shadow-c">
     <div class="container">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/shows_you/?${pageContext.request.queryString}">Cinema3D</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/shows_you/">Cinema3D</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mybutton">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/?${pageContext.request.queryString}"><fmt:message key="header.home"/>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/"><fmt:message key="header.home"/>
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item mybutton">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/now_playing?${pageContext.request.queryString}">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/now_playing">
                         <fmt:message key="header.now.plays"/>
                     </a>
                 </li>
                 <li class="nav-item mybutton">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/showtimes?${pageContext.request.queryString}"><fmt:message key="header.showings"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/showtimes"><fmt:message key="header.showings"/></a>
                 </li>
                 <li class="nav-item dropdown mybutton">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,12 +49,12 @@
                     </a>
                     <!-- Here's the magic. Add the .animate and .slide-in classes to your .dropdown-menu and you're all set! -->
                     <div class="crystal shadow-c dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="${pageContext.request.getAttribute("curReqURL")}"
+                        <a class="dropdown-item"  onclick="{return renewPage(deleteGetParam('curLang'))}" href="#"
                            style="padding-left: 12px">
                             <img src="${pageContext.request.contextPath}/pic/langs/United-Kingdom.png"
                                  style="margin-right: 24px"/><fmt:message key="header.lang.eng"/>
                         </a>
-                        <a class="dropdown-item" href="${pageContext.request.getAttribute("curReqURL")}?curLang=uk"
+                        <a class="dropdown-item" onclick="{return renewPage(setGetParam('curLang', 'uk'))}" href="#"
                            style="padding-left: 12px;">
                             <img src="${pageContext.request.contextPath}/pic/langs/Ukraine.png"
                                  style="margin-right: 24px"/><fmt:message key="header.lang.ukr"/>
@@ -61,7 +62,7 @@
                     </div>
                 </li>
                 <li class="nav-item mybutton">
-                    <a class="btn nav-link rounded singup" href="${pageContext.request.contextPath}/shows_you/logout?${pageContext.request.queryString}"><fmt:message key="header.logout"/></a>
+                    <a class="btn nav-link rounded singup" href="${pageContext.request.contextPath}/shows_you/logout"><fmt:message key="header.logout"/></a>
                 </li>
                 <li class="nav-item mybutton">
                     <span class="btn nav-link rounded singup"><fmt:message key="admin"/> <jsp:getProperty name="user" property="username"/></span>

@@ -73,6 +73,14 @@ public class User {
         this.userTickets = userTickets;
     }
 
+    public boolean notEmpty(){
+        return id != 0 &&
+                username != null &&
+                email != null &&
+                password != null &&
+                role != null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

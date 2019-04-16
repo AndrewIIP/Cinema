@@ -9,8 +9,8 @@ import java.util.Optional;
 public class Session {
     private int id;
     private Time time;
-    private int day_id;
-    private int movie_id;
+    private int dayID;
+    private int movieID;
     private Day day;
     private Movie movie;
     private String timeHoursMins;
@@ -33,20 +33,20 @@ public class Session {
         setTimeHoursMins(this.timeHoursMins = time.toString().substring(0,time.toString().lastIndexOf(':')));
     }
 
-    public int getDay_id() {
-        return day_id;
+    public int getDayID() {
+        return dayID;
     }
 
-    public void setDay_id(int day_id) {
-        this.day_id = day_id;
+    public void setDayID(int dayID) {
+        this.dayID = dayID;
     }
 
-    public int getMovie_id() {
-        return movie_id;
+    public int getMovieID() {
+        return movieID;
     }
 
-    public void setMovie_id(int movie_id) {
-        this.movie_id = movie_id;
+    public void setMovieID(int movieID) {
+        this.movieID = movieID;
     }
 
     public List<Ticket> getTicketList() {
@@ -81,6 +81,11 @@ public class Session {
         return timeHoursMins;
     }
 
+    public boolean isEngagedPlace(int placeNumber){
+        Optional<Ticket> ticket = ticketList.stream().filter(a -> a.getPlace() == placeNumber).findFirst();
+        return ticket.isPresent();
+    }
+
     public boolean notEmpty(){
         return  time != null &&
                 day != null &&
@@ -93,8 +98,8 @@ public class Session {
         if (o == null || getClass() != o.getClass()) return false;
         Session session = (Session) o;
         return id == session.id &&
-                day_id == session.day_id &&
-                movie_id == session.movie_id &&
+                dayID == session.dayID &&
+                movieID == session.movieID &&
                 Objects.equals(time, session.time) &&
                 Objects.equals(day, session.day) &&
                 Objects.equals(movie, session.movie) &&
@@ -103,7 +108,7 @@ public class Session {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, time, day_id, movie_id, day, movie, ticketList);
+        return Objects.hash(id, time, dayID, movieID, day, movie, ticketList);
     }
 
     @Override
@@ -111,8 +116,8 @@ public class Session {
         return "Session{" +
                 "id=" + id +
                 ", time='" + time + '\'' +
-                ", day_id=" + day_id +
-                ", movie_id=" + movie_id +
+                ", dayID=" + dayID +
+                ", movieID=" + movieID +
                 ", day=" + day +
                 ", movie=" + movie +
                 ", ticketList=" + ticketList +

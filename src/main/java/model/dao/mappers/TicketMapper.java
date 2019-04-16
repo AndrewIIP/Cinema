@@ -11,7 +11,14 @@ import java.util.Map;
 public class TicketMapper implements ObjectMapper<Ticket> {
     @Override
     public Ticket extractFromResultSet(ResultSet resultSet, int... columnIndexes) throws SQLException {
-        return null;
+        Ticket ticket = new Ticket();
+
+        ticket.setId(resultSet.getInt(columnIndexes[0]));
+        ticket.setPlace(resultSet.getInt(columnIndexes[1]));
+        ticket.setUserID(resultSet.getInt(columnIndexes[2]));
+        ticket.setSessionID(resultSet.getInt(columnIndexes[3]));
+
+        return ticket.notEmpty() ? ticket : null;
     }
 
     @Override

@@ -34,18 +34,18 @@ public class Day {
         this.name = name;
     }
 
-    public boolean notEmpty(){
-        return  id != 0 &&
-                name != null &&
-                shortName != null;
-    }
-
     public List<Session> getSessions() {
         return sessions;
     }
 
     public void setSessions(List<Session> sessions) {
         this.sessions = sessions;
+    }
+
+    public boolean notEmpty(){
+        return  id != 0 &&
+                name != null &&
+                shortName != null;
     }
 
     @Override

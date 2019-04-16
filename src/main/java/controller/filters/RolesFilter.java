@@ -33,7 +33,8 @@ public class RolesFilter implements Filter {
                 "/logout",
                 "/showtimes",
                 "/now_playing",
-                "/room"
+                "/room",
+                "/order"
         ));
 
         ways.put(Role.ADMIN, Set.of(

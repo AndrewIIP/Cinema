@@ -7,10 +7,9 @@ import java.util.Objects;
 public class Ticket {
     private int id;
     private int place;
-    private int user_id;
-    private int session_id;
+    private int userID;
+    private int sessionID;
     private User owner;
-    private List<Ticket> ticketList = new LinkedList<>();
 
     public int getId() {
         return id;
@@ -28,20 +27,20 @@ public class Ticket {
         this.place = place;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
-    public int getSession_id() {
-        return session_id;
+    public int getSessionID() {
+        return sessionID;
     }
 
-    public void setSession_id(int session_id) {
-        this.session_id = session_id;
+    public void setSessionID(int sessionID) {
+        this.sessionID = sessionID;
     }
 
     public User getOwner() {
@@ -52,13 +51,13 @@ public class Ticket {
         this.owner = owner;
     }
 
-    public List<Ticket> getTicketList() {
-        return ticketList;
+    public boolean notEmpty(){
+        return id != 0 &&
+                place != 0 &&
+                userID != 0 &&
+                sessionID != 0;
     }
 
-    public void setTicketList(List<Ticket> ticketList) {
-        this.ticketList = ticketList;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -67,15 +66,14 @@ public class Ticket {
         Ticket ticket = (Ticket) o;
         return id == ticket.id &&
                 place == ticket.place &&
-                user_id == ticket.user_id &&
-                session_id == ticket.session_id &&
-                Objects.equals(owner, ticket.owner) &&
-                Objects.equals(ticketList, ticket.ticketList);
+                userID == ticket.userID &&
+                sessionID == ticket.sessionID &&
+                Objects.equals(owner, ticket.owner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, place, user_id, session_id, owner, ticketList);
+        return Objects.hash(id, place, userID, sessionID, owner);
     }
 
     @Override
@@ -83,10 +81,9 @@ public class Ticket {
         return "Ticket{" +
                 "id=" + id +
                 ", place=" + place +
-                ", user_id=" + user_id +
-                ", session_id=" + session_id +
+                ", userID=" + userID +
+                ", sessionID=" + sessionID +
                 ", owner=" + owner +
-                ", ticketList=" + ticketList +
                 '}';
     }
 }

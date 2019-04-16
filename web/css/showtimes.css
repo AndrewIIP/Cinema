@@ -12,7 +12,7 @@ body {
 }
 
 .inner-bg {
-    /*padding: 3rem 1.25rem !important;*/
+    min-height: 650px;
 }
 
 .card-bg-color {

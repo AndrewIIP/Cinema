@@ -18,4 +18,7 @@ public interface Cons {
     String CONTEXT_USERS_LIST = "usersList";
     String MOVIES_BEAN = "moviesBean";
     String DAY_ID_PARAMETER = "day";
+    String SESSION_ID_PARAM = "sessionId";
+    String SHOW_SESSION = "showSession";
+    String PLACE = "place";
 }

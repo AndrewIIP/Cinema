@@ -4,6 +4,7 @@ import controller.command.*;
 import model.entity.User;
 import model.services.DayService;
 import model.services.MovieService;
+import model.services.SessionService;
 import model.services.UserService;
 import model.util.Cons;
 
@@ -29,7 +30,8 @@ public class EntranceServlet extends HttpServlet {
         commandsMap.put("/go_login", new GoLogin());
         commandsMap.put("/now_playing", new NowPlaying(new MovieService()));
         commandsMap.put("/showtimes", new Showtimes(new DayService()));
-        commandsMap.put("/room", new Room());
+        commandsMap.put("/room", new Room(new SessionService()));
+        commandsMap.put("/order", new GoOrder(new SessionService()));
 
         getServletContext().setAttribute(Cons.CONTEXT_USERS_LIST, new LinkedList<User>());
     }

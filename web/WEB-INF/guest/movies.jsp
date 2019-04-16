@@ -23,6 +23,7 @@
     <link  href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+    <script src="${pageContext.request.contextPath}/js/post.js"></script>
 </head>
 <body>
     <jsp:include page="/WEB-INF/guest/header.jsp"/>
@@ -79,7 +80,10 @@
                                             <div class="inner-showtimes">
                                                 <h2 class="font-weight-normal">${entry.name}</h2>
                                                 <c:forEach items="${entry.sessions}" var="session">
-                                                    <button class="btn btn-outline-dark btn-sm">${session.day.shortName} ${session.timeHoursMins}</button>
+                                                    <button class="btn btn-outline-dark btn-sm"
+                                                            onclick="post('/room', {sessionId : ${session.id}}, 'get')">
+                                                            ${session.day.shortName} ${session.timeHoursMins}
+                                                    </button>
                                                 </c:forEach>
                                             </div>
                                         </div>

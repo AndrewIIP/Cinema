@@ -4,6 +4,7 @@ import model.entity.Movie;
 import model.entity.User;
 import model.services.MovieService;
 import model.util.Cons;
+import model.util.Languages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +13,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class NowPlaying implements Command {
-    MovieService movieService;
+    private MovieService movieService;
 
     public NowPlaying(MovieService movieService) {
         this.movieService = movieService;
@@ -21,8 +22,10 @@ public class NowPlaying implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Optional<Object> role = Optional.ofNullable(((User) request.getSession().getAttribute(Cons.SESSION_USER)).getRole());
+        String localeTag = Optional.ofNullable((String)request.getSession().getAttribute(Cons.CUR_LANG)).orElse("en");
+        Locale locale = Locale.forLanguageTag(Languages.isLangOrGetDefault(localeTag));
 
-        movieService.setDaoLocale(Locale.forLanguageTag((String) request.getSession().getAttribute(Cons.CUR_LANG)));
+        movieService.setDaoLocale(locale);
         List<Movie> moviesBank = movieService.getAllMovies();
         request.setAttribute(Cons.MOVIES_BEAN, moviesBank);
 

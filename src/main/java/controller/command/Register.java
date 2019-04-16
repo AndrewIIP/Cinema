@@ -18,7 +18,7 @@ public class Register implements Command {
     private String usernameRegex = Cons.USERNAME_REGEX;
     private String mailRegex = Cons.MAIL_REGEX;
     private ResourceBundle resourceBundle;
-    UserService userService;
+    private UserService userService;
 
     public Register(UserService userService) {
         this.userService = userService;

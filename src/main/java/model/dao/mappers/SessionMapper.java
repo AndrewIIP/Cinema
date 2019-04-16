@@ -1,11 +1,9 @@
 package model.dao.mappers;
 
-import model.dao.exceptions.DAOException;
 import model.entity.Session;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TimeZone;
@@ -19,8 +17,8 @@ public class SessionMapper implements ObjectMapper<Session> {
 
         session.setId(resultSet.getInt(columnIndexes[0]));
         Optional.ofNullable(resultSet.getTime(columnIndexes[1])).ifPresent(session::setTime);
-        session.setDay_id(resultSet.getInt(columnIndexes[2]));
-        session.setMovie_id(resultSet.getInt(columnIndexes[3]));
+        session.setDayID(resultSet.getInt(columnIndexes[2]));
+        session.setMovieID(resultSet.getInt(columnIndexes[3]));
 
         return session;
     }

@@ -21,9 +21,11 @@
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <link  href="${pageContext.request.contextPath}/css/showtimes.css" type="text/css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/js/post.js"></script>
 </head>
 <body>
     <jsp:include page="/WEB-INF/user/header.jsp"/>
+    <jsp:useBean id="day" scope="request" type="model.entity.Day"/>
 
     <section class="pricing py-5">
         <div class="wrap-cont">
@@ -32,93 +34,42 @@
                 <div class="card-body inner-bg">
                     <div class="table-container">
                         <div class="andrew-custom-btn btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-dark active">
-                                <input type="radio" name="monday" id="monday" autocomplete="off" checked> Monday
+                            <label class="btn btn-dark ${day.id == 1 ? "focus active" : ""}" onclick="post('/showtimes', {day : 1})">
+                                <input type="radio" name="monday" id="monday" autocomplete="off" checked><fmt:message key="monday"/>
                             </label>
-                            <label class="btn btn-dark">
-                                <input type="radio" name="tuesday" id="tuesday" autocomplete="off"> Tuesday
+                            <label class="btn btn-dark ${day.id == 2 ? "focus active" : ""}" onclick="post('/showtimes', {day : 2})">
+                                <input type="radio" name="tuesday" id="tuesday" autocomplete="off"><fmt:message key="tuesday"/>
                             </label>
-                            <label class="btn btn-dark">
-                                <input type="radio" name="wednesday" id="wednesday" autocomplete="off"> Wednesday
+                            <label class="btn btn-dark ${day.id == 3 ? "focus active" : ""}" onclick="post('/showtimes', {day : 3})">
+                                <input type="radio" name="wednesday" id="wednesday" autocomplete="off"><fmt:message key="wednesday"/>
                             </label>
-                            <label class="btn btn-dark">
-                                <input type="radio" name="thursday" id="thursday" autocomplete="off"> Thursday
+                            <label class="btn btn-dark ${day.id == 4 ? "focus active" : ""}" onclick="post('/showtimes', {day : 4})">
+                                <input type="radio" name="thursday" id="thursday" autocomplete="off"><fmt:message key="thursday"/>
                             </label>
-                            <label class="btn btn-dark">
-                                <input type="radio" name="friday" id="friday" autocomplete="off"> Friday
+                            <label class="btn btn-dark ${day.id == 5 ? "focus active" : ""}" onclick="post('/showtimes', {day : 5})">
+                                <input type="radio" name="friday" id="friday" autocomplete="off"><fmt:message key="friday"/>
                             </label>
-                            <label class="btn btn-dark">
-                                <input type="radio" name="saturday" id="saturday" autocomplete="off"> Saturday
+                            <label class="btn btn-dark ${day.id == 6 ? "focus active" : ""}" onclick="post('/showtimes', {day : 6})">
+                                <input type="radio" name="saturday" id="saturday" autocomplete="off"><fmt:message key="saturday"/>
                             </label>
-                            <label class="btn btn-dark">
-                                <input type="radio" name="sunday" id="sunday" autocomplete="off"> Sunday
+                            <label class="btn btn-dark ${day.id == 7 ? "focus active" : ""}" onclick="post('/showtimes', {day : 7})">
+                                <input type="radio" name="sunday" id="sunday" autocomplete="off"><fmt:message key="sunday"/>
                             </label>
                         </div>
 
-                        <div class="movie-row">
-                            <div class="mov-name-entry">
-                                La La Land
+                        <c:forEach items="${day.sessions}" var="session">
+                            <div class="movie-row">
+                                <div class="mov-name-entry">
+                                        ${session.movie.name}
+                                </div>
+                                <div class="mov-time">
+                                        ${session.timeHoursMins}
+                                    <button type="button" class="btn btn-info purch-btn" onclick="post('/room', {sessionId : ${session.id}}, 'get')">
+                                        <fmt:message key="room"/>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="mov-time">
-                                22:00
-                                <button type="button" class="btn btn-info purch-btn">buy</button>
-                            </div>
-
-                        </div>
-                        <div class="movie-row">
-                            <div class="mov-name-entry">
-                                La La Land
-                            </div>
-                            <div class="mov-time">
-                                22:00
-                                <button type="button" class="btn btn-info purch-btn">buy</button>
-                            </div>
-                        </div>
-                        <div class="movie-row">
-                            <div class="mov-name-entry">
-                                La La Land
-                            </div>
-                            <div class="mov-time">
-                                22:00
-                                <button type="button" class="btn btn-info purch-btn">buy</button>
-                            </div>
-                        </div>
-                        <div class="movie-row">
-                            <div class="mov-name-entry">
-                                La La Land
-                            </div>
-                            <div class="mov-time">
-                                22:00
-                                <button type="button" class="btn btn-info purch-btn">buy</button>
-                            </div>
-                        </div>
-                        <div class="movie-row">
-                            <div class="mov-name-entry">
-                                La La Land
-                            </div>
-                            <div class="mov-time">
-                                22:00
-                                <button type="button" class="btn btn-info purch-btn">buy</button>
-                            </div>
-                        </div>
-                        <div class="movie-row">
-                            <div class="mov-name-entry">
-                                La La Land
-                            </div>
-                            <div class="mov-time">
-                                22:00
-                                <button type="button" class="btn btn-info purch-btn">buy</button>
-                            </div>
-                        </div>
-                        <div class="movie-row">
-                            <div class="mov-name-entry">
-                                La La Land
-                            </div>
-                            <div class="mov-time">
-                                22:00
-                                <button type="button" class="btn btn-info purch-btn">buy</button>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

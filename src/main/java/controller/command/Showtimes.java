@@ -6,6 +6,7 @@ import model.entity.User;
 import model.services.DayService;
 import model.services.MovieService;
 import model.util.Cons;
+import model.util.Languages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,10 @@ public class Showtimes implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Optional<Object> role = Optional.ofNullable(((User) request.getSession().getAttribute(Cons.SESSION_USER)).getRole());
-        dayService.setDaoLocale(Locale.forLanguageTag((String) request.getSession().getAttribute(Cons.CUR_LANG)));
+        String localeTag = Optional.ofNullable((String)request.getSession().getAttribute(Cons.CUR_LANG)).orElse("en");
+        Locale locale = Locale.forLanguageTag(Languages.isLangOrGetDefault(localeTag));
+
+        dayService.setDaoLocale(locale);
         String dayIdParageter = request.getParameter(Cons.DAY_ID_PARAMETER);
         int dayID = 1;
 
@@ -34,8 +38,6 @@ public class Showtimes implements Command {
         Day day = dayService.getDayById(dayID);
         request.setAttribute(Cons.DAY_ID_PARAMETER, day);
 
-//        Optional.ofNullable(request.getQueryString()).
-//                map(a -> a.replace(Cons.DAY_ID_PARAMETER, "").replace("day=", ""))
         return role.map(o -> "forward:/WEB-INF/" + o.toString() + "/showtimes.jsp" +
                 (request.getQueryString() == null ? "" : "?" + request.getQueryString()))
                 .orElse("forward:/login");

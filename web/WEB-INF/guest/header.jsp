@@ -13,29 +13,31 @@
 <fmt:setLocale value="${sessionScope.curLang}"/>
 <fmt:setBundle basename="lang"/>
 <c:set var="user" value="${sessionScope.sessionUser}"/>
+<jsp:useBean id="getParams" scope="page" class="java.lang.String"/>
 
 <script src="${pageContext.request.contextPath}/js/signAjax.js"></script>
+<script src="${pageContext.request.contextPath}/js/post.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mynavbar header shadow-c">
     <div class="container">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/shows_you/?${pageContext.request.queryString}">Cinema3D</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/shows_you/">Cinema3D</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mybutton">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/?${pageContext.request.queryString}"><fmt:message key="header.home"/>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/"><fmt:message key="header.home"/>
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item mybutton">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/now_playing?${pageContext.request.queryString}">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/now_playing">
                         <fmt:message key="header.now.plays"/>
                     </a>
                 </li>
                 <li class="nav-item mybutton">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/showtimes?${pageContext.request.queryString}"><fmt:message key="header.showings"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/shows_you/showtimes"><fmt:message key="header.showings"/></a>
                 </li>
                 <li class="nav-item dropdown mybutton">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,20 +45,20 @@
                     </a>
                     <!-- Here's the magic. Add the .animate and .slide-in classes to your .dropdown-menu and you're all set! -->
                     <div class="crystal shadow-c dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="${pageContext.request.getAttribute("curReqURL")}"
-                           style="padding-left: 12px">
+                        <a class="dropdown-item" onclick="{return renewPage(deleteGetParam('curLang'))}"
+                           style="padding-left: 12px" href="#">
                             <img src="${pageContext.request.contextPath}/pic/langs/United-Kingdom.png"
                                  style="margin-right: 24px"/><fmt:message key="header.lang.eng"/>
                         </a>
-                        <a class="dropdown-item" href="${pageContext.request.getAttribute("curReqURL")}?curLang=uk"
-                           style="padding-left: 12px;">
+                        <a class="dropdown-item" onclick="{return renewPage(setGetParam('curLang', 'uk'))}"
+                           style="padding-left: 12px;" href="#">
                             <img src="${pageContext.request.contextPath}/pic/langs/Ukraine.png"
                                  style="margin-right: 24px"/><fmt:message key="header.lang.ukr"/>
                         </a>
                     </div>
                 </li>
                 <li class="nav-item mybutton">
-                    <a class="btn nav-link rounded singup" href="${pageContext.request.contextPath}/shows_you/go_registration?${pageContext.request.queryString}"><fmt:message key="header.signup"/></a>
+                    <a class="btn nav-link rounded singup" href="${pageContext.request.contextPath}/shows_you/go_registration"><fmt:message key="header.signup"/></a>
                 </li>
                 <li class="dropdown mybutton">
                     <a href="#" class="btn-warning nav-link rounded login" data-toggle="dropdown"><fmt:message key="header.login"/><span class="caret"></span></a>
@@ -82,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="bottom text-center">
-                                    <fmt:message key="header.loginbar.newhere"/> <a href="${pageContext.request.contextPath}/shows_you/go_registration?${pageContext.request.queryString}"><b><fmt:message key="header.loginbar.join"/></b></a>
+                                    <fmt:message key="header.loginbar.newhere"/> <a class ="" href="${pageContext.request.contextPath}/shows_you/go_registration"><b><fmt:message key="header.loginbar.join"/></b></a>
                                 </div>
                             </div>
                         </li>

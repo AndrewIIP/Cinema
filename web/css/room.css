@@ -25,28 +25,6 @@ body {
 
 }
 
-/*.andrew-custom-btn{*/
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*margin-top: 1rem;*/
-    /*margin-bottom: 2rem;*/
-    /*box-shadow: 3px 3px 6px 1px rgba(0, 0, 0, 0.6);*/
-/*}*/
-
-/*.table-container{*/
-    /*margin: 1rem 5rem;*/
-/*}*/
-
-/*.movie-row{*/
-    /*display: flex;*/
-    /*justify-content: space-around;*/
-    /*padding: 10px;*/
-    /*margin: 10px 1rem;*/
-    /*border-radius: 0.25rem;*/
-    /*border: 2px solid #b1b1b1;*/
-    /*font-size: 1.15rem;*/
-/*}*/
-
 .screen{
     display: flex;
     justify-content: center;
@@ -76,4 +54,23 @@ body {
     border-radius: 0.25rem;
     background-color: #17a2b8;
     box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.6);
+}
+
+.place-gray{
+    max-width: fit-content;
+    max-height: fit-content;
+    min-width: 60px;
+    min-height: 50px;
+    display: inline-block;
+    margin: 4px;
+    padding: 4px 8px;
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+    background-color: #b9b9b9;
+    box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.6);
+}
+
+.sits{
+    display: flex;
+    flex-direction: column;
 }
