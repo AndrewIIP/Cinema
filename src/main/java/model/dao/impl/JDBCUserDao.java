@@ -3,19 +3,17 @@ package model.dao.impl;
 import model.dao.AbstractDao;
 import model.dao.UserDao;
 import model.dao.exceptions.DAOException;
-import model.dao.mappers.UserMapper;
-import model.entity.User;
+import model.dao.mappers.*;
+import model.entity.*;
 import model.util.Role;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class JDBCUserDao extends AbstractDao implements UserDao {
     Connection connection;
 
-    public JDBCUserDao(Connection connection){
+    public JDBCUserDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -26,39 +24,39 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
         ResultSet resultSet = null;
 
         Connection connection = this.connection;
-            try{
-                prepStatement = connection.prepareStatement(sqlQuery);
-                try {
-                    resultSet = prepStatement.executeQuery();
-                    while (resultSet.next()) {
-                        User user = new User();
-                        user.setId(resultSet.getInt(1));
-                        user.setUsername(resultSet.getString(2));
-                        user.setEmail(resultSet.getString(3));
-                        user.setPassword(resultSet.getString(4));
-                        user.setRole(Role.valueOf(resultSet.getString(5)));
-                        list.add(user);
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();//TODO LOG
-                } finally {
-                    try{
-                        if (resultSet != null)
-                            resultSet.close();
-                    } catch (SQLException e){
-                        e.printStackTrace();//TODO LOG
-                    }
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            try {
+                resultSet = prepStatement.executeQuery();
+                while (resultSet.next()) {
+                    User user = new User();
+                    user.setId(resultSet.getInt(1));
+                    user.setUsername(resultSet.getString(2));
+                    user.setEmail(resultSet.getString(3));
+                    user.setPassword(resultSet.getString(4));
+                    user.setRole(Role.valueOf(resultSet.getString(5)));
+                    list.add(user);
                 }
             } catch (SQLException e) {
-                e.printStackTrace(); //TODO LOG
+                e.printStackTrace();//TODO LOG
             } finally {
-                try{
-                    if (prepStatement != null)
-                        prepStatement.close();
-                } catch (SQLException e){
+                try {
+                    if (resultSet != null)
+                        resultSet.close();
+                } catch (SQLException e) {
                     e.printStackTrace();//TODO LOG
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace(); //TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        }
         return list;
     }
 
@@ -73,29 +71,29 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
         PreparedStatement prepStatement = null;
         Connection connection = this.connection;
 
-            try{
-                prepStatement = connection.prepareStatement(sqlQuery);
-                prepStatement.setInt(1, entity.getId());
-                prepStatement.setString(2, entity.getUsername());
-                prepStatement.setString(3, entity.getEmail());
-                prepStatement.setString(4, entity.getPassword());
-                prepStatement.setString(5, entity.getRole().getString());
-                prepStatement.setInt(6, entity.getId());
-                try {
-                    prepStatement.execute();
-                } catch (SQLException e) {
-                    e.printStackTrace(); //TODO LOG
-                }
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            prepStatement.setInt(1, entity.getId());
+            prepStatement.setString(2, entity.getUsername());
+            prepStatement.setString(3, entity.getEmail());
+            prepStatement.setString(4, entity.getPassword());
+            prepStatement.setString(5, entity.getRole().getString());
+            prepStatement.setInt(6, entity.getId());
+            try {
+                prepStatement.execute();
             } catch (SQLException e) {
                 e.printStackTrace(); //TODO LOG
-            } finally {
-                try{
-                    if(prepStatement != null)
-                        prepStatement.close();
-                } catch (SQLException e){
-                    e.printStackTrace(); //TODO LOG
-                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace(); //TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace(); //TODO LOG
+            }
+        }
         return entity;
     }
 
@@ -106,51 +104,71 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
         ResultSet resultSet = null;
 
         Connection connection = this.connection;
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            prepStatement.setInt(1, id);
             try {
-                prepStatement = connection.prepareStatement(sqlQuery);
-                prepStatement.setInt(1, id);
-                try{
-                    resultSet = prepStatement.executeQuery();
-                    if (!resultSet.isBeforeFirst()) {
-                        throw new DAOException("No such entry in the DB");
-                    }
-                    while (resultSet.next()) {
-                        user.setId(resultSet.getInt(1));
-                        user.setUsername(resultSet.getString(2));
-                        user.setEmail(resultSet.getString(3));
-                        user.setPassword(resultSet.getString(4));
-                        user.setRole(Role.contains(resultSet.getString(5)));
-                    }
-                } catch (SQLException e){
-                    e.printStackTrace();//TODO LOG
-                } finally {
-                    try{
-                        if(resultSet != null)
-                            resultSet.close();
-                    } catch (SQLException e){
-                        e.printStackTrace();//TODO LOG
-                    }
+                resultSet = prepStatement.executeQuery();
+                if (!resultSet.isBeforeFirst()) {
+                    throw new DAOException("No such entry in the DB");
+                }
+                while (resultSet.next()) {
+                    user.setId(resultSet.getInt(1));
+                    user.setUsername(resultSet.getString(2));
+                    user.setEmail(resultSet.getString(3));
+                    user.setPassword(resultSet.getString(4));
+                    user.setRole(Role.contains(resultSet.getString(5)));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();//TODO LOG
             } finally {
-                try{
-                    if(prepStatement != null)
-                        prepStatement.close();
+                try {
+                    if (resultSet != null)
+                        resultSet.close();
                 } catch (SQLException e) {
                     e.printStackTrace();//TODO LOG
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();//TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        }
         return user;
     }
 
     public User getEntityByUsername(String name) throws DAOException {
-        String sqlQuery = "SELECT * FROM cinema.users WHERE username = ?;";
+        String sqlQuery = "SELECT *\n" +
+                "FROM cinema.users AS u\n" +
+                "       LEFT JOIN cinema.tickets AS t ON t.user_id = u.id\n" +
+                "       LEFT JOIN cinema.sessions AS s ON t.showtime_id = s.id\n" +
+                "       LEFT JOIN cinema.movies AS m ON s.movie_id = m.id\n" +
+                "       LEFT JOIN cinema.days AS d ON d.id = s.day_id\n" +
+                "       LEFT JOIN cinema.days_translate as dt on dt.day_id = d.id\n" +
+                "       LEFT JOIN cinema.movies_translate as mt on mt.movie_id = m.id\n" +
+                "       LEFT JOIN cinema.languages as l ON l.id = mt.lang_id && l.id = dt.lang_id\n" +
+                "WHERE l.lang_tag = \'" + super.getLocale() + "\' && u.username = \'" + name + "\'\n" +
+                "ORDER BY d.id, s.time;";
         return getUserFromDB(name, sqlQuery);
     }
 
     public User getEntityByEmail(String email) throws DAOException {
-        String sqlQuery = "SELECT * FROM cinema.users WHERE email = ?;";
+        String sqlQuery = "SELECT *\n" +
+                "FROM cinema.users AS u\n" +
+                "       LEFT JOIN cinema.tickets AS t ON t.user_id = u.id\n" +
+                "       LEFT JOIN cinema.sessions AS s ON t.showtime_id = s.id\n" +
+                "       LEFT JOIN cinema.movies AS m ON s.movie_id = m.id\n" +
+                "       LEFT JOIN cinema.days AS d ON d.id = s.day_id\n" +
+                "       LEFT JOIN cinema.days_translate as dt on dt.day_id = d.id\n" +
+                "       LEFT JOIN cinema.movies_translate as mt on mt.movie_id = m.id\n" +
+                "       LEFT JOIN cinema.languages as l ON l.id = mt.lang_id && l.id = dt.lang_id\n" +
+                "WHERE l.lang_tag = \'" + super.getLocale() + "\' && u.email = \'" + email + "\'\n" +
+                "ORDER BY d.id, s.time;";
         return getUserFromDB(email, sqlQuery);
     }
 
@@ -160,19 +178,19 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
 
 
         Connection connection = this.connection;
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            prepStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();//TODO LOG
+        } finally {
             try {
-                prepStatement = connection.prepareStatement(sqlQuery);
-                prepStatement.execute();
+                if (prepStatement != null)
+                    prepStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();//TODO LOG
-            } finally {
-                try{
-                    if(prepStatement != null)
-                        prepStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();//TODO LOG
-                }
             }
+        }
     }
 
     public void create(User entity) throws DAOException {
@@ -180,75 +198,99 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
         PreparedStatement prepStatement = null;
 
         Connection connection = this.connection;
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            prepStatement.setString(1, entity.getUsername());
+            prepStatement.setString(2, entity.getEmail());
+            prepStatement.setString(3, entity.getPassword());
+            prepStatement.setString(4, entity.getRole().getString());
             try {
-                prepStatement = connection.prepareStatement(sqlQuery);
-                prepStatement.setString(1, entity.getUsername());
-                prepStatement.setString(2, entity.getEmail());
-                prepStatement.setString(3, entity.getPassword());
-                prepStatement.setString(4, entity.getRole().getString());
-                try {
-                    prepStatement.execute();
-                } catch (SQLIntegrityConstraintViolationException e) {
-                    e.printStackTrace();//TODO LOG
-                    throw new DAOException(e.getMessage(), e);
-                } catch (SQLException e) {
-                    e.printStackTrace();//TODO LOG
-                }
+                prepStatement.execute();
+            } catch (SQLIntegrityConstraintViolationException e) {
+                e.printStackTrace();//TODO LOG
+                throw new DAOException(e.getMessage(), e);
             } catch (SQLException e) {
                 e.printStackTrace();//TODO LOG
-            } finally {
-                try{
-                    if (prepStatement != null)
-                        prepStatement.close();
-                } catch (SQLException e){
-                    e.printStackTrace();
-                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();//TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private User getUserFromDB(String usernameOrEmail, String sqlQuery) throws DAOException {
         User user = new User();
+
         UserMapper userMapper = new UserMapper();
+        TicketMapper ticketMapper = new TicketMapper();
+        SessionMapper sessionMapper = new SessionMapper();
+        MovieMapper movieMapper = new MovieMapper();
+        DayMapper dayMapper = new DayMapper();
+
+        Map<Integer, User> userMap = new HashMap<>();
+        Map<Integer, Ticket> ticketMap = new HashMap<>();
+        Map<Integer, Session> sessionMap = new HashMap<>();
+        Map<Integer, Movie> movieMap = new HashMap<>();
+        Map<Integer, Day> dayMap = new HashMap<>();
 
         PreparedStatement prepStatement = null;
         ResultSet resultSet = null;
         Connection connection = this.connection;
 
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
             try {
-                prepStatement = connection.prepareStatement(sqlQuery);
-                prepStatement.setString(1, usernameOrEmail);
-                try{
-                    resultSet = prepStatement.executeQuery();
-                        if (!resultSet.isBeforeFirst()) {
-                            throw new DAOException("No such entry in the DB");
-                        }
-                        while (resultSet.next()) {
-                            user.setId(resultSet.getInt(1));
-                            user.setUsername(resultSet.getString(2));
-                            user.setEmail(resultSet.getString(3));
-                            user.setPassword(resultSet.getString(4));
-                            user.setRole(Role.contains(resultSet.getString(5)));
-                        }
-                } catch (SQLException e){
-                    e.printStackTrace();//TODO LOG
-                } finally {
-                    try{
-                        if(resultSet != null)
-                            resultSet.close();
-                    } catch (SQLException e){
-                        e.printStackTrace();//TODO LOG
-                    }
+                resultSet = prepStatement.executeQuery();
+                if (!resultSet.isBeforeFirst()) {
+                    throw new DAOException("No such entry in the DB");
+                }
+                while (resultSet.next()) {
+
+                    user = userMapper.extractFromResultSet(resultSet, 1, 2, 4, 3, 5);
+                    Ticket ticket = ticketMapper.extractFromResultSet(resultSet, 6, 7, 8, 9);
+                    Session session = sessionMapper.extractFromResultSet(resultSet, 10, 11, 12, 13);
+                    Day day = dayMapper.extractFromResultSet(resultSet, 16, 20, 21);
+                    Movie movie = movieMapper.extractFromResultSet(resultSet, 14, 25, 15);
+
+                    user = userMapper.makeUnique(userMap, user);
+                    ticket = ticketMapper.makeUnique(ticketMap, ticket);
+                    day = dayMapper.makeUnique(dayMap, day);
+                    movie = movieMapper.makeUnique(movieMap, movie);
+
+                    session.setDay(day);
+                    session.setMovie(movie);
+                    session = sessionMapper.makeUnique(sessionMap, session);
+
+                    ticket.setSession(session);
+                    user.getUserTickets().add(ticket);
+
                 }
             } catch (SQLException e) {
                 e.printStackTrace();//TODO LOG
             } finally {
-                try{
-                    if (prepStatement != null)
-                        prepStatement.close();
-                } catch (SQLException e){
+                try {
+                    if (resultSet != null)
+                        resultSet.close();
+                } catch (SQLException e) {
                     e.printStackTrace();//TODO LOG
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();//TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        }
         return user;
     }
 

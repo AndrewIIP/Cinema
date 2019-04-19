@@ -32,7 +32,7 @@ public class RemoveTicket implements Command {
         ResourceBundle rsBundle = ResourceBundle.getBundle(Cons.LOCAL_RB_BASE_NAME, locale);
 
         ticketService.setDaoLocale(locale);
-        String outUrlOK = "forward:/WEB-INF/" + sessionUser.getRole().toString() + "/tickets.jsp" +
+        String outUrlOK = "redirect:" + request.getContextPath() + request.getServletPath() + "/tickets" +
                 (request.getQueryString() == null ? "" : "?" + request.getQueryString());
         String outUrlInvalid = "forward:/WEB-INF/common/oper_fail.jsp" +
                 (request.getQueryString() == null ? "" : "?" + request.getQueryString());
