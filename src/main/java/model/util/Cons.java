@@ -21,4 +21,6 @@ public interface Cons {
     String SESSION_ID_PARAM = "sessionId";
     String SHOW_SESSION = "showSession";
     String PLACE = "place";
+    String MESSAGE = "msg";
+    String TICKET_LIST = "tickets";
 }

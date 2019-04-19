@@ -74,3 +74,52 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.order-form{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 360px;
+    left: 74%;
+    top: 26%;
+    background-color: rgba(255, 255, 255, 0.87) !important;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0.5rem 18px 3px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+.order-top{
+    margin: 10px;
+    text-align: center;
+}
+
+.tickets-list{
+
+}
+
+.order-bottom{
+    margin: 10px;
+}
+
+.ticket{
+    display: flex;
+    border-radius: 0.25rem;
+    border: 2px solid #b1b1b1;
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0.33) !important;
+}
+
+.t-row{
+    min-width: 100px;
+    padding: 10px;
+}
+
+.btn-close{
+    min-width: 25px;
+    min-height: 25px;
+    position: fixed;
+    z-index: 10;
+    margin-left: 142px;
+    padding: 0 7px !important;
+}

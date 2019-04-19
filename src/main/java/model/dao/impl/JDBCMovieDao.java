@@ -115,13 +115,11 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
     @Override
     public Movie update(Movie entity) throws DAOException {
         throw new UnsupportedOperationException();
-        //return null;
     }
 
     @Override
     public Movie getEntityById(Integer id) throws DAOException {
         throw new UnsupportedOperationException();
-        //return null;
     }
 
     @Override

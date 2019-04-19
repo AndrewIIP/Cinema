@@ -25,12 +25,12 @@ public class JDBCDayDao extends AbstractDao implements DayDao {
 
     @Override
     public List<Day> getAll() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Day update(Day entity) throws DAOException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -107,12 +107,12 @@ public class JDBCDayDao extends AbstractDao implements DayDao {
 
     @Override
     public void delete(Integer id) throws DAOException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void create(Day entity) throws DAOException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override

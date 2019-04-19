@@ -21,12 +21,12 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
 
     @Override
     public List<Session> getAll() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Session update(Session entity) throws DAOException {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -80,6 +80,7 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
                     if(user != null){
                         ticket = ticketMapper.extractFromResultSet(resultSet, 17, 18, 19, 20);
                         ticket.setOwner(user);
+                        ticket.setSession(session);
                         ticket = ticketMapper.makeUnique(ticketMap, ticket);
                         Optional.ofNullable(ticket).ifPresent(session.getTicketList()::add);
                     }
@@ -109,12 +110,12 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
 
     @Override
     public void delete(Integer id) throws DAOException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void create(Session entity) throws DAOException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override

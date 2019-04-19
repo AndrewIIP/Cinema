@@ -1,0 +1,25 @@
+body{
+    background-image: url(../pic/bg/login_bg.jpg);
+    background-size: 100%;
+}
+
+.main-card{
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0.5rem 18px 3px rgba(0, 0, 0, 0.6);
+    margin: 15% 30% 0;
+    min-height: 250px;
+}
+
+.sorry-msg{
+    margin: 70px 30px 30px 0;;
+    text-align: center;
+}
+
+img{
+    height: 200px;
+    margin: 30px;
+}

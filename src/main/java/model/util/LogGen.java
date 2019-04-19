@@ -1,6 +1,6 @@
 package model.util;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 public final class LogGen {
     private static Logger log;
@@ -8,13 +8,9 @@ public final class LogGen {
     private LogGen(){}
 
     public static Logger getInstance(){
-        if(log == null)
-            synchronized (LogGen.class){
-                if(log == null)
-                    log = Logger.getLogger(LogGen.class.getName());
-                    LogGen.getInstance().getClass().getResourceAsStream("log4j.properties");
-            }
-            log.info("LALALA!!");
+        if(log == null){
+            log = Logger.getLogger(LogGen.class);
+        }
         return log;
     }
 }

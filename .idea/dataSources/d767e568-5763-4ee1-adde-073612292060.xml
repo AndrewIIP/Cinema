@@ -1369,20 +1369,31 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="330" parent="286" name="fk_user_id_idx">
+    <index id="330" parent="286" name="place_session_unique">
+      <ColNames>place
+showtime_id</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <index id="331" parent="286" name="fk_user_id_idx">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="331" parent="286" name="fk_showtime_id_idx">
+    <index id="332" parent="286" name="fk_showtime_id_idx">
       <ColNames>showtime_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="332" parent="286" name="PRIMARY">
+    <key id="333" parent="286" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="333" parent="286" name="fk_user_id">
+    <key id="334" parent="286" name="place_session_unique">
+      <ColNames>place
+showtime_id</ColNames>
+      <UnderlyingIndexName>place_session_unique</UnderlyingIndexName>
+    </key>
+    <foreign-key id="335" parent="286" name="fk_user_id">
       <ColNames>user_id</ColNames>
       <RefSchemaName>cinema</RefSchemaName>
       <RefTableName>users</RefTableName>
@@ -1390,64 +1401,64 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="334" parent="286" name="fk_showtime_id">
+    <foreign-key id="336" parent="286" name="fk_showtime_id">
       <ColNames>showtime_id</ColNames>
       <RefSchemaName>cinema</RefSchemaName>
       <RefTableName>sessions</RefTableName>
       <RefColNames>id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="335" parent="287" name="id">
+    <column id="337" parent="287" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="336" parent="287" name="username">
+    <column id="338" parent="287" name="username">
       <Position>2</Position>
       <DataType>varchar(80)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="337" parent="287" name="email">
+    <column id="339" parent="287" name="email">
       <Position>3</Position>
       <DataType>varchar(80)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="338" parent="287" name="password">
+    <column id="340" parent="287" name="password">
       <Position>4</Position>
       <DataType>varchar(80)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="339" parent="287" name="role">
+    <column id="341" parent="287" name="role">
       <Position>5</Position>
       <DataType>varchar(16)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="340" parent="287" name="users_username_uindex">
+    <index id="342" parent="287" name="users_username_uindex">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="341" parent="287" name="users_email_uindex">
+    <index id="343" parent="287" name="users_email_uindex">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="342" parent="287" name="PRIMARY">
+    <key id="344" parent="287" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="343" parent="287" name="users_username_uindex">
+    <key id="345" parent="287" name="users_username_uindex">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>users_username_uindex</UnderlyingIndexName>
     </key>
-    <key id="344" parent="287" name="users_email_uindex">
+    <key id="346" parent="287" name="users_email_uindex">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>users_email_uindex</UnderlyingIndexName>
     </key>

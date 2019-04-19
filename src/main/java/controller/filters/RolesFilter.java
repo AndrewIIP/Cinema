@@ -34,7 +34,8 @@ public class RolesFilter implements Filter {
                 "/showtimes",
                 "/now_playing",
                 "/room",
-                "/order"
+                "/order",
+                "/tickets"
         ));
 
         ways.put(Role.ADMIN, Set.of(

@@ -109,15 +109,11 @@ function deleteGetParam(key) {
 $(document).ready(function () {
     let url = new URL(window.location.toString());
     let comParams = url.searchParams.get('curLang');
-    let OptionalCinema = "";
 
     let a = document.getElementsByTagName('a');
     for(let i = 0; i < a.length; i++) {
         if(!a[i].getAttribute('class').toString().includes("carousel")){
-            if(location.href.includes("/cinema")) {
-                OptionalCinema = "/cinema";
-            }
-            let newUrl = new URL(window.location.origin + OptionalCinema + a[i].getAttribute('href').toString());
+            let newUrl = new URL(window.location.origin + a[i].getAttribute('href').toString());
             if(comParams != null){
                 newUrl.searchParams.set('curLang', comParams);
             }

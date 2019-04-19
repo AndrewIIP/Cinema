@@ -29,8 +29,6 @@
     <link rel='stylesheet prefetch' href='${pageContext.request.contextPath}/css/swiper.min.css'>
     <script src='${pageContext.request.contextPath}/js/swiper.min.js'></script>
 
-
-
     <section class="pricing py-5">
         <div class="wrap-cont">
             <div class="">

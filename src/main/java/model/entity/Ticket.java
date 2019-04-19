@@ -10,6 +10,7 @@ public class Ticket {
     private int userID;
     private int sessionID;
     private User owner;
+    private Session session;
 
     public int getId() {
         return id;
@@ -51,6 +52,14 @@ public class Ticket {
         this.owner = owner;
     }
 
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
     public boolean notEmpty(){
         return id != 0 &&
                 place != 0 &&
@@ -68,12 +77,13 @@ public class Ticket {
                 place == ticket.place &&
                 userID == ticket.userID &&
                 sessionID == ticket.sessionID &&
-                Objects.equals(owner, ticket.owner);
+                Objects.equals(owner, ticket.owner) &&
+                Objects.equals(session, ticket.session);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, place, userID, sessionID, owner);
+        return Objects.hash(id, place, userID, sessionID, owner, session);
     }
 
     @Override
@@ -84,6 +94,7 @@ public class Ticket {
                 ", userID=" + userID +
                 ", sessionID=" + sessionID +
                 ", owner=" + owner +
+                ", session=" + session +
                 '}';
     }
 }
