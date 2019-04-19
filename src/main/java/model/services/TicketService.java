@@ -26,6 +26,15 @@ public class TicketService {
         return dao.getByUserId(userId);
     }
 
+    public void removeTicket(Ticket ticket){
+        TicketDao dao = daoFactory.createTicketDao();
+        try {
+            dao.delete(ticket.getId());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setDaoLocale(Locale locale){
         daoFactory.setDaoLocale(locale);
     }

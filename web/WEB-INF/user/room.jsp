@@ -40,7 +40,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <button class="btn btn-info place"
-                                                onclick="notify_tick('${showSession.movie.name}','${showSession.day.name}','${showSession.timeHoursMins}','${i}');;">
+                                                onclick="notify_tick('${showSession.movie.name}','${showSession.day.name}','${showSession.timeHoursMins}','${i}');">
                                         </button>
                                     </c:otherwise>
                                 </c:choose>
@@ -54,7 +54,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <button class="btn btn-info place"
-                                                onclick="notify_tick('${showSession.movie.name}','${showSession.day.name}','${showSession.timeHoursMins}','${i}');;">
+                                                onclick="notify_tick('${showSession.movie.name}','${showSession.day.name}','${showSession.timeHoursMins}','${i}');">
                                         </button>
                                     </c:otherwise>
                                 </c:choose>
@@ -68,7 +68,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <button class="btn btn-info place"
-                                                onclick="notify_tick('${showSession.movie.name}','${showSession.day.name}','${showSession.timeHoursMins}','${i}');;">
+                                                onclick="notify_tick('${showSession.movie.name}','${showSession.day.name}','${showSession.timeHoursMins}','${i}');">
                                         </button>
                                     </c:otherwise>
                                 </c:choose>
@@ -82,7 +82,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <button class="btn btn-info place"
-                                                onclick="notify_tick('${showSession.movie.name}','${showSession.day.name}','${showSession.timeHoursMins}','${i}');;">
+                                                onclick="notify_tick('${showSession.movie.name}','${showSession.day.name}','${showSession.timeHoursMins}','${i}');">
                                         </button>
                                     </c:otherwise>
                                 </c:choose>

@@ -39,7 +39,27 @@ public class JDBCTicketDao extends AbstractDao implements TicketDao {
 
     @Override
     public void delete(Integer id) throws DAOException {
-        throw new UnsupportedOperationException();
+        String sqlQuery = "DELETE FROM `cinema`.`tickets` WHERE `id` = " + id;
+        PreparedStatement prepStatement = null;
+
+        Connection connection = this.connection;
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            try {
+                prepStatement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();//TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        }
     }
 
     @Override

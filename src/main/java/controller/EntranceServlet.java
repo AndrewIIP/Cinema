@@ -31,6 +31,7 @@ public class EntranceServlet extends HttpServlet {
         commandsMap.put("/room", new Room(new SessionService()));
         commandsMap.put("/order", new PurchTicket(new TicketService()));
         commandsMap.put("/tickets", new MyTickets(new TicketService()));
+        commandsMap.put("/remtick", new RemoveTicket(new TicketService()));
 
         getServletContext().setAttribute(Cons.CONTEXT_USERS_LIST, new LinkedList<User>());
     }

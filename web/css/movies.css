@@ -60,9 +60,7 @@ section.pricing {
 }
 
 body {
-    /*background: #007bff;
-    background: linear-gradient(to right, #2b2d2d, #343535);*/
-    background-image: url(../pic/bg/login_bg.jpg);
+    background: url(../pic/bg/login_bg.jpg) fixed;
     background-size: 100%;
 }
 

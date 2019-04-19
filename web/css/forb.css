@@ -1,5 +1,5 @@
 body{
-    background-image: url(../pic/bg/login_bg.jpg);
+    background: url(../pic/bg/login_bg.jpg) fixed;
     background-size: 100%;
 }
 

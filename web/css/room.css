@@ -1,7 +1,5 @@
 body {
-    /*background: #007bff;
-    background: linear-gradient(to right, #2b2d2d, #343535);*/
-    background-image: url(../pic/bg/login_bg.jpg);
+    background: url(../pic/bg/login_bg.jpg) fixed;
     background-size: 100%;
 }
 
@@ -89,6 +87,20 @@ body {
     z-index: 1000;
 }
 
+.sure-span{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 360px;
+    left: 39%;
+    top: 36%;
+    background-color: rgb(255, 255, 255) !important;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0.5rem 18px 3px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
 .order-top{
     margin: 10px;
     text-align: center;
@@ -98,8 +110,20 @@ body {
 
 }
 
+.tk-id{
+    min-width: 50px;
+    text-align: center;
+}
+
+.disp{
+    display: inline;
+    font-size: 20px;
+}
+
 .order-bottom{
     margin: 10px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .ticket{

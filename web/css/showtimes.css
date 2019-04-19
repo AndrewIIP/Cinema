@@ -1,7 +1,5 @@
 body {
-    /*background: #007bff;
-    background: linear-gradient(to right, #2b2d2d, #343535);*/
-    background-image: url(../pic/bg/login_bg.jpg);
+    background: url(../pic/bg/login_bg.jpg) fixed;
     background-size: 100%;
 }
 
@@ -55,6 +53,26 @@ section.pricing {
     font-size: 1.15rem;
 }
 
+.header-row{
+    display: flex;
+    border-radius: 2rem;
+    border: 2px solid #b1b1b1;
+    font-size: 1.15rem;
+    border-bottom: none;
+    padding: 10px 10px 0;
+    margin: 10px 1rem 5px;
+}
+
+.my-tk-header{
+    text-align: center;
+}
+
+.tk-place{
+    min-width: 70px;
+    text-align: center;
+    margin-left: 25px;
+}
+
 .mov-name-entry{
     max-width: 200px;
     min-width: 200px;
@@ -63,8 +81,9 @@ section.pricing {
 .tk-mov-name{
     max-width: 200px;
     min-width: 320px;
-    text-align: left;
+    text-align: center;
 }
+
 
 .delete-btn{
     min-width: 75px;
