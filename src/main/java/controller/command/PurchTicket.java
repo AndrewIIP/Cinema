@@ -45,6 +45,7 @@ public class PurchTicket implements Command {
         if(invalidInput(placeParam, sessionIdParam)){
             //set attribute Bean with fail message
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("wrong.data"));
+            request.setAttribute(Cons.MESSAGE2, rsBundle.getString("back.room"));
             return outUrlInvalid;
         }
 
@@ -56,9 +57,11 @@ public class PurchTicket implements Command {
             e.printStackTrace(); //TODO process
             //set attribute Bean with fail message
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("ticket.purch.already.bought"));
+            request.setAttribute(Cons.MESSAGE2, rsBundle.getString("back.room"));
             return outUrlInvalid;
         }
         request.setAttribute(Cons.MESSAGE, rsBundle.getString("success.bought"));
+        request.setAttribute(Cons.MESSAGE2, rsBundle.getString("back.room"));
         return outUrlOK;
     }
 

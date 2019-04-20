@@ -16,26 +16,26 @@ public class TicketService {
 
     public void createTicket(Ticket ticket) throws DAOException {
 
-        try(TicketDao dao = daoFactory.createTicketDao()){
+        try (TicketDao dao = daoFactory.createTicketDao()) {
             dao.create(ticket);
         }
     }
 
-    public List<Ticket> getTicketsByUserId(int userId){
-        TicketDao dao = daoFactory.createTicketDao();
-        return dao.getByUserId(userId);
+    public List<Ticket> getTicketsByUserId(int userId) {
+        try(TicketDao dao = daoFactory.createTicketDao()){
+            return dao.getByUserId(userId);
+        }
     }
 
-    public void removeTicket(Ticket ticket){
-        TicketDao dao = daoFactory.createTicketDao();
-        try {
+    public void removeTicket(Ticket ticket) {
+        try (TicketDao dao = daoFactory.createTicketDao()) {
             dao.delete(ticket.getId());
         } catch (DAOException e) {
             e.printStackTrace();
         }
     }
 
-    public void setDaoLocale(Locale locale){
+    public void setDaoLocale(Locale locale) {
         daoFactory.setDaoLocale(locale);
     }
 }

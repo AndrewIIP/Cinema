@@ -34,10 +34,10 @@
                             <c:forEach var="i" begin="1" end="5">
                                 <c:choose>
                                     <c:when test="${showSession.isEngagedPlace(i)}">
-                                        <div class="place-gray"></div>
+                                        <div class="place-gray"><p class="place-nb">${i}</p></div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="place"></div>
+                                        <div class="place"><p class="place-nb">${i}</p></div>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -46,10 +46,10 @@
                             <c:forEach var="i" begin="6" end="11">
                                 <c:choose>
                                     <c:when test="${showSession.isEngagedPlace(i)}">
-                                        <div class="place-gray"></div>
+                                        <div class="place-gray"><p class="place-nb">${i}</p></div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="place"></div>
+                                        <div class="place"><p class="place-nb">${i}</p></div>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -58,10 +58,10 @@
                             <c:forEach var="i" begin="12" end="19">
                                 <c:choose>
                                     <c:when test="${showSession.isEngagedPlace(i)}">
-                                        <div class="place-gray"></div>
+                                        <div class="place-gray"><p class="place-nb">${i}</p></div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="place"></div>
+                                        <div class="place"><p class="place-nb">${i}</p></div>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -70,10 +70,10 @@
                             <c:forEach var="i" begin="20" end="27">
                                 <c:choose>
                                     <c:when test="${showSession.isEngagedPlace(i)}">
-                                        <div class="place-gray"></div>
+                                        <div class="place-gray"><p class="place-nb">${i}</p></div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="place"></div>
+                                        <div class="place"><p class="place-nb">${i}</p></div>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -82,12 +82,57 @@
                             <c:forEach var="i" begin="28" end="35">
                                 <c:choose>
                                     <c:when test="${showSession.isEngagedPlace(i)}">
-                                        <div class="place-gray"></div>
+                                        <div class="place-gray"><p class="place-nb">${i}</p></div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="place"></div>
+                                        <div class="place"><p class="place-nb">${i}</p></div>
                                     </c:otherwise>
                                 </c:choose>
+                            </c:forEach>
+                        </div>
+                        <div class="visitors-list">
+                            <div class="ticket-row mov-head">
+                                <div>
+                                    <fmt:message key="movie.name"/>
+                                </div>
+                                <div>
+                                    <fmt:message key="day"/>
+                                </div>
+                                <div>
+                                    <fmt:message key="time"/>
+                                </div>
+                            </div>
+                            <div class="ticket-row">
+                                <div>
+                                    ${showSession.movie.name}
+                                </div>
+                                <div>
+                                    ${showSession.day.name}
+                                </div>
+                                <div>
+                                    ${showSession.timeHoursMins}
+                                </div>
+                            </div>
+
+                            <c:if test="${!showSession.ticketList.isEmpty()}">
+                                <div class="ticket-row user-head">
+                                    <div>
+                                        <fmt:message key="place"/>
+                                    </div>
+                                    <div>
+                                        <fmt:message key="user"/>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:forEach items="${showSession.ticketList}" var="ticket">
+                                <div class="ticket-row user-entr">
+                                    <div>
+                                            ${ticket.place}
+                                    </div>
+                                    <div>
+                                            ${ticket.owner.username}
+                                    </div>
+                                </div>
                             </c:forEach>
                         </div>
                     </div>

@@ -65,6 +65,34 @@
                             <!-- Swiper -->
                             <div class="swiper-container andr-swiper">
                                 <div class="swiper-wrapper">
+                                    <div class="swiper-slide andrew-swiper-slide">
+                                        <div class="nm-head">
+                                            <h2 class="font-weight-normal">Add new movie</h2>
+                                            <p class="font-weight-light">Please, make sure that the aspect ratio of image is 10:11 (width : height) </p>
+                                        </div>
+                                            <div class="nm-form">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="engName">English name</label>
+                                                        <input type="text" class="form-control" id="engName" aria-describedby="engNameHint">
+                                                        <small id="engNameHint" class="form-text text-muted">Please, enter an english name of the movie</small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="ukrName">Ukrainian name</label>
+                                                        <input type="text" class="form-control" id="ukrName" aria-describedby="ukrNameHint">
+                                                        <small id="ukrNameHint" class="form-text text-muted">Please, enter an ukrainian name of the movie</small>
+                                                    </div>
+                                                    <label for="inputGroupFile01">Picture file</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                                            <label class="custom-file-label" for="inputGroupFile01"></label>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="nm-btn btn btn-primary mb-2 btn-block">Add movie</button>
+                                                </form>
+                                            </div>
+                                    </div>
                                     <c:forEach items="${moviesBean}" var="entry">
                                         <div class="swiper-slide andrew-swiper-slide">
                                             <div class="container-in">

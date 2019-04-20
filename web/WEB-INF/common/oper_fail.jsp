@@ -27,6 +27,7 @@
     <div class="sorry-msg">
         <h2 class="font-weight-normal">${msg}</h2>
         <h4 class="font-weight-normal" style="margin-top: 35px;">
+            <a class="non" href="#" onclick="go_back()">${msg2}</a><br>
             <a class="" href="${pageContext.request.contextPath}/shows_you/"><fmt:message key="back.home"/></a>
         </h4>
     </div>

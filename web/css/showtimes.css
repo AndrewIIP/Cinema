@@ -58,8 +58,7 @@ section.pricing {
     border-radius: 2rem;
     border: 2px solid #b1b1b1;
     font-size: 1.15rem;
-    border-bottom: none;
-    padding: 10px 10px 0;
+    padding: 10px 10px 10px;
     margin: 10px 1rem 5px;
 }
 

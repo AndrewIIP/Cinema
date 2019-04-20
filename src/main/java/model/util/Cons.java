@@ -22,6 +22,7 @@ public interface Cons {
     String SHOW_SESSION = "showSession";
     String PLACE = "place";
     String MESSAGE = "msg";
+    String MESSAGE2 = "msg2";
     String TICKET_LIST = "tickets";
     String TICKET_ID = "ticketId";
 }

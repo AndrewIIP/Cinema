@@ -152,7 +152,8 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
                 "       LEFT JOIN cinema.days_translate as dt on dt.day_id = d.id\n" +
                 "       LEFT JOIN cinema.movies_translate as mt on mt.movie_id = m.id\n" +
                 "       LEFT JOIN cinema.languages as l ON l.id = mt.lang_id && l.id = dt.lang_id\n" +
-                "WHERE l.lang_tag = \'" + super.getLocale() + "\' && u.username = \'" + name + "\'\n" +
+                "WHERE u.username = \'" + name + "\' && l.lang_tag = \'" + super.getLocale() + "\' || " +
+                "u.username = \'" + name + "\' && t.id IS NULL\n" +
                 "ORDER BY d.id, s.time;";
         return getUserFromDB(name, sqlQuery);
     }
@@ -167,7 +168,8 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
                 "       LEFT JOIN cinema.days_translate as dt on dt.day_id = d.id\n" +
                 "       LEFT JOIN cinema.movies_translate as mt on mt.movie_id = m.id\n" +
                 "       LEFT JOIN cinema.languages as l ON l.id = mt.lang_id && l.id = dt.lang_id\n" +
-                "WHERE l.lang_tag = \'" + super.getLocale() + "\' && u.email = \'" + email + "\'\n" +
+                "WHERE u.email = \'" + email + "\' && l.lang_tag = \'" + super.getLocale() + "\' || " +
+                "u.email = \'" + email + "\' && t.id IS NULL\n" +
                 "ORDER BY d.id, s.time;";
         return getUserFromDB(email, sqlQuery);
     }
@@ -259,15 +261,20 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
                     Movie movie = movieMapper.extractFromResultSet(resultSet, 14, 25, 15);
 
                     user = userMapper.makeUnique(userMap, user);
-                    ticket = ticketMapper.makeUnique(ticketMap, ticket);
-                    day = dayMapper.makeUnique(dayMap, day);
-                    movie = movieMapper.makeUnique(movieMap, movie);
+
+                    Optional.ofNullable(ticket).ifPresent((a) -> a = ticketMapper.makeUnique(ticketMap, a));
+                    Optional.ofNullable(day).ifPresent((a) -> a = dayMapper.makeUnique(dayMap, a));
+                    Optional.ofNullable(movie).ifPresent((a) -> a = movieMapper.makeUnique(movieMap, a));
+
+//                    ticket = ticketMapper.makeUnique(ticketMap, ticket);
+//                    day = dayMapper.makeUnique(dayMap, day);
+//                    movie = movieMapper.makeUnique(movieMap, movie);
 
                     session.setDay(day);
                     session.setMovie(movie);
-                    session = sessionMapper.makeUnique(sessionMap, session);
+                    Optional.ofNullable(session).ifPresent((a) -> a = sessionMapper.makeUnique(sessionMap, a));
+                    Optional.ofNullable(ticket).ifPresent((a) -> ticket.setSession(session));
 
-                    ticket.setSession(session);
                     user.getUserTickets().add(ticket);
 
                 }

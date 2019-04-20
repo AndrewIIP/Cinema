@@ -10,10 +10,7 @@ import model.util.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class RemoveTicket implements Command {
     private TicketService ticketService;
@@ -58,7 +55,8 @@ public class RemoveTicket implements Command {
     }
 
     private boolean doesntOwnTicket(User user, Ticket ticket){
-        return user.getUserTickets().stream().noneMatch(a -> a.getId() == ticket.getId());
+        List<Ticket> actualTickets = ticketService.getTicketsByUserId(user.getId());
+        return actualTickets.stream().noneMatch(a -> a.getId() == ticket.getId());
     }
 
     private boolean invalidInput(String ticketID){

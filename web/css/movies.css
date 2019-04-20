@@ -122,6 +122,18 @@ body {
     border-radius: 0.2rem;
 }
 
+.nm-form{
+    padding: 0 20px 0;
+}
+
+.nm-head{
+    margin: 10px 10px 0;
+}
+
+.nm-btn{
+    margin: 50px 0 0 0 !important;
+}
+
 .container-in{
     width: inherit;
 }​

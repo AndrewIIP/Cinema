@@ -4,7 +4,6 @@ import controller.command.*;
 import model.entity.User;
 import model.services.*;
 import model.util.Cons;
-import model.util.LogGen;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
