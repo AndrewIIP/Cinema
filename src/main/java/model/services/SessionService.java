@@ -17,13 +17,21 @@ public class SessionService {
     public Session getSessionById(int id) throws DAOException {
         Session session = new Session();
 
-        try(SessionDao dao = daoFactory.createSessionDao()){
+        try (SessionDao dao = daoFactory.createSessionDao()) {
             session = dao.getEntityById(id);
         }
         return session;
     }
 
-    public void setDaoLocale(Locale locale){
+    public void removeSessionById(int id) {
+        try (SessionDao dao = daoFactory.createSessionDao()) {
+            dao.delete(id);
+        } catch (DAOException e){
+            //TODO LOG
+        }
+    }
+
+    public void setDaoLocale(Locale locale) {
         daoFactory.setDaoLocale(locale);
     }
 }

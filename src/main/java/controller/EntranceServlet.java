@@ -26,11 +26,15 @@ public class EntranceServlet extends HttpServlet {
         commandsMap.put("/go_registration", new GoRegister());
         commandsMap.put("/go_login", new GoLogin());
         commandsMap.put("/now_playing", new NowPlaying(new MovieService()));
-        commandsMap.put("/showtimes", new Showtimes(new DayService()));
+        commandsMap.put("/showtimes", new Showtimes(new DayService(), new MovieService()));
         commandsMap.put("/room", new Room(new SessionService()));
         commandsMap.put("/order", new PurchTicket(new TicketService()));
         commandsMap.put("/tickets", new MyTickets(new TicketService()));
         commandsMap.put("/remtick", new RemoveTicket(new TicketService()));
+        commandsMap.put("/remmov", new RemoveMovie(new MovieService()));
+        commandsMap.put("/remses", new RemoveSession(new SessionService()));
+        commandsMap.put("/addmov", new AddMovie());
+        commandsMap.put("/addses", new AddSession());
 
         getServletContext().setAttribute(Cons.CONTEXT_USERS_LIST, new LinkedList<User>());
     }

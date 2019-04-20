@@ -15,10 +15,12 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class Showtimes implements Command {
-    DayService dayService;
+    private DayService dayService;
+    private MovieService movieService;
 
-    public Showtimes(DayService dayService) {
+    public Showtimes(DayService dayService, MovieService movieService) {
         this.dayService = dayService;
+        this.movieService = movieService;
     }
 
     @Override
@@ -28,6 +30,7 @@ public class Showtimes implements Command {
         Locale locale = Locale.forLanguageTag(Languages.isLangOrGetDefault(localeTag));
 
         dayService.setDaoLocale(locale);
+        movieService.setDaoLocale(locale);
         String dayIdParageter = request.getParameter(Cons.DAY_ID_PARAMETER);
         int dayID = 1;
 
@@ -36,7 +39,10 @@ public class Showtimes implements Command {
         }
 
         Day day = dayService.getDayById(dayID);
+        List<Movie> moviesBank = movieService.getAllMovies();
+
         request.setAttribute(Cons.DAY_ID_PARAMETER, day);
+        request.setAttribute(Cons.MOVIES_BEAN, moviesBank);
 
         return role.map(o -> "forward:/WEB-INF/" + o.toString() + "/showtimes.jsp" +
                 (request.getQueryString() == null ? "" : "?" + request.getQueryString()))

@@ -10,6 +10,10 @@ function notify_cancel(ticket) {
     document.getElementById("tk-num-holder").innerText = ticket;
 }
 
+function notify_del(msg, holderId) {
+    document.getElementById(holderId.toString()).innerText = msg;
+}
+
 function cls_span(id) {
     $('#' + id.toString()).slideUp(200);
 }

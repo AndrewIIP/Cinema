@@ -25,4 +25,5 @@ public interface Cons {
     String MESSAGE2 = "msg2";
     String TICKET_LIST = "tickets";
     String TICKET_ID = "ticketId";
+    String MOVIE_ID = "movieId";
 }

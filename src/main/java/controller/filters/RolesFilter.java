@@ -45,7 +45,11 @@ public class RolesFilter implements Filter {
                 "/edit",
                 "/showtimes",
                 "/now_playing",
-                "/room"
+                "/room",
+                "/remses",
+                "/remmov",
+                "/addses",
+                "/addmov"
         ));
     }
 

@@ -1407,6 +1407,7 @@ showtime_id</ColNames>
       <RefTableName>sessions</RefTableName>
       <RefColNames>id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="337" parent="287" name="id">
       <Position>1</Position>

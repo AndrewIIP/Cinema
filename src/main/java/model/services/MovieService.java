@@ -2,6 +2,7 @@ package model.services;
 
 import model.dao.DaoFactory;
 import model.dao.MovieDao;
+import model.dao.exceptions.DAOException;
 import model.dao.impl.JDBCDaoFactory;
 import model.entity.Movie;
 
@@ -15,6 +16,16 @@ public class MovieService {
     public List<Movie> getAllMovies(){
         try(MovieDao dao = daoFactory.createMovieDao()){
             return dao.getAll();
+        }
+    }
+
+    public void removeMovieById(int movieId){
+        try(MovieDao dao = daoFactory.createMovieDao()){
+            try {
+                dao.delete(movieId);
+            } catch (DAOException e) {
+                e.printStackTrace(); //TODO LOG
+            }
         }
     }
 

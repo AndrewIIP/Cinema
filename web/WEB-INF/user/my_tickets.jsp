@@ -74,7 +74,7 @@
                             </div>
                             <div class="delete-btn">
                                 <button type="button" class="btn btn-danger circu" onclick="notify_cancel('${ticket.id}');appearDivById('sure-span')">
-                                    <img src="../../pic/etc/trash30.png"/>
+                                    <img src="${pageContext.request.contextPath}/pic/etc/trash30.png"/>
                                 </button>
                             </div>
                         </div>

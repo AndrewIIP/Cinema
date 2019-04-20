@@ -22,10 +22,12 @@
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <link  href="${pageContext.request.contextPath}/css/showtimes.css" type="text/css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/js/post.js"></script>
+    <script src="${pageContext.request.contextPath}/js/ticket_scr.js"></script>
 </head>
 <body>
     <jsp:include page="/WEB-INF/admin/header.jsp"/>
     <jsp:useBean id="day" scope="request" type="model.entity.Day"/>
+    <jsp:useBean id="moviesBean" scope="request" type="java.util.List"/>
 
     <section class="pricing py-5">
         <div class="wrap-cont">
@@ -68,12 +70,63 @@
                                         <fmt:message key="room"/>
                                     </button>
                                 </div>
+                                <div class="delete-btn-show">
+                                    <button type="button" class="btn btn-danger" onclick="notify_del('${session.id}', 'id-session-holder');appearDivById('sure-span')">
+                                        <img src="${pageContext.request.contextPath}/pic/etc/trash30.png"/>
+                                    </button>
+                                </div>
                             </div>
                         </c:forEach>
+
+                        <h3 class="font-weight-light mt-2 text-center"><fmt:message key="create.session"/></h3>
+
+                        <form id="session-create">
+                            <div>
+                                <div class="movie-row">
+                                    <div class="form-group">
+                                        <label for="movieSelector"></label>
+                                        <select class="form-control" id="movieSelector" required>
+                                            <c:forEach items="${moviesBean}" var="movie">
+                                                <option value="${movie.id}">${movie.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <small id="movieSelectorSpan" class="form-text text-muted"><fmt:message key="movie.name"/></small>
+                                    </div>
+                                    <div class="mov-time">
+                                        <div class="form-group">
+                                            <input type="number" min="9" max="22" class="form-control" id="hours" aria-describedby="emailHelp" placeholder="09">
+                                            <small id="hoursHint" class="form-text text-muted"><fmt:message key="hours"/></small>
+                                        </div>
+                                        <h3 class="font-weight-light">:</h3>
+                                        <div class="form-group">
+                                            <input type="number" min="0" max="59" class="form-control" id="mins" aria-describedby="emailHelp" placeholder="00">
+                                            <small id="minsHint" class="form-text text-muted"><fmt:message key="minutes"/></small>
+                                        </div>
+                                    </div>
+                            </div>
+                                <button type="submit" class="btn btn-primary btn-block"><fmt:message key="add.session"/></button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <div id="sure-span" class="sure-span" style="display:none">
+        <div class="order-top">
+            <h3 class="font-weight-normal"><fmt:message key="delete.session"/></h3>
+            <p id="id-session-holder" style="display: none"></p>
+        </div>
+
+        <div class="order-bottom">
+            <button class="btn btn-danger" onclick="post('/remses', {sessionId : document.getElementById('id-session-holder').innerText}, 'post')">
+                <fmt:message key="remove"/>
+            </button>
+            <button class="btn btn-outline-secondary" onclick="cls_span('sure-span')">
+                <fmt:message key="cancel"/>
+            </button>
+        </div>
+    </div>
 </body>
 </html>

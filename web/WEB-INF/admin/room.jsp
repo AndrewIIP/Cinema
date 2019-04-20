@@ -20,7 +20,7 @@
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/user/header.jsp"/>
+<jsp:include page="/WEB-INF/admin/header.jsp"/>
 <jsp:useBean id="showSession"  scope="request" class="model.entity.Session"/>
 <section class="pricing py-5">
     <div class="wrap-cont">

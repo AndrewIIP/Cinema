@@ -23,6 +23,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <script src="${pageContext.request.contextPath}/js/post.js"></script>
+    <script src="${pageContext.request.contextPath}/js/ticket_scr.js"></script>
 </head>
 <body>
     <jsp:include page="/WEB-INF/admin/header.jsp"/>
@@ -67,29 +68,29 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide andrew-swiper-slide">
                                         <div class="nm-head">
-                                            <h2 class="font-weight-normal">Add new movie</h2>
-                                            <p class="font-weight-light">Please, make sure that the aspect ratio of image is 10:11 (width : height) </p>
+                                            <h2 class="font-weight-normal"><fmt:message key="add.movie"/></h2>
+                                            <p class="font-weight-light"><fmt:message key="aspect.ratio"/></p>
                                         </div>
                                             <div class="nm-form">
                                                 <form>
                                                     <div class="form-group">
-                                                        <label for="engName">English name</label>
+                                                        <label for="engName"><fmt:message key="eng.name"/></label>
                                                         <input type="text" class="form-control" id="engName" aria-describedby="engNameHint">
-                                                        <small id="engNameHint" class="form-text text-muted">Please, enter an english name of the movie</small>
+                                                        <small id="engNameHint" class="form-text text-muted"><fmt:message key="eng.name.small"/></small>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="ukrName">Ukrainian name</label>
+                                                        <label for="ukrName"><fmt:message key="ukr.name"/></label>
                                                         <input type="text" class="form-control" id="ukrName" aria-describedby="ukrNameHint">
-                                                        <small id="ukrNameHint" class="form-text text-muted">Please, enter an ukrainian name of the movie</small>
+                                                        <small id="ukrNameHint" class="form-text text-muted"><fmt:message key="ukr.name.small"/></small>
                                                     </div>
-                                                    <label for="inputGroupFile01">Picture file</label>
+                                                    <label for="inputGroupFile01"><fmt:message key="pic.file"/></label>
                                                     <div class="input-group mb-3">
                                                         <div class="custom-file">
                                                             <input type="file" class="custom-file-input" id="inputGroupFile01">
                                                             <label class="custom-file-label" for="inputGroupFile01"></label>
                                                         </div>
                                                     </div>
-                                                    <button type="submit" class="nm-btn btn btn-primary mb-2 btn-block">Add movie</button>
+                                                    <button type="submit" class="nm-btn btn btn-primary mb-2 btn-block"><fmt:message key="add.movie"/></button>
                                                 </form>
                                             </div>
                                     </div>
@@ -97,6 +98,11 @@
                                         <div class="swiper-slide andrew-swiper-slide">
                                             <div class="container-in">
                                                 <img class="inner-pic" src="${pageContext.request.contextPath}/pic/playbill/${entry.picUrl}"/>
+                                                <div class="delete-btn">
+                                                    <button type="button" class="btn btn-danger" onclick="notify_del('${entry.name}', 'place-holder');notify_del('${entry.id}', 'id-movie-holder');appearDivById('sure-span')">
+                                                        <img src="${pageContext.request.contextPath}/pic/etc/trash30.png"/>
+                                                    </button>
+                                                </div>
                                             </div>
                                             <div class="inner-showtimes">
                                                 <h2 class="font-weight-normal">${entry.name}</h2>
@@ -140,5 +146,23 @@
             </div>
         </div>
     </section>
+
+    <div id="sure-span" class="sure-span" style="display:none">
+        <div class="order-top">
+            <h3 class="font-weight-normal"><fmt:message key="delete.movie"/></h3>
+            <p class="font-weight-normal disp"><fmt:message key="movie.name"/></p>
+            <p id="place-holder" class="disp"></p>
+            <p id="id-movie-holder" style="display: none"></p>
+        </div>
+
+        <div class="order-bottom">
+            <button class="btn btn-danger" onclick="post('/remmov', {movieId : document.getElementById('id-movie-holder').innerText}, 'post')">
+                <fmt:message key="remove"/>
+            </button>
+            <button class="btn btn-outline-secondary" onclick="cls_span('sure-span')">
+                <fmt:message key="cancel"/>
+            </button>
+        </div>
+    </div>
 </body>
 </html>
