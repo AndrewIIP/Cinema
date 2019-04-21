@@ -1,9 +1,6 @@
 package model.dao.mappers;
 
-import model.dao.exceptions.DAOException;
 import model.entity.Ticket;
-import model.entity.User;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;

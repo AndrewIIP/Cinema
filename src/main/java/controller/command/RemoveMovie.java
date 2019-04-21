@@ -1,9 +1,7 @@
 package controller.command;
 
-import model.entity.Ticket;
 import model.entity.User;
 import model.services.MovieService;
-import model.services.TicketService;
 import model.util.Cons;
 import model.util.Languages;
 import model.util.Role;
@@ -17,7 +15,7 @@ import java.util.ResourceBundle;
 public class RemoveMovie implements Command {
     private MovieService movieService;
 
-    public RemoveMovie(MovieService movieService){
+    public RemoveMovie(MovieService movieService) {
         this.movieService = movieService;
     }
 
@@ -38,7 +36,7 @@ public class RemoveMovie implements Command {
         String movIdParam = request.getParameter(Cons.MOVIE_ID);
         int movId;
 
-        if(invalidInput(movIdParam)){
+        if (invalidInput(movIdParam)) {
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("del.ticket.wrong.input"));
             return outUrlInvalid;
         } else {
@@ -49,7 +47,7 @@ public class RemoveMovie implements Command {
         return outUrlOK;
     }
 
-    private boolean invalidInput(String ticketID){
+    private boolean invalidInput(String ticketID) {
         return !Optional.ofNullable(ticketID).isPresent() || !ticketID.matches("[0-9]+");
     }
 }

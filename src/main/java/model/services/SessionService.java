@@ -1,13 +1,10 @@
 package model.services;
 
 import model.dao.DaoFactory;
-import model.dao.MovieDao;
 import model.dao.SessionDao;
 import model.dao.exceptions.DAOException;
-import model.entity.Movie;
 import model.entity.Session;
 
-import java.util.List;
 import java.util.Locale;
 
 public class SessionService {
@@ -26,7 +23,7 @@ public class SessionService {
     public void removeSessionById(int id) {
         try (SessionDao dao = daoFactory.createSessionDao()) {
             dao.delete(id);
-        } catch (DAOException e){
+        } catch (DAOException e) {
             //TODO LOG
         }
     }
@@ -34,7 +31,7 @@ public class SessionService {
     public void createSession(Session session) {
         try (SessionDao dao = daoFactory.createSessionDao()) {
             dao.create(session);
-        } catch (DAOException e){
+        } catch (DAOException e) {
             //TODO LOG
         }
     }

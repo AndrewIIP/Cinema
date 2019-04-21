@@ -49,7 +49,7 @@ public class EntranceServlet extends HttpServlet {
         processRequest(req, resp);
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String path = req.getPathInfo();
         req.setAttribute(Cons.CUR_REQ_URL, req.getRequestURL());
@@ -58,7 +58,7 @@ public class EntranceServlet extends HttpServlet {
 
         if (page.contains("redirect")) {
             resp.sendRedirect(page.replace("redirect:", ""));
-        } else if (page.contains("forward")){
+        } else if (page.contains("forward")) {
             req.getRequestDispatcher(page.replace("forward:", "")).forward(req, resp);
         }
     }

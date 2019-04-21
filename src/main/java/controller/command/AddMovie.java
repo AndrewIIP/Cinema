@@ -47,13 +47,13 @@ public class AddMovie implements Command {
         String outUrlInvalid = "forward:/WEB-INF/common/oper_fail.jsp" +
                 (request.getQueryString() == null ? "" : "?" + request.getQueryString());
 
-        try{
+        try {
             processPictureFromReq(request);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if(invalidData(movieNameEng, movieNameUkr)){
+        if (invalidData(movieNameEng, movieNameUkr)) {
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("wrong.data"));
             return outUrlInvalid;
         }

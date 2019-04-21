@@ -10,16 +10,20 @@ public abstract class DaoFactory {
     private Locale daoLocale = Locale.ENGLISH;
 
     public abstract UserDao createUserDao();
+
     public abstract MovieDao createMovieDao();
+
     public abstract SessionDao createSessionDao();
+
     public abstract DayDao createDayDao();
+
     public abstract TicketDao createTicketDao();
 
 
-    public static DaoFactory getInstance(){
-        if( daoFactory == null ){
-            synchronized (DaoFactory.class){
-                if(daoFactory==null){
+    public static DaoFactory getInstance() {
+        if (daoFactory == null) {
+            synchronized (DaoFactory.class) {
+                if (daoFactory == null) {
                     daoFactory = new JDBCDaoFactory();
                 }
             }

@@ -3,7 +3,6 @@ package controller.command;
 import model.dao.exceptions.DAOException;
 import model.entity.User;
 import model.services.UserService;
-import model.services.exceptions.AlreadyAuthorizedException;
 import model.services.exceptions.ServiceException;
 import model.util.Cons;
 import model.util.Role;
@@ -15,9 +14,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Register implements Command {
-    private String usernameRegex = Cons.USERNAME_REGEX;
-    private String mailRegex = Cons.MAIL_REGEX;
-    private ResourceBundle resourceBundle;
     private UserService userService;
 
     public Register(UserService userService) {
@@ -26,7 +22,7 @@ public class Register implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        resourceBundle = ResourceBundle.getBundle(Cons.LOCAL_RB_BASE_NAME,
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(Cons.LOCAL_RB_BASE_NAME,
                 Locale.forLanguageTag((String) request.getSession().getAttribute(Cons.CUR_LANG)));
 
         String username = request.getParameter(Cons.USERNAME_PARAM.trim());
@@ -65,9 +61,6 @@ public class Register implements Command {
             userService.setResponseStatus(400, resourceBundle.getString("register.bad.try.later"), response);
             e.printStackTrace();//TODO LOG
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (AlreadyAuthorizedException e) {
-            userService.setResponseStatus(400, resourceBundle.getString("already.authorized"), response);
             e.printStackTrace();
         }
         return "";

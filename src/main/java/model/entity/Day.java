@@ -42,8 +42,8 @@ public class Day {
         this.sessions = sessions;
     }
 
-    public boolean notEmpty(){
-        return  id != 0 &&
+    public boolean notEmpty() {
+        return id != 0 &&
                 name != null &&
                 shortName != null;
     }

@@ -1,8 +1,6 @@
 package model.dao.mappers;
 
-import model.dao.exceptions.DAOException;
 import model.entity.Day;
-import model.entity.Session;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

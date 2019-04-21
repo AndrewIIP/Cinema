@@ -13,7 +13,7 @@ public enum Role {
         this.value = value;
     }
 
-    public String getString(){
+    public String getString() {
         return value;
     }
 
@@ -22,7 +22,7 @@ public enum Role {
         return value;
     }
 
-    public static Role contains(String value){
+    public static Role contains(String value) {
         return Arrays.stream(Role.values()).filter(a -> a.getString().equals(value)).findFirst().orElseThrow(IllegalArgumentException::new);
     }
 }

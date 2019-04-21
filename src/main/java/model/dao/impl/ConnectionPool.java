@@ -3,33 +3,40 @@ package model.dao.impl;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class ConnectionPool {
-    //TODO placed to an individual property file
-    private static final String DRIVER__CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/cinema?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
-
-    private ConnectionPool(){}
+class ConnectionPool {
+    private static final String DRIVER_CLASS_NAME;
+    private static final String URL;
+    private static final String USERNAME;
+    private static final String PASSWORD;
 
     private static volatile DataSource dataSource;
 
-    public static DataSource getDataSource(){
+    static {
+        ResourceBundle resBund = ResourceBundle.getBundle("db");
+        DRIVER_CLASS_NAME = resBund.getString("driver.class.name");
+        URL = resBund.getString("db.url");
+        USERNAME = resBund.getString("db.username");
+        PASSWORD = resBund.getString("db.password");
+    }
 
-        if (dataSource == null){
+    private ConnectionPool() {
+    }
+
+    static DataSource getDataSource() {
+
+        if (dataSource == null) {
             synchronized (ConnectionPool.class) {
                 if (dataSource == null) {
                     BasicDataSource ds = new BasicDataSource();
-                    ds.setDriverClassName(DRIVER__CLASS_NAME);
+                    ds.setDriverClassName(DRIVER_CLASS_NAME);
                     ds.setUrl(URL);
                     ds.setUsername(USERNAME);
                     ds.setPassword(PASSWORD);
                     ds.setMinIdle(5);
                     ds.setMaxIdle(10);
-                    ds.setMaxTotal(50);
+                    ds.setMaxTotal(25);
                     ds.setMaxOpenPreparedStatements(100);
                     dataSource = ds;
                 }

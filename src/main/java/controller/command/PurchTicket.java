@@ -2,11 +2,8 @@ package controller.command;
 
 import model.dao.exceptions.DAOException;
 import model.entity.Ticket;
-import model.services.TicketService;
-import model.util.IntBean;
-import model.entity.Session;
 import model.entity.User;
-import model.services.SessionService;
+import model.services.TicketService;
 import model.util.Cons;
 import model.util.Languages;
 import model.util.Role;
@@ -29,7 +26,7 @@ public class PurchTicket implements Command {
 
         User sessionUser = (User) request.getSession().getAttribute(Cons.SESSION_USER);
         Optional<Role> role = Optional.ofNullable((sessionUser).getRole());
-        String localeTag = Optional.ofNullable((String)request.getSession().getAttribute(Cons.CUR_LANG)).orElse("en");
+        String localeTag = Optional.ofNullable((String) request.getSession().getAttribute(Cons.CUR_LANG)).orElse("en");
         Locale locale = Locale.forLanguageTag(Languages.isLangOrGetDefault(localeTag));
         ResourceBundle rsBundle = ResourceBundle.getBundle(Cons.LOCAL_RB_BASE_NAME, locale);
 
@@ -42,7 +39,7 @@ public class PurchTicket implements Command {
         String placeParam = request.getParameter(Cons.PLACE);
         String sessionIdParam = request.getParameter(Cons.SESSION_ID_PARAM);
 
-        if(invalidInput(placeParam, sessionIdParam)){
+        if (invalidInput(placeParam, sessionIdParam)) {
             //set attribute Bean with fail message
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("wrong.data"));
             request.setAttribute(Cons.MESSAGE2, rsBundle.getString("back.room"));
@@ -51,7 +48,7 @@ public class PurchTicket implements Command {
 
         Ticket ticketToSave = constructRawTicket(placeParam, sessionIdParam, sessionUser);
 
-        try{
+        try {
             ticketService.createTicket(ticketToSave);
         } catch (DAOException e) {
             e.printStackTrace(); //TODO process
@@ -65,15 +62,15 @@ public class PurchTicket implements Command {
         return outUrlOK;
     }
 
-    private boolean invalidInput(String place, String session){
-        return  !Optional.ofNullable(place).isPresent() ||
+    private boolean invalidInput(String place, String session) {
+        return !Optional.ofNullable(place).isPresent() ||
                 !Optional.ofNullable(session).isPresent() ||
                 !place.matches("[0-9]+") ||
                 !session.matches("[0-9]+");
 
     }
 
-    private Ticket constructRawTicket(String place, String sessionID, User user){
+    private Ticket constructRawTicket(String place, String sessionID, User user) {
         Ticket ticket = new Ticket();
 
         int userID = user.getId();

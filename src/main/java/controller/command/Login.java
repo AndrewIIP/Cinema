@@ -3,7 +3,6 @@ package controller.command;
 import model.dao.exceptions.DAOException;
 import model.entity.User;
 import model.services.UserService;
-import model.services.exceptions.AlreadyAuthorizedException;
 import model.services.exceptions.ServiceException;
 import model.util.Cons;
 
@@ -14,8 +13,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Login implements Command {
-    private ResourceBundle resourceBundle;
-    UserService userService;
+    private UserService userService;
 
     public Login(UserService userService) {
         this.userService = userService;
@@ -23,7 +21,7 @@ public class Login implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        resourceBundle = ResourceBundle.getBundle(Cons.LOCAL_RB_BASE_NAME,
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(Cons.LOCAL_RB_BASE_NAME,
                 Locale.forLanguageTag((String) request.getSession().getAttribute(Cons.CUR_LANG)));
         String usernameOrMail = request.getParameter(Cons.USERNAME_PARAM);
         String password = request.getParameter(Cons.PASSWORD_PARAM);
@@ -49,9 +47,6 @@ public class Login implements Command {
             e.printStackTrace(); //TODO LOG
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (AlreadyAuthorizedException e) {
-            userService.setResponseStatus(400, resourceBundle.getString("already.authorized"), response);
-            e.printStackTrace(); //TODO LOG
         }
         return "";
     }

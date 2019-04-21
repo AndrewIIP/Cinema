@@ -1,6 +1,5 @@
 package model.dao.mappers;
 
-import model.dao.exceptions.DAOException;
 import model.entity.Movie;
 
 import java.sql.ResultSet;

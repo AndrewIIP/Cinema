@@ -1,6 +1,5 @@
 package controller.filters;
 
-
 import model.entity.User;
 import model.util.Cons;
 import model.util.Role;
@@ -9,7 +8,9 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class RolesFilter implements Filter {
     Map<Role, Set<String>> ways;

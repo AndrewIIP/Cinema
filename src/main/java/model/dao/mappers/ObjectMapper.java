@@ -1,7 +1,5 @@
 package model.dao.mappers;
 
-import model.dao.exceptions.DAOException;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;

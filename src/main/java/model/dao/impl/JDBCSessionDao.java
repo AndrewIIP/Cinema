@@ -12,7 +12,7 @@ import java.util.*;
 public class JDBCSessionDao extends AbstractDao implements SessionDao {
     Connection connection;
 
-    public JDBCSessionDao(Connection connection){
+    public JDBCSessionDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -57,7 +57,7 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
         ResultSet resultSet = null;
         Connection connection = this.connection;
 
-        try{
+        try {
             prepStatement = connection.prepareStatement(sqlQuery);
             try {
                 resultSet = prepStatement.executeQuery();
@@ -74,7 +74,7 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
 
                     User user = userMapper.extractFromResultSet(resultSet, 21, 22, 23, 24, 25);
 
-                    if(user != null){
+                    if (user != null) {
                         ticket = ticketMapper.extractFromResultSet(resultSet, 17, 18, 19, 20);
                         ticket.setOwner(user);
                         ticket.setSession(session);
@@ -85,20 +85,20 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
             } catch (SQLException e) {
                 e.printStackTrace();//TODO LOG
             } finally {
-                try{
+                try {
                     if (resultSet != null)
                         resultSet.close();
-                } catch (SQLException e){
+                } catch (SQLException e) {
                     e.printStackTrace();//TODO LOG
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace(); //TODO LOG
         } finally {
-            try{
+            try {
                 if (prepStatement != null)
                     prepStatement.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();//TODO LOG
             }
         }

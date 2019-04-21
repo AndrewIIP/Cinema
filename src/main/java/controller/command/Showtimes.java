@@ -26,7 +26,7 @@ public class Showtimes implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Optional<Object> role = Optional.ofNullable(((User) request.getSession().getAttribute(Cons.SESSION_USER)).getRole());
-        String localeTag = Optional.ofNullable((String)request.getSession().getAttribute(Cons.CUR_LANG)).orElse("en");
+        String localeTag = Optional.ofNullable((String) request.getSession().getAttribute(Cons.CUR_LANG)).orElse("en");
         Locale locale = Locale.forLanguageTag(Languages.isLangOrGetDefault(localeTag));
 
         dayService.setDaoLocale(locale);

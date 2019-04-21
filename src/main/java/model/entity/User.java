@@ -14,7 +14,7 @@ public class User {
     private Role role;
     private List<Ticket> userTickets = new LinkedList<>();
 
-    public static User getGuestInst(){
+    public static User getGuestInst() {
         User user = new User();
         user.setId(0);
         user.setUsername("guest");
@@ -73,7 +73,7 @@ public class User {
         this.userTickets = userTickets;
     }
 
-    public boolean notEmpty(){
+    public boolean notEmpty() {
         return id != 0 &&
                 username != null &&
                 email != null &&

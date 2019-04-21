@@ -1,7 +1,5 @@
 package model.entity;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 
 public class Ticket {
@@ -60,7 +58,7 @@ public class Ticket {
         this.session = session;
     }
 
-    public boolean notEmpty(){
+    public boolean notEmpty() {
         return id != 0 &&
                 place != 0 &&
                 userID != 0 &&

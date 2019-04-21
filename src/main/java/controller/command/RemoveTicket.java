@@ -1,6 +1,5 @@
 package controller.command;
 
-import model.dao.exceptions.DAOException;
 import model.entity.Ticket;
 import model.entity.User;
 import model.services.TicketService;
@@ -10,7 +9,10 @@ import model.util.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class RemoveTicket implements Command {
     private TicketService ticketService;
@@ -35,7 +37,7 @@ public class RemoveTicket implements Command {
 
         String ticketIdParam = request.getParameter(Cons.TICKET_ID);
 
-        if(invalidInput(ticketIdParam)){
+        if (invalidInput(ticketIdParam)) {
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("del.ticket.wrong.input"));
             return outUrlInvalid;
         }
@@ -53,16 +55,16 @@ public class RemoveTicket implements Command {
         return outUrlOK;
     }
 
-    private boolean doesntOwnTicket(User user, Ticket ticket){
+    private boolean doesntOwnTicket(User user, Ticket ticket) {
         List<Ticket> actualTickets = ticketService.getTicketsByUserId(user.getId());
         return actualTickets.stream().noneMatch(a -> a.getId() == ticket.getId());
     }
 
-    private boolean invalidInput(String ticketID){
+    private boolean invalidInput(String ticketID) {
         return !Optional.ofNullable(ticketID).isPresent() || !ticketID.matches("[0-9]+");
     }
 
-    private Ticket constructRawTicket(int id){
+    private Ticket constructRawTicket(int id) {
         Ticket ticket = new Ticket();
         ticket.setId(id);
         return ticket;

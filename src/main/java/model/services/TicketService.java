@@ -1,10 +1,8 @@
 package model.services;
 
 import model.dao.DaoFactory;
-import model.dao.SessionDao;
 import model.dao.TicketDao;
 import model.dao.exceptions.DAOException;
-import model.entity.Session;
 import model.entity.Ticket;
 
 import java.util.List;
@@ -22,7 +20,7 @@ public class TicketService {
     }
 
     public List<Ticket> getTicketsByUserId(int userId) {
-        try(TicketDao dao = daoFactory.createTicketDao()){
+        try (TicketDao dao = daoFactory.createTicketDao()) {
             return dao.getByUserId(userId);
         }
     }

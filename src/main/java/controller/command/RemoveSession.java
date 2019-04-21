@@ -1,7 +1,6 @@
 package controller.command;
 
 import model.entity.User;
-import model.services.MovieService;
 import model.services.SessionService;
 import model.util.Cons;
 import model.util.Languages;
@@ -16,7 +15,7 @@ import java.util.ResourceBundle;
 public class RemoveSession implements Command {
     private SessionService sessionService;
 
-    public RemoveSession(SessionService sessionService){
+    public RemoveSession(SessionService sessionService) {
         this.sessionService = sessionService;
     }
 
@@ -37,7 +36,7 @@ public class RemoveSession implements Command {
         String sessionIdParam = request.getParameter(Cons.SESSION_ID_PARAM);
         int sessionId;
 
-        if(invalidInput(sessionIdParam)){
+        if (invalidInput(sessionIdParam)) {
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("del.ticket.wrong.input"));
             return outUrlInvalid;
         } else {
@@ -48,7 +47,7 @@ public class RemoveSession implements Command {
         return outUrlOK;
     }
 
-    private boolean invalidInput(String ticketID){
+    private boolean invalidInput(String ticketID) {
         return !Optional.ofNullable(ticketID).isPresent() || !ticketID.matches("[0-9]+");
     }
 }

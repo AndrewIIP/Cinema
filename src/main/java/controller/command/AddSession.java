@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public class AddSession implements Command {
     private SessionService sessionService;
 
-    public AddSession(SessionService sessionService){
+    public AddSession(SessionService sessionService) {
         this.sessionService = sessionService;
     }
 
@@ -24,7 +24,7 @@ public class AddSession implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         User curUser = (User) request.getSession().getAttribute(Cons.SESSION_USER);
         Optional<Object> role = Optional.ofNullable(curUser.getRole());
-        String localeTag = Optional.ofNullable((String)request.getSession().getAttribute(Cons.CUR_LANG)).orElse("en");
+        String localeTag = Optional.ofNullable((String) request.getSession().getAttribute(Cons.CUR_LANG)).orElse("en");
         Locale locale = Locale.forLanguageTag(Languages.isLangOrGetDefault(localeTag));
         ResourceBundle rsBundle = ResourceBundle.getBundle(Cons.LOCAL_RB_BASE_NAME, locale);
 
@@ -39,7 +39,7 @@ public class AddSession implements Command {
         String timeHours = request.getParameter(Cons.TIME_HOURS_ID);
         String timeMins = request.getParameter(Cons.TIME_MINS_ID);
 
-        if(invalidData(dayIdParam, movieIdParam, timeHours, timeMins)){
+        if (invalidData(dayIdParam, movieIdParam, timeHours, timeMins)) {
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("wrong.data"));
             return outUrlInvalid;
         }
@@ -56,11 +56,11 @@ public class AddSession implements Command {
         return outUrlOK;
     }
 
-    private Time createTime(int hours, int mins){
+    private Time createTime(int hours, int mins) {
         return new Time((long) hours * 60 * 60 * 1000 + mins * 60 * 1000);
     }
 
-    private Session createLazySession(int dayId, int movieId, Time time){
+    private Session createLazySession(int dayId, int movieId, Time time) {
         Session session = new Session();
         session.setDayID(dayId);
         session.setMovieID(movieId);
@@ -68,8 +68,8 @@ public class AddSession implements Command {
         return session;
     }
 
-    private boolean invalidData(String dayID, String movID, String hours, String mins){
-        return  !Optional.ofNullable(dayID).isPresent() ||
+    private boolean invalidData(String dayID, String movID, String hours, String mins) {
+        return !Optional.ofNullable(dayID).isPresent() ||
                 !Optional.ofNullable(movID).isPresent() ||
                 !Optional.ofNullable(hours).isPresent() ||
                 !Optional.ofNullable(mins).isPresent() ||

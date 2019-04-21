@@ -30,7 +30,7 @@ public class Session {
 
     public void setTime(Time time) {
         this.time = time;
-        setTimeHoursMins(this.timeHoursMins = time.toString().substring(0,time.toString().lastIndexOf(':')));
+        setTimeHoursMins(this.timeHoursMins = time.toString().substring(0, time.toString().lastIndexOf(':')));
     }
 
     public int getDayID() {
@@ -77,17 +77,17 @@ public class Session {
         this.timeHoursMins = timeHoursMins;
     }
 
-    public String getTimeHoursMins(){
+    public String getTimeHoursMins() {
         return timeHoursMins;
     }
 
-    public boolean isEngagedPlace(int placeNumber){
+    public boolean isEngagedPlace(int placeNumber) {
         Optional<Ticket> ticket = ticketList.stream().filter(a -> a.getPlace() == placeNumber).findFirst();
         return ticket.isPresent();
     }
 
-    public boolean notEmpty(){
-        return  time != null &&
+    public boolean notEmpty() {
+        return time != null &&
                 day != null &&
                 movie != null;
     }
