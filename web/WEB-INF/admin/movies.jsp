@@ -16,6 +16,8 @@
 <html>
 <head lang="${sessionScope.curLang}">
     <title>Title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <link  href="${pageContext.request.contextPath}/css/styles.css" type="text/css" rel="stylesheet">
     <link  href="${pageContext.request.contextPath}/css/movies.css" type="text/css" rel="stylesheet">
     <link  href="${pageContext.request.contextPath}/css/all.css" type="text/css" rel="stylesheet">
@@ -72,21 +74,21 @@
                                             <p class="font-weight-light"><fmt:message key="aspect.ratio"/></p>
                                         </div>
                                             <div class="nm-form">
-                                                <form>
+                                                <form action="${servletContext}/addmov?${pageContext.request.queryString}" method="post" enctype="multipart/form-data">
                                                     <div class="form-group">
                                                         <label for="engName"><fmt:message key="eng.name"/></label>
-                                                        <input type="text" class="form-control" id="engName" aria-describedby="engNameHint">
+                                                        <input name="nameEng" type="text" class="form-control" id="engName" aria-describedby="engNameHint" required>
                                                         <small id="engNameHint" class="form-text text-muted"><fmt:message key="eng.name.small"/></small>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="ukrName"><fmt:message key="ukr.name"/></label>
-                                                        <input type="text" class="form-control" id="ukrName" aria-describedby="ukrNameHint">
+                                                        <input name="nameUkr" type="text" class="form-control" id="ukrName" aria-describedby="ukrNameHint" required>
                                                         <small id="ukrNameHint" class="form-text text-muted"><fmt:message key="ukr.name.small"/></small>
                                                     </div>
                                                     <label for="inputGroupFile01"><fmt:message key="pic.file"/></label>
                                                     <div class="input-group mb-3">
                                                         <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                                            <input name="pic" type="file" class="custom-file-input" id="inputGroupFile01" accept="image/*" required>
                                                             <label class="custom-file-label" for="inputGroupFile01"></label>
                                                         </div>
                                                     </div>

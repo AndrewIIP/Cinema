@@ -28,6 +28,7 @@ public class NowPlaying implements Command {
         movieService.setDaoLocale(locale);
         List<Movie> moviesBank = movieService.getAllMovies();
         request.setAttribute(Cons.MOVIES_BEAN, moviesBank);
+        request.setAttribute(Cons.SERVLET_CONTEXT, request.getServletPath());
 
         return role.map(o -> "forward:/WEB-INF/" + o.toString() + "/movies.jsp" +
                 (request.getQueryString() == null ? "" : "?" + request.getQueryString()))

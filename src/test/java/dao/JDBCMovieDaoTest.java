@@ -128,4 +128,9 @@ public class JDBCMovieDaoTest {
 
         }
     }
+
+    @Test
+    public void test(){
+        System.out.println(System.getProperty("java.io.tmpdir"));
+    }
 }

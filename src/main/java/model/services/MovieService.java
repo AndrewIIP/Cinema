@@ -6,6 +6,7 @@ import model.dao.exceptions.DAOException;
 import model.dao.impl.JDBCDaoFactory;
 import model.entity.Movie;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,6 +25,21 @@ public class MovieService {
             try {
                 dao.delete(movieId);
             } catch (DAOException e) {
+                e.printStackTrace(); //TODO LOG
+            }
+        }
+    }
+
+    public void createMovie(Movie movie, String nameEng, String nameUkr){
+        try(MovieDao dao = daoFactory.createMovieDao()){
+            try {
+                dao.getConnection().setAutoCommit(false);
+                dao.create(movie);
+                int movieId = dao.getIdByPictureName(movie.getPicUrl());
+                dao.insertTranslatedNameById(movieId, 1, nameEng);
+                dao.insertTranslatedNameById(movieId, 2, nameUkr);
+                dao.getConnection().commit();
+            } catch (DAOException | SQLException e) {
                 e.printStackTrace(); //TODO LOG
             }
         }

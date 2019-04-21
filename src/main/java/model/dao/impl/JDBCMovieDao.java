@@ -10,10 +10,7 @@ import model.entity.Day;
 import model.entity.Movie;
 import model.entity.Session;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 public class JDBCMovieDao extends AbstractDao implements MovieDao {
@@ -72,22 +69,6 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
                     rowSession = sessionMapper.makeUnique(sessionsMap, rowSession);
                     Movie finalMovie = movie;
                     Optional.ofNullable(rowSession).ifPresent(e -> finalMovie.getSessions().add(e));
-                    /*
-                    Movie movie = new Movie();
-                    movie.setId(resultSet.getInt(5));
-                    movie.setName(resultSet.getString(6));
-                    movie.setPicUrl(resultSet.getString(7));
-
-                    movie = movieMapper.makeUnique(moviesMap, movie);
-                    Session rowSession = sessionMapper.extractFromResultSet(resultSet, 1, 2, 3, 4);
-
-                    Day day = dayMapper.extractFromResultSet(resultSet, 8, 9, 10);
-                    Optional.ofNullable(day).ifPresent(rowSession::setDay);
-                    rowSession.setMovie(movie);
-                    rowSession = sessionMapper.makeUnique(sessionsMap, rowSession);
-                    Movie finalMovie = movie;
-                    Optional.ofNullable(rowSession).ifPresent(e -> finalMovie.getSessions().add(e));
-                    */
                 }
             } catch (SQLException e) {
                 e.printStackTrace();//TODO LOG
@@ -149,7 +130,99 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
 
     @Override
     public void create(Movie entity) throws DAOException {
-        throw new UnsupportedOperationException();
+        String sqlQuery = "INSERT INTO `cinema`.`movies` (`pic_url`) VALUES (?)";
+        PreparedStatement prepStatement = null;
+
+        Connection connection = this.connection;
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            prepStatement.setString(1, entity.getPicUrl());
+            try {
+                prepStatement.execute();
+            } catch (SQLIntegrityConstraintViolationException e) {
+                e.printStackTrace();//TODO LOG
+                throw new DAOException(e.getMessage(), e);
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();//TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        }
+    }
+
+    @Override
+    public void insertTranslatedNameById(int movieID, int languageID, String movieName) {
+        String sqlQuery = "INSERT INTO `cinema`.`movies_translate` (`movie_id`, `lang_id`, `movie_name`) VALUES (?, ?, ?)";
+        PreparedStatement prepStatement = null;
+        Connection connection = this.connection;
+
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            prepStatement.setInt(1, movieID);
+            prepStatement.setInt(2, languageID);
+            prepStatement.setString(3, movieName);
+            try {
+                prepStatement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();//TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        }
+    }
+
+    @Override
+    public int getIdByPictureName(String picName) throws DAOException{
+        int movieID = 0;
+        String sqlQuery = "SELECT m.id FROM `cinema`.`movies` AS m WHERE pic_url = \'" + picName + "\' ORDER BY m.id DESC";
+        Connection connection = this.connection;
+        PreparedStatement prepStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            try {
+                resultSet = prepStatement.executeQuery();
+                if (!resultSet.isBeforeFirst()) {
+                    throw new DAOException("No such entry in the DB");
+                }
+                resultSet.next();
+                movieID = resultSet.getInt(1);
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            } finally {
+                try {
+                    if (resultSet != null)
+                        resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();//TODO LOG
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();//TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        }
+        return movieID;
     }
 
     @Override
@@ -159,5 +232,9 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
         } catch (SQLException e) {
             e.printStackTrace();//TODO LOG
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 }

@@ -80,12 +80,12 @@
 
                         <h3 class="font-weight-light mt-2 text-center"><fmt:message key="create.session"/></h3>
 
-                        <form id="session-create">
+                        <form id="session-create" action="${servletContext}/addses?${pageContext.request.queryString}" method="post">
                             <div>
                                 <div class="movie-row">
                                     <div class="form-group">
                                         <label for="movieSelector"></label>
-                                        <select class="form-control" id="movieSelector" required>
+                                        <select class="form-control" id="movieSelector" name="movieId" required>
                                             <c:forEach items="${moviesBean}" var="movie">
                                                 <option value="${movie.id}">${movie.name}</option>
                                             </c:forEach>
@@ -94,15 +94,16 @@
                                     </div>
                                     <div class="mov-time">
                                         <div class="form-group">
-                                            <input type="number" min="9" max="22" class="form-control" id="hours" aria-describedby="emailHelp" placeholder="09">
+                                            <input id="hours" name="hours" type="number" min="9" max="22" class="form-control" aria-describedby="emailHelp" placeholder="09" value="9">
                                             <small id="hoursHint" class="form-text text-muted"><fmt:message key="hours"/></small>
                                         </div>
                                         <h3 class="font-weight-light">:</h3>
                                         <div class="form-group">
-                                            <input type="number" min="0" max="59" class="form-control" id="mins" aria-describedby="emailHelp" placeholder="00">
+                                            <input id="mins" name="mins" type="number" min="0" max="59" class="form-control" aria-describedby="emailHelp" placeholder="00" value="00">
                                             <small id="minsHint" class="form-text text-muted"><fmt:message key="minutes"/></small>
                                         </div>
                                     </div>
+                                    <input type="number" class="form-control" id="dayId" name="day" value="${day.id}" hidden>
                             </div>
                                 <button type="submit" class="btn btn-primary btn-block"><fmt:message key="add.session"/></button>
                             </div>

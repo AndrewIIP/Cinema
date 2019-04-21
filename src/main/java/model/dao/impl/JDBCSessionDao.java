@@ -6,10 +6,7 @@ import model.dao.exceptions.DAOException;
 import model.dao.mappers.*;
 import model.entity.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 public class JDBCSessionDao extends AbstractDao implements SessionDao {
@@ -135,7 +132,33 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
 
     @Override
     public void create(Session entity) throws DAOException {
-        throw new UnsupportedOperationException();
+        String sqlQuery = "INSERT INTO `cinema`.`sessions` (`time`, `day_id`, `movie_id`) VALUES (?, ?, ?)";
+        PreparedStatement prepStatement = null;
+
+        Connection connection = this.connection;
+        try {
+            prepStatement = connection.prepareStatement(sqlQuery);
+            prepStatement.setTime(1, entity.getTime());
+            prepStatement.setInt(2, entity.getDayID());
+            prepStatement.setInt(3, entity.getMovieID());
+            try {
+                prepStatement.execute();
+            } catch (SQLIntegrityConstraintViolationException e) {
+                e.printStackTrace();//TODO LOG
+                throw new DAOException(e.getMessage(), e);
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();//TODO LOG
+        } finally {
+            try {
+                if (prepStatement != null)
+                    prepStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();//TODO LOG
+            }
+        }
     }
 
     @Override

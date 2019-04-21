@@ -43,6 +43,7 @@ public class Showtimes implements Command {
 
         request.setAttribute(Cons.DAY_ID_PARAMETER, day);
         request.setAttribute(Cons.MOVIES_BEAN, moviesBank);
+        request.setAttribute(Cons.SERVLET_CONTEXT, request.getServletPath());
 
         return role.map(o -> "forward:/WEB-INF/" + o.toString() + "/showtimes.jsp" +
                 (request.getQueryString() == null ? "" : "?" + request.getQueryString()))

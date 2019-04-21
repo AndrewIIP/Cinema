@@ -266,10 +266,6 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
                     Optional.ofNullable(day).ifPresent((a) -> a = dayMapper.makeUnique(dayMap, a));
                     Optional.ofNullable(movie).ifPresent((a) -> a = movieMapper.makeUnique(movieMap, a));
 
-//                    ticket = ticketMapper.makeUnique(ticketMap, ticket);
-//                    day = dayMapper.makeUnique(dayMap, day);
-//                    movie = movieMapper.makeUnique(movieMap, movie);
-
                     session.setDay(day);
                     session.setMovie(movie);
                     Optional.ofNullable(session).ifPresent((a) -> a = sessionMapper.makeUnique(sessionMap, a));

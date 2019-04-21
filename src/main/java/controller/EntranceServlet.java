@@ -33,8 +33,8 @@ public class EntranceServlet extends HttpServlet {
         commandsMap.put("/remtick", new RemoveTicket(new TicketService()));
         commandsMap.put("/remmov", new RemoveMovie(new MovieService()));
         commandsMap.put("/remses", new RemoveSession(new SessionService()));
-        commandsMap.put("/addmov", new AddMovie());
-        commandsMap.put("/addses", new AddSession());
+        commandsMap.put("/addmov", new AddMovie(new MovieService()));
+        commandsMap.put("/addses", new AddSession(new SessionService()));
 
         getServletContext().setAttribute(Cons.CONTEXT_USERS_LIST, new LinkedList<User>());
     }

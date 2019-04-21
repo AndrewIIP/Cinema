@@ -31,6 +31,14 @@ public class SessionService {
         }
     }
 
+    public void createSession(Session session) {
+        try (SessionDao dao = daoFactory.createSessionDao()) {
+            dao.create(session);
+        } catch (DAOException e){
+            //TODO LOG
+        }
+    }
+
     public void setDaoLocale(Locale locale) {
         daoFactory.setDaoLocale(locale);
     }
