@@ -6,15 +6,21 @@ import model.dao.exceptions.DAOException;
 import model.entity.User;
 import model.services.exceptions.ServiceException;
 import model.util.Cons;
+import model.util.LogGen;
 import model.util.Regexes;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
+import static model.util.LogMsg.*;
+
 public class UserService {
+    private Logger log = LogGen.getInstance();
     private String usernameRegex = Regexes.USERNAME_REGEX;
     private String emailRegex = Regexes.MAIL_REGEX;
     private String passRegex = Regexes.PASSWORD_REGEX;
@@ -31,13 +37,11 @@ public class UserService {
                 user = dao.getEntityByUsername(usernameOrMail);
             }
         }
+        log.info(USER_WAS_LOGGED_IN);
         return user;
     }
 
     public void logout(HttpServletRequest request) {
-        User sessionUser = (User) request.getSession().getAttribute(Cons.SESSION_USER);
-        List contextUsers = (List) request.getServletContext().getAttribute(Cons.CONTEXT_USERS_LIST);
-        contextUsers.remove(sessionUser);
         request.getSession().setAttribute(Cons.SESSION_USER, User.getGuestInst());
     }
 
@@ -77,7 +81,7 @@ public class UserService {
         try {
             response.getWriter().write(msg);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(EXCEPTION_WRITE_RESPONSE, e);
         }
     }
 
@@ -87,5 +91,10 @@ public class UserService {
 
     public boolean validate(String usernameOrMail, String password) {
         return usernameOrMail != null && !usernameOrMail.isEmpty() && password != null && !password.isEmpty();
+    }
+
+    public void setDaoLocale(Locale locale) {
+        daoFactory.setDaoLocale(locale);
+        log.info(DAO_LOCALE_IS_SET + " for " + daoFactory.getClass().getSimpleName() + " as " + locale.toString());
     }
 }

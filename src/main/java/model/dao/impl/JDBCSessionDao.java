@@ -5,12 +5,16 @@ import model.dao.SessionDao;
 import model.dao.exceptions.DAOException;
 import model.dao.mappers.*;
 import model.entity.*;
+import model.util.LogGen;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import java.sql.*;
 import java.util.*;
 
 public class JDBCSessionDao extends AbstractDao implements SessionDao {
-    Connection connection;
+    private Connection connection;
+    private Logger log = LogGen.getInstance();
 
     public JDBCSessionDao(Connection connection) {
         this.connection = connection;
@@ -40,7 +44,6 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
         Map<Integer, Movie> moviesMap = new HashMap<>();
         Map<Integer, Session> sessionsMap = new HashMap<>();
         Map<Integer, Ticket> ticketMap = new HashMap<>();
-        Map<Integer, User> userMap = new HashMap<>();
 
         String sqlQuery = "SELECT *\n" +
                 "FROM cinema.sessions AS s\n" +
@@ -59,14 +62,18 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
 
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in SessionDao getEntityById()");
             try {
                 resultSet = prepStatement.executeQuery();
+                log.debug(QUERY_EXECUTED + " in SessionDao getEntityById()");
 
                 if (!resultSet.isBeforeFirst()) {
+                    log.info(NO_SUCH_ENTRY_IN_DB + "in SessionDao getEntityById()");
                     throw new DAOException("No such session with id (" + id + ") in the DB");
                 }
+
                 while (resultSet.next()) {
-                    Ticket ticket = new Ticket();
+                    Ticket ticket;
                     session = sessionMapper.extractFromResultSet(resultSet, 1, 2, 3, 4);
                     session.setDay(dayMapper.makeUnique(daysMap, dayMapper.extractFromResultSet(resultSet, 5, 11, 12)));
                     session.setMovie(movieMapper.makeUnique(moviesMap, movieMapper.extractFromResultSet(resultSet, 6, 16, 7)));
@@ -83,23 +90,25 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
                     }
                 }
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_READING_FROM_DB, e);
             } finally {
                 try {
                     if (resultSet != null)
                         resultSet.close();
+                    log.debug(RESULT_SET_CLOSED + " in SessionDao getEntityById()");
                 } catch (SQLException e) {
-                    e.printStackTrace();//TODO LOG
+                    log.error(RESULT_SET_CANT_CLOSE, e);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in SessionDao getEntityById()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
         return session;
@@ -113,19 +122,22 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
         Connection connection = this.connection;
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in SessionDao delete()");
             try {
                 prepStatement.execute();
+                log.debug(QUERY_EXECUTED + " in SessionDao delete()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_DELETING, e);
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in SessionDao delete()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
     }
@@ -141,22 +153,25 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
             prepStatement.setTime(1, entity.getTime());
             prepStatement.setInt(2, entity.getDayID());
             prepStatement.setInt(3, entity.getMovieID());
+            log.debug(PREP_STAT_OPENED + " in SessionDao create()");
             try {
                 prepStatement.execute();
+                log.debug(QUERY_EXECUTED + " in SessionDao create()");
             } catch (SQLIntegrityConstraintViolationException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(CANT_CREATE_SESSION, e);
                 throw new DAOException(e.getMessage(), e);
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_CREATE, e);
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in SessionDao create()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
     }
@@ -165,8 +180,9 @@ public class JDBCSessionDao extends AbstractDao implements SessionDao {
     public void close() {
         try {
             connection.close();
+            log.debug(CONNECTION_CLOSED);
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(CANT_CLOSE_CONNECTION, e);
         }
     }
 }

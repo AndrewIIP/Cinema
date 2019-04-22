@@ -3,6 +3,8 @@ package controller.filters;
 import model.entity.User;
 import model.util.Cons;
 import model.util.Role;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

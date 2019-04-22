@@ -22,7 +22,7 @@
 <body>
 
 <div class="main-card">
-    <img src="../../pic/etc/alert.png"/>
+    <img src="${pageContext.request.contextPath}/pic/etc/alert.png"/>
     <div class="sorry-msg">
         <h2 class="font-weight-normal"><fmt:message key="forbidden"/></h2>
         <h4 class="font-weight-normal" style="margin-top: 35px;">

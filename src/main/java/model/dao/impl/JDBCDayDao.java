@@ -18,10 +18,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JDBCDayDao extends AbstractDao implements DayDao {
-    Connection connection;
+import model.util.LogGen;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
-    public JDBCDayDao(Connection connection){
+public class JDBCDayDao extends AbstractDao implements DayDao {
+    private Connection connection;
+    private Logger log = LogGen.getInstance();
+
+    public JDBCDayDao(Connection connection) {
         this.connection = connection;
     }
 
@@ -69,10 +74,14 @@ public class JDBCDayDao extends AbstractDao implements DayDao {
         ResultSet resultSet = null;
         Connection connection = this.connection;
 
-        try{
+        try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in DayDao getEntityById()");
+
             try {
                 resultSet = prepStatement.executeQuery();
+                log.debug(QUERY_EXECUTED + " in DayDao getEntityById()");
+
                 while (resultSet.next()) {
                     day = dayMapper.extractFromResultSet(resultSet, 1, 2, 3);
                     day = dayMapper.makeUnique(daysMap, day);
@@ -85,26 +94,28 @@ public class JDBCDayDao extends AbstractDao implements DayDao {
                     day.getSessions().add(session);
                 }
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_READING_FROM_DB, e);
             } finally {
-                try{
+                try {
                     if (resultSet != null)
                         resultSet.close();
-                } catch (SQLException e){
-                    e.printStackTrace();//TODO LOG
+                    log.debug(RESULT_SET_CLOSED + " in DayDao getEntityById()");
+                } catch (SQLException e) {
+                    log.error(RESULT_SET_CANT_CLOSE, e);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
-            try{
+            try {
                 if (prepStatement != null)
                     prepStatement.close();
-            } catch (SQLException e){
-                e.printStackTrace();//TODO LOG
+                log.debug(PREP_STAT_CLOSED + " in DayDao getEntityById()");
+            } catch (SQLException e) {
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
-       return day;
+        return day;
     }
 
     @Override
@@ -121,8 +132,9 @@ public class JDBCDayDao extends AbstractDao implements DayDao {
     public void close() {
         try {
             connection.close();
+            log.debug(CONNECTION_CLOSED);
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(CANT_CLOSE_CONNECTION, e);
         }
     }
 }

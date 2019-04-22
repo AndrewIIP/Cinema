@@ -6,7 +6,10 @@ import model.entity.User;
 import model.services.TicketService;
 import model.util.Cons;
 import model.util.Languages;
+import model.util.LogGen;
 import model.util.Role;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PurchTicket implements Command {
+    private static Logger log = LogGen.getInstance();
     private TicketService ticketService;
 
     public PurchTicket(TicketService ticketService) {
@@ -43,6 +47,8 @@ public class PurchTicket implements Command {
             //set attribute Bean with fail message
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("wrong.data"));
             request.setAttribute(Cons.MESSAGE2, rsBundle.getString("back.room"));
+            log.info(PURCH_TICKET_BAD_INPUT_DATA + " place = " + Optional.ofNullable(placeParam).toString() +
+                    " sessionID = " + Optional.ofNullable(sessionIdParam).toString());
             return outUrlInvalid;
         }
 
@@ -50,15 +56,16 @@ public class PurchTicket implements Command {
 
         try {
             ticketService.createTicket(ticketToSave);
+            log.info(TICKET_CREATED_SUCCESSFULLY + " By " + sessionUser.toString());
         } catch (DAOException e) {
-            e.printStackTrace(); //TODO process
-            //set attribute Bean with fail message
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("ticket.purch.already.bought"));
             request.setAttribute(Cons.MESSAGE2, rsBundle.getString("back.room"));
+            log.error(CANT_CREATE_TICKET2, e);
             return outUrlInvalid;
         }
         request.setAttribute(Cons.MESSAGE, rsBundle.getString("success.bought"));
         request.setAttribute(Cons.MESSAGE2, rsBundle.getString("back.room"));
+        log.error(TICKET_PURCHASED_SUCCESSFULLY);
         return outUrlOK;
     }
 

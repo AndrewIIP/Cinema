@@ -5,13 +5,17 @@ import model.dao.UserDao;
 import model.dao.exceptions.DAOException;
 import model.dao.mappers.*;
 import model.entity.*;
+import model.util.LogGen;
 import model.util.Role;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import java.sql.*;
 import java.util.*;
 
 public class JDBCUserDao extends AbstractDao implements UserDao {
-    Connection connection;
+    private Connection connection;
+    private Logger log = LogGen.getInstance();
 
     public JDBCUserDao(Connection connection) {
         this.connection = connection;
@@ -22,12 +26,16 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
         String sqlQuery = "SELECT * FROM cinema.users;";
         PreparedStatement prepStatement = null;
         ResultSet resultSet = null;
-
         Connection connection = this.connection;
+
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in UserDao getAll()");
+
             try {
                 resultSet = prepStatement.executeQuery();
+                log.debug(QUERY_EXECUTED + " in UserDao getAll()");
+
                 while (resultSet.next()) {
                     User user = new User();
                     user.setId(resultSet.getInt(1));
@@ -38,23 +46,25 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
                     list.add(user);
                 }
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_READING_FROM_DB, e);
             } finally {
                 try {
                     if (resultSet != null)
                         resultSet.close();
+                    log.debug(RESULT_SET_CLOSED + " in UserDao getAll()");
                 } catch (SQLException e) {
-                    e.printStackTrace();//TODO LOG
+                    log.error(RESULT_SET_CANT_CLOSE, e);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in UserDao getAll()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
         return list;
@@ -79,19 +89,22 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
             prepStatement.setString(4, entity.getPassword());
             prepStatement.setString(5, entity.getRole().getString());
             prepStatement.setInt(6, entity.getId());
+            log.debug(PREP_STAT_OPENED + " in UserDao update()");
             try {
                 prepStatement.execute();
+                log.debug(QUERY_EXECUTED + " in UserDao update()");
             } catch (SQLException e) {
-                e.printStackTrace(); //TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_UPDATE, e);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in UserDao update()");
             } catch (SQLException e) {
-                e.printStackTrace(); //TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
         return entity;
@@ -102,16 +115,21 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
         User user = new User();
         PreparedStatement prepStatement = null;
         ResultSet resultSet = null;
-
         Connection connection = this.connection;
+
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
             prepStatement.setInt(1, id);
+            log.debug(PREP_STAT_OPENED + " in UserDao getEntityById()");
+
             try {
                 resultSet = prepStatement.executeQuery();
+                log.debug(QUERY_EXECUTED + " in UserDao getEntityById()");
+
                 if (!resultSet.isBeforeFirst()) {
                     throw new DAOException("No such entry in the DB");
                 }
+
                 while (resultSet.next()) {
                     user.setId(resultSet.getInt(1));
                     user.setUsername(resultSet.getString(2));
@@ -120,23 +138,25 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
                     user.setRole(Role.contains(resultSet.getString(5)));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_READING_FROM_DB, e);
             } finally {
                 try {
                     if (resultSet != null)
                         resultSet.close();
+                    log.debug(RESULT_SET_CLOSED + " in UserDao getEntityById()");
                 } catch (SQLException e) {
-                    e.printStackTrace();//TODO LOG
+                    log.error(RESULT_SET_CANT_CLOSE, e);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in UserDao getEntityById()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
         return user;
@@ -177,20 +197,22 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
     public void delete(Integer id) throws DAOException {
         String sqlQuery = "DELETE FROM `cinema`.`users` WHERE `id` = ?";
         PreparedStatement prepStatement = null;
-
-
         Connection connection = this.connection;
+
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in UserDao delete()");
             prepStatement.execute();
+            log.debug(QUERY_EXECUTED + " in UserDao delete()");
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(SQL_EXCEPTION_WHILE_DELETING, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in UserDao delete()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
     }
@@ -198,30 +220,34 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
     public void create(User entity) throws DAOException {
         String sqlQuery = "INSERT INTO `cinema`.`users` (`username`, `email`, `password`, `role`) VALUES (?, ?, ?, ?)";
         PreparedStatement prepStatement = null;
-
         Connection connection = this.connection;
+
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
             prepStatement.setString(1, entity.getUsername());
             prepStatement.setString(2, entity.getEmail());
             prepStatement.setString(3, entity.getPassword());
             prepStatement.setString(4, entity.getRole().getString());
+            log.debug(PREP_STAT_OPENED + " in UserDao create()");
+
             try {
                 prepStatement.execute();
+                log.debug(QUERY_EXECUTED + " in UserDao create()");
             } catch (SQLIntegrityConstraintViolationException e) {
-                e.printStackTrace();//TODO LOG
+                log.info(SUCH_USER_ALREADY_EXISTS, e);
                 throw new DAOException(e.getMessage(), e);
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_CREATE, e);
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in UserDao create()");
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
     }
@@ -247,8 +273,12 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
 
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in UserDao getUserFromDB()");
+
             try {
                 resultSet = prepStatement.executeQuery();
+                log.debug(QUERY_EXECUTED + " in UserDao getUserFromDB()");
+
                 if (!resultSet.isBeforeFirst()) {
                     throw new DAOException("No such entry in the DB");
                 }
@@ -275,23 +305,27 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
 
                 }
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_READING_FROM_DB, e);
             } finally {
                 try {
                     if (resultSet != null)
                         resultSet.close();
+                    log.debug(RESULT_SET_CLOSED + " in UserDao getUserFromDB()");
+
                 } catch (SQLException e) {
-                    e.printStackTrace();//TODO LOG
+                    log.error(RESULT_SET_CANT_CLOSE, e);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in UserDao getUserFromDB()");
+
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
         return user;
@@ -301,8 +335,9 @@ public class JDBCUserDao extends AbstractDao implements UserDao {
     public void close() {
         try {
             connection.close();
+            log.debug(CONNECTION_CLOSED);
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(CANT_CLOSE_CONNECTION, e);
         }
     }
 

@@ -11,12 +11,16 @@ import model.entity.Day;
 import model.entity.Movie;
 import model.entity.Session;
 import model.entity.Ticket;
+import model.util.LogGen;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import java.sql.*;
 import java.util.*;
 
 public class JDBCTicketDao extends AbstractDao implements TicketDao {
     private Connection connection;
+    private Logger log = LogGen.getInstance();
 
     public JDBCTicketDao(Connection connection) {
         this.connection = connection;
@@ -45,19 +49,22 @@ public class JDBCTicketDao extends AbstractDao implements TicketDao {
         Connection connection = this.connection;
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in TicketDao delete()");
             try {
                 prepStatement.execute();
+                log.debug(QUERY_EXECUTED + " in TicketDao delete()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_DELETING, e);
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in TicketDao delete()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
     }
@@ -73,22 +80,25 @@ public class JDBCTicketDao extends AbstractDao implements TicketDao {
             prepStatement.setInt(1, entity.getPlace());
             prepStatement.setInt(2, entity.getUserID());
             prepStatement.setInt(3, entity.getSessionID());
+            log.debug(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS + " in TicketDao create()");
             try {
                 prepStatement.execute();
+                log.debug(QUERY_EXECUTED + " in TicketDao create()");
             } catch (SQLIntegrityConstraintViolationException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(CANT_CREATE_TICKET, e);
                 throw new DAOException(e.getMessage(), e);
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_CREATE, e);
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in TicketDao create()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
     }
@@ -137,8 +147,12 @@ public class JDBCTicketDao extends AbstractDao implements TicketDao {
 
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in TicketDao getByUserId()");
+
             try {
                 resultSet = prepStatement.executeQuery();
+                log.debug(QUERY_EXECUTED + " in TicketDao getByUserId()");
+
                 while (resultSet.next()) {
                     Ticket ticket = ticketMapper.extractFromResultSet(resultSet, 1, 2, 3, 4);
                     Session session = sessionMapper.extractFromResultSet(resultSet, 5, 6, 7, 8);
@@ -157,23 +171,25 @@ public class JDBCTicketDao extends AbstractDao implements TicketDao {
                     ticketList.add(ticket);
                 }
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_READING_FROM_DB, e);
             } finally {
                 try {
                     if (resultSet != null)
                         resultSet.close();
+                    log.debug(RESULT_SET_CLOSED + " in TicketDao getByUserId()");
                 } catch (SQLException e) {
-                    e.printStackTrace();//TODO LOG
+                    log.error(RESULT_SET_CANT_CLOSE, e);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in TicketDao getByUserId()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
         return ticketList;
@@ -183,8 +199,9 @@ public class JDBCTicketDao extends AbstractDao implements TicketDao {
     public void close() {
         try {
             connection.close();
+            log.debug(CONNECTION_CLOSED);
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(CANT_CLOSE_CONNECTION, e);
         }
     }
 }

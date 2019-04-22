@@ -74,7 +74,7 @@
                                             <p class="font-weight-light"><fmt:message key="aspect.ratio"/></p>
                                         </div>
                                             <div class="nm-form">
-                                                <form action="${servletContext}/addmov?${pageContext.request.queryString}" method="post" enctype="multipart/form-data">
+                                                <form action="${pageContext.request.contextPath}/shows_you/addmov?${pageContext.request.queryString}" method="post" enctype="multipart/form-data">
                                                     <div class="form-group">
                                                         <label for="engName"><fmt:message key="eng.name"/></label>
                                                         <input name="nameEng" type="text" class="form-control" id="engName" aria-describedby="engNameHint" required>

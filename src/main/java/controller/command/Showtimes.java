@@ -7,6 +7,9 @@ import model.services.DayService;
 import model.services.MovieService;
 import model.util.Cons;
 import model.util.Languages;
+import model.util.LogGen;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class Showtimes implements Command {
+    private static Logger log = LogGen.getInstance();
     private DayService dayService;
     private MovieService movieService;
 

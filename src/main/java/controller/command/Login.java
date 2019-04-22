@@ -5,6 +5,9 @@ import model.entity.User;
 import model.services.UserService;
 import model.services.exceptions.ServiceException;
 import model.util.Cons;
+import model.util.LogGen;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +16,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Login implements Command {
+    private static Logger log = LogGen.getInstance();
     private UserService userService;
 
     public Login(UserService userService) {
@@ -42,11 +46,15 @@ public class Login implements Command {
                             request.getServletPath() + "/" +
                             (request.getQueryString() == null ? "" : "?" + request.getQueryString())
             );
-        } catch (DAOException | ServiceException e) {
+            log.info(USER_LOGGED_SUCCESSFULLY + " : " + user.toString());
+        } catch (DAOException e) {
             userService.setResponseStatus(400, resourceBundle.getString("invalid.cantFind"), response);
-            e.printStackTrace(); //TODO LOG
+            log.info(CANT_FIND_SUCH_USER + " Username/email = " + usernameOrMail, e);
+        } catch (ServiceException e) {
+            userService.setResponseStatus(400, resourceBundle.getString("invalid.cantFind"), response);
+            log.warn(TRIED_TO_AUTHORIZE_VIA_BAD_PASSWORD, e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(EXCEPTION_WRITE_RESPONSE, e);
         }
         return "";
     }

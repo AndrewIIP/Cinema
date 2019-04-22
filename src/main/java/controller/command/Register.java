@@ -5,7 +5,10 @@ import model.entity.User;
 import model.services.UserService;
 import model.services.exceptions.ServiceException;
 import model.util.Cons;
+import model.util.LogGen;
 import model.util.Role;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +17,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Register implements Command {
+    private static Logger log = LogGen.getInstance();
     private UserService userService;
 
     public Register(UserService userService) {
@@ -54,14 +58,15 @@ public class Register implements Command {
                             request.getServletPath() + "/" +
                             (request.getQueryString() == null ? "" : "?" + request.getQueryString())
             );
+            log.info(REGISTERED_SUCCESSFULLY + " : " + user.toString());
         } catch (DAOException e) {
             userService.setResponseStatus(400, resourceBundle.getString("register.already.exists"), response);
-            e.printStackTrace();//TODO LOG
+            log.error(REGISTER_ALREADY_EXISTS, e);
         } catch (ServiceException e) {
             userService.setResponseStatus(400, resourceBundle.getString("register.bad.try.later"), response);
-            e.printStackTrace();//TODO LOG
+            log.error(REGISTER_BAD_TRY_LATER, e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(EXCEPTION_WRITE_RESPONSE, e);
         }
         return "";
     }

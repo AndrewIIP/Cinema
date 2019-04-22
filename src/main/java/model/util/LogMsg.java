@@ -1,0 +1,57 @@
+package model.util;
+
+public interface LogMsg {
+    String PREP_STAT_OPENED = "Prepared statement was opened";
+    String QUERY_EXECUTED = "SQL query executed successfully";
+    String SQL_EXCEPTION_WHILE_READING_FROM_DB = "SQL exception while reading from DB";
+    String RESULT_SET_CLOSED = "Result set was closed";
+    String RESULT_SET_CANT_CLOSE = "Couldn't close result set";
+    String EXCEPTION_IN_PREPARED_STATEMENT_PROCESS = "Connection or prep statement threw an exception";
+    String PREP_STAT_CLOSED = "Prepared statement was closed";
+    String PREP_STAT_CANT_CLOSE = "Couldn't close prepared statement";
+    String CANT_CLOSE_CONNECTION = "Couldn't close connection";
+    String SQL_EXCEPTION_WHILE_DELETING = "SQL exception while deleting from DB";
+    String SQL_EXCEPTION_WHILE_INSERT = "SQL exception while inserting into DB";
+    String NO_SUCH_ENTRY_IN_DB = "No such entry in the DB";
+    String CANT_CREATE_SESSION = "Couldnt create session";
+    String SQL_EXCEPTION_WHILE_CREATE = "SQL exception while creating";
+    String SQL_EXCEPTION_WHILE_UPDATE = "SQL exception while updating";
+    String CANT_CREATE_TICKET = "SQL exception while creating";
+    String SUCH_USER_ALREADY_EXISTS = "Such user already exists";
+    String CONNECTION_CLOSED = "Connection closer (returned to pool)";
+    String CONNECTION_POOL_CREATED = "Connection closer (returned to pool)";
+    String CANT_GET_DAY_BY_ID = "cant get day by id";
+    String GOT_DAY_BY_ID_FROM_DB = "Received day from DB by its id";
+    String DAO_LOCALE_IS_SET = "DAO locale is set up";
+    String ALL_MOVIES_RECEIVED = "All movies were received from the DB";
+    String MOVIE_REMOVED = "Movie was removed from DB";
+    String MOVIE_CREATED = "Movie was created";
+    String CANT_REMOVE_MOVIE = "Couldn't remove movie";
+    String CANT_CREATE_MOVIE = "Couldn't create movie";
+    String RECEIVED_SESSION_BY_ID = "Received session from DB by its id";
+    String SESSION_WAS_REMOVED = "Session was removed from the DB";
+    String CANT_REMOVE_SESSION = "Couldn't remove session";
+    String SESSION_WAS_CREATED = "Session was created";
+    String TICKET_CREATED = "Ticket was created";
+    String TICKET_REMOVED = "Ticket was created";
+    String CANT_REMOVE_TICKET = "Ticket wasn't removed";
+    String USER_WAS_LOGGED_IN = "User was logged in";
+    String EXCEPTION_WRITE_RESPONSE = "Exception occurred while wrote status message into a responce";
+    String CANT_DOWNLOAD_PICTURE = "Couldn't download picture while admin tried to add new movie";
+    String INVALID_DATA_MOVIE_CREATION = "Invalid data from client while created new movie";
+    String MOVIE_CREATED_SUCCESSFULLY = "Invalid data from client while created new movie";
+    String INVALID_DATA_SESSION_CREATION = "Invalid data from client while created new session";
+    String SESSION_CREATED_SUCCESSFULLY = "Session was created successfully";
+    String CANT_FIND_SUCH_USER = "Can't find such user";
+    String TRIED_TO_AUTHORIZE_VIA_BAD_PASSWORD = "User tried to authorize via not his password";
+    String USER_LOGGED_OUT = "User logged out";
+    String PURCH_TICKET_BAD_INPUT_DATA = "Bad data from client while tried to purchase a ticket";
+    String USER_LOGGED_SUCCESSFULLY = "User logged successfully";
+    String TICKET_CREATED_SUCCESSFULLY = "Ticket was bought successfully";
+    String CANT_CREATE_TICKET2 = "Failure while ticket was about to be bought";
+    String TICKET_PURCHASED_SUCCESSFULLY = "ticket_purchased_successfully";
+    String REGISTERED_SUCCESSFULLY = "User was registererd successfully";
+    String REGISTER_ALREADY_EXISTS = "Tried to register but such user's data is already exists";
+    String REGISTER_BAD_TRY_LATER = "Registration fault, try later";
+
+}

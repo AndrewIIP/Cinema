@@ -9,12 +9,16 @@ import model.dao.mappers.SessionMapper;
 import model.entity.Day;
 import model.entity.Movie;
 import model.entity.Session;
+import model.util.LogGen;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import java.sql.*;
 import java.util.*;
 
 public class JDBCMovieDao extends AbstractDao implements MovieDao {
     private Connection connection;
+    private Logger log = LogGen.getInstance();
 
     public JDBCMovieDao(Connection connection){
         this.connection = connection;
@@ -54,10 +58,11 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
 
         try{
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in MovieDao getAll()");
             try {
                 resultSet = prepStatement.executeQuery();
+                log.debug(QUERY_EXECUTED + " in MovieDao getAll()");
                 while (resultSet.next()) {
-
                     Movie movie = movieMapper.extractFromResultSet(resultSet, 5, 6 ,7);
                     movie = movieMapper.makeUnique(moviesMap, movie);
 
@@ -71,23 +76,25 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
                     Optional.ofNullable(rowSession).ifPresent(e -> finalMovie.getSessions().add(e));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_READING_FROM_DB, e);
             } finally {
                 try{
                     if (resultSet != null)
                         resultSet.close();
+                    log.debug(RESULT_SET_CLOSED + " in MovieDao getAll()");
                 } catch (SQLException e){
-                    e.printStackTrace();//TODO LOG
+                    log.error(RESULT_SET_CANT_CLOSE, e);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try{
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in MovieDao getAll()");
             } catch (SQLException e){
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
         return new LinkedList<>(moviesMap.values());
@@ -111,19 +118,22 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
         Connection connection = this.connection;
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in MovieDao delete()");
             try {
                 prepStatement.execute();
+                log.debug(QUERY_EXECUTED + " in MovieDao delete()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_DELETING, e);
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in MovieDao delete()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
     }
@@ -137,22 +147,25 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
             prepStatement.setString(1, entity.getPicUrl());
+            log.debug(PREP_STAT_OPENED + " in MovieDao create()");
             try {
                 prepStatement.execute();
+                log.debug(QUERY_EXECUTED + " in MovieDao create()");
             } catch (SQLIntegrityConstraintViolationException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_INSERT, e);
                 throw new DAOException(e.getMessage(), e);
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_INSERT, e);
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in MovieDao create()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
     }
@@ -168,19 +181,22 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
             prepStatement.setInt(1, movieID);
             prepStatement.setInt(2, languageID);
             prepStatement.setString(3, movieName);
+            log.debug(PREP_STAT_OPENED + " in MovieDao insertTranslatedNameById()");
             try {
                 prepStatement.execute();
+                log.debug(QUERY_EXECUTED + " in MovieDao insertTranslatedNameById()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_READING_FROM_DB, e);
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in MovieDao insertTranslatedNameById()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
     }
@@ -195,31 +211,36 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
 
         try {
             prepStatement = connection.prepareStatement(sqlQuery);
+            log.debug(PREP_STAT_OPENED + " in MovieDao getIdByPictureName()");
             try {
                 resultSet = prepStatement.executeQuery();
+                log.debug(QUERY_EXECUTED + " in MovieDao getIdByPictureName()");
                 if (!resultSet.isBeforeFirst()) {
+                    log.info(NO_SUCH_ENTRY_IN_DB + " in MovieDao getIdByPictureName()");
                     throw new DAOException("No such entry in the DB");
                 }
                 resultSet.next();
                 movieID = resultSet.getInt(1);
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(SQL_EXCEPTION_WHILE_READING_FROM_DB, e);
             } finally {
                 try {
                     if (resultSet != null)
                         resultSet.close();
+                    log.debug(RESULT_SET_CLOSED + " in MovieDao getIdByPictureName()");
                 } catch (SQLException e) {
-                    e.printStackTrace();//TODO LOG
+                    log.error(RESULT_SET_CANT_CLOSE, e);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(EXCEPTION_IN_PREPARED_STATEMENT_PROCESS, e);
         } finally {
             try {
                 if (prepStatement != null)
                     prepStatement.close();
+                log.debug(PREP_STAT_CLOSED + " in MovieDao getIdByPictureName()");
             } catch (SQLException e) {
-                e.printStackTrace();//TODO LOG
+                log.error(PREP_STAT_CANT_CLOSE, e);
             }
         }
         return movieID;
@@ -229,8 +250,9 @@ public class JDBCMovieDao extends AbstractDao implements MovieDao {
     public void close() {
         try {
             connection.close();
+            log.debug(CONNECTION_CLOSED);
         } catch (SQLException e) {
-            e.printStackTrace();//TODO LOG
+            log.error(CANT_CLOSE_CONNECTION, e);
         }
     }
 

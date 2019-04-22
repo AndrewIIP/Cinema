@@ -25,8 +25,8 @@ public class MyTickets implements Command {
         Optional<Object> role = Optional.ofNullable(curUser.getRole());
         String localeTag = Optional.ofNullable((String) request.getSession().getAttribute(Cons.CUR_LANG)).orElse("en");
         Locale locale = Locale.forLanguageTag(Languages.isLangOrGetDefault(localeTag));
-
         ticketService.setDaoLocale(locale);
+
         List<Ticket> tickets = ticketService.getTicketsByUserId(curUser.getId());
         request.setAttribute(Cons.TICKET_LIST, tickets);
 

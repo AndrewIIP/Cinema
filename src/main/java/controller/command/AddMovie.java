@@ -5,9 +5,12 @@ import model.entity.User;
 import model.services.MovieService;
 import model.util.Cons;
 import model.util.Languages;
+import model.util.LogGen;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +22,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddMovie implements Command {
+    private static Logger log = LogGen.getInstance();
     private static final int MEMORY_THRESHOLD = 1024 * 1024;
     private static final long MAX_FILE_SIZE = 1024 * 1024 * 5;
     private static final long MAX_REQUEST_SIZE = 1024 * 1024 * 5 * 5;
@@ -50,17 +54,17 @@ public class AddMovie implements Command {
         try {
             processPictureFromReq(request);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(CANT_DOWNLOAD_PICTURE, e);
         }
 
         if (invalidData(movieNameEng, movieNameUkr)) {
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("wrong.data"));
+            log.info(INVALID_DATA_MOVIE_CREATION + " Mov name eng: " + movieNameEng + " Mov name urk: " + movieNameUkr);
             return outUrlInvalid;
         }
         Movie movieToDB = createLazyMovie(pictureName);
         movieService.createMovie(movieToDB, movieNameEng, movieNameUkr);
-
-
+        log.info(MOVIE_CREATED_SUCCESSFULLY + " Mov name eng: " + movieNameEng + " Mov name urk: " + movieNameUkr);
         return outUrlOK;
     }
 

@@ -5,7 +5,10 @@ import model.entity.User;
 import model.services.TicketService;
 import model.util.Cons;
 import model.util.Languages;
+import model.util.LogGen;
 import model.util.Role;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RemoveTicket implements Command {
+    private static Logger log = LogGen.getInstance();
     private TicketService ticketService;
 
     public RemoveTicket(TicketService ticketService) {

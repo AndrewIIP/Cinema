@@ -4,7 +4,10 @@ import model.entity.User;
 import model.services.MovieService;
 import model.util.Cons;
 import model.util.Languages;
+import model.util.LogGen;
 import model.util.Role;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +16,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RemoveMovie implements Command {
+    private static Logger log = LogGen.getInstance();
     private MovieService movieService;
 
     public RemoveMovie(MovieService movieService) {

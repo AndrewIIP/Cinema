@@ -23,7 +23,7 @@
 <body>
 
 <div class="main-card">
-    <img src="../../pic/etc/red_cross.png"/>
+    <img src="${pageContext.request.contextPath}/pic/etc/red_cross.png"/>
     <div class="sorry-msg">
         <h2 class="font-weight-normal">${msg}</h2>
         <h4 class="font-weight-normal" style="margin-top: 35px;">

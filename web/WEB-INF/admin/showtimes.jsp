@@ -80,7 +80,7 @@
 
                         <h3 class="font-weight-light mt-2 text-center"><fmt:message key="create.session"/></h3>
 
-                        <form id="session-create" action="${servletContext}/addses?${pageContext.request.queryString}" method="post">
+                        <form id="session-create" action="${pageContext.request.contextPath}/shows_you/addses?${pageContext.request.queryString}" method="post">
                             <div>
                                 <div class="movie-row">
                                     <div class="form-group">

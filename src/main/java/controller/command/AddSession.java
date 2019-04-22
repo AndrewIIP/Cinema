@@ -5,6 +5,9 @@ import model.entity.User;
 import model.services.SessionService;
 import model.util.Cons;
 import model.util.Languages;
+import model.util.LogGen;
+import org.apache.log4j.Logger;
+import static model.util.LogMsg.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +16,10 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static model.util.LogMsg.INVALID_DATA_MOVIE_CREATION;
+
 public class AddSession implements Command {
+    private static Logger log = LogGen.getInstance();
     private SessionService sessionService;
 
     public AddSession(SessionService sessionService) {
@@ -41,6 +47,7 @@ public class AddSession implements Command {
 
         if (invalidData(dayIdParam, movieIdParam, timeHours, timeMins)) {
             request.setAttribute(Cons.MESSAGE, rsBundle.getString("wrong.data"));
+            log.info(INVALID_DATA_SESSION_CREATION);
             return outUrlInvalid;
         }
 
@@ -53,6 +60,7 @@ public class AddSession implements Command {
         Session session = createLazySession(dayId, movieId, sessionTime);
         sessionService.createSession(session);
 
+        log.info(SESSION_CREATED_SUCCESSFULLY);
         return outUrlOK;
     }
 
