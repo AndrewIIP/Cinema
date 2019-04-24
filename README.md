@@ -17,7 +17,7 @@
 ### Installation
 * Clone project from GitHub (_git clone https://github.com/AndrewIIP/Cinema_final_project_)
 * Specify values of "db.url" and "db.username" "db.password" keys in _../src/main/resources/db.properties_
-* Execute all the script _../sql/finalproject.sql_ to create all the tables of the database
+* Execute all the scripts from _../db_dump/*.sql_ to create all the tables of the database
 * cd to root project folder and execute command _mvn clean install_
 * copy artifact cinema_art.war from _target_ folder to _%TOMCAT%\webapps_
 
