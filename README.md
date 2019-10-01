@@ -27,3 +27,10 @@
 * Use login _**"admin"**_ and password _**"1234"**_ to log in with administrator rights.
 * Use login _**"neil"**_ and password _**"darksideofthemoon"**_ to log in with user rights.
 * To stop server run script _%TOMCAT%\bin\shutdown_ .bat for Windows or .sh for Unix based OS.
+
+![alt text](https://github.com/AndrewIIP/media/blob/master/Screenshot_7.png)
+![alt text](https://github.com/AndrewIIP/media/blob/master/Screenshot_2.png)
+![alt text](https://github.com/AndrewIIP/media/blob/master/Screenshot_3.png)
+![alt text](https://github.com/AndrewIIP/media/blob/master/Screenshot_4.png)
+![alt text](https://github.com/AndrewIIP/media/blob/master/Screenshot_5.png)
+![alt text](https://github.com/AndrewIIP/media/blob/master/Screenshot_6.png)
