@@ -1,5 +1,5 @@
 ## Cinema
-18. Система Кинотеатр. Написать web приложение небольшого кинотеатра
+Кинотеатр. Web приложение небольшого кинотеатра
 с одним залом. Время проведения сеансов с понедельника по воскресенье,
 с 9:00 до 22:00 (начало последнего сеанса).
 Незарегистрированный пользователь может просматривать расписание сеансов и
@@ -25,5 +25,5 @@
 * Start Tomcat server by running the script _%TOMCAT%\bin\startup_ .bat for Windows or .sh for Unix based OS.
 * After server start, application will be available by URL _http://localhost:8080/cinema
 * Use login _**"admin"**_ and password _**"1234"**_ to log in with administrator rights.
-* Use login _**"neil"**_ and password _**"darksideofthemoon"**_ to log in with inspector rights.
+* Use login _**"neil"**_ and password _**"darksideofthemoon"**_ to log in with user rights.
 * To stop server run script _%TOMCAT%\bin\shutdown_ .bat for Windows or .sh for Unix based OS.
